@@ -82,14 +82,23 @@ body {
 .metrograph {
     list-style-type: none;
     margin: 5px;
+    padding-left: 10px;
 }
 .metrograph li:before {
     content: '';
+    position: relative;
     display: inline-block;
+    top: 4px;
     height: 20px;
     width: 20px;
     background-image: url(station-dot.png);
     background-size: 20px 20px;
+    margin-right: 10px;
+    vertical-align: center;
+    
+}
+.metrograph-track {
+    position: relative;
 }
 </style>
 <div class="container">
@@ -103,8 +112,10 @@ body {
     <div class="contents">
         <div class="card">
             <div class="title">Closest Stations:</div>
+            <div class="metrograph-track"></div>
             <ul class="metrograph">
                 <li>Vienna</li>
+                <li class="transfer">Rosslyn</li>
             </ul>
         </div>
     </div>
