@@ -1,3 +1,7 @@
+.card.closest {
+    position: relative;
+    height: 166px;
+}
 .metrograph-track {
     position: absolute;
     width: 6px;
@@ -83,7 +87,4 @@
 .gr {
     background-color: rgb(0, 175, 81);
     color: white;
-}
-.card.closest {
-    height: 166px;
 }
