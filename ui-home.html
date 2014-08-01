@@ -10,6 +10,24 @@
     <link rel="stylesheet" type="text/css" href="ui.card.closest.css" />
     <link rel="stylesheet" type="text/css" href="ui.card.lines.css" />
     <link rel="stylesheet" type="text/css" href="ui.card.stations.css" />
+
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="oop.js"></script>
+    <script type="text/javascript" src="geo.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        metro = new Rail({
+            DisplayName: "Washington Metro"
+        });
+
+        var _st = +new Date;
+        WMATA.getblob(function() {
+            metro.fill();
+            console.log("Loaded information in "+(+new Date - _st)+"ms");
+        });
+    });
+    </script>
 </head>
 <body>
 
