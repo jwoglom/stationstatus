@@ -1,0 +1,89 @@
+.metrograph-track {
+    position: absolute;
+    width: 6px;
+    height: 63px;
+    background-color: blue;
+    left: 22px;
+}
+.metrograph {
+    list-style-type: none;
+    margin: 5px;
+    padding-left: 0;
+}
+.metrograph li {
+    border: 1px solid transparent;
+    font-size: 18px;
+    padding: 5px 0;
+}
+.metrograph li:before {
+    content: '';
+    position: relative;
+    display: inline-block;
+    top: 6px;
+    height: 25px;
+    width: 25px;
+    background-image: url(station-dot.png);
+    background-size: 25px 25px;
+    margin: 0 10px;
+    vertical-align: center;
+}
+.metrograph li.transfer:before {
+    background-image: url(transfer-dot.png);
+    margin-right: 10px; /* 14px */
+}
+.metrograph li > .lines {
+    position: absolute;
+    right: 16px;
+    margin-top: -28px;
+    height: 16px;
+    width: auto;
+}
+.metrograph li > .lines > span {
+    display: inline-block;
+    width: 32px;
+    height: 16px;
+    font-size: 10px;
+    text-align: center;
+    line-height: 16px;
+}
+.metrograph li:hover {
+    transition: all 0.4s ease;
+    margin-left: -5px;
+    width: 100%;
+    width: calc(100% - 7px);
+    padding-left: 15px;
+    border: 1px solid rgba(66, 133, 244, 0.05);
+    background-color: rgba(66, 133, 244, 0.3);
+    cursor: pointer;
+}
+.metrograph li:focus {
+    transition: all 0.5s ease;
+    margin-left: 50px;
+}
+.or {
+    background-color: rgb(221, 134, 2);
+    color: white;
+}
+.sv {
+    background-color: rgb(160, 162, 160);
+    color: black;
+}
+.bl {
+    background-color: rgb(9, 147, 213);
+    color: white;
+}
+.yl {
+    background-color: rgb(246, 211, 22);
+    color: black;
+}
+.rd {
+    background-color: rgb(191, 18, 55);
+    color: white;
+}
+.gr {
+    background-color: rgb(0, 175, 81);
+    color: white;
+}
+.card.closest {
+    height: 166px;
+}

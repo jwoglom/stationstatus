@@ -1,0 +1,7 @@
+.card.trip, .card.stations {
+    height: 38px;
+}
+.card.trip .bottom-button,
+.card.stations .bottom-button {
+    top: -1px;
+}
