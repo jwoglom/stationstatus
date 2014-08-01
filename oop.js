@@ -8,7 +8,7 @@ WMATA = {
     // Run a modified jQuery.get
     getblob: function(cb) {
         var ths = this;
-        $.get("blob.txt", {}, function(ret) {
+        $.get("data/blob.txt", {}, function(ret) {
             ths.blob = JSON.parse(ret);
             cb();
         }, "text");
@@ -119,6 +119,18 @@ Rail = function(params) {
                 d("Grouped "+station+" together with "+nto);
                 station.together.push(nto);
             }
+        }
+
+        var crds = WMATA.blob["coords"];
+        if(typeof crds[station.code] != 'undefined') {
+            var crd = crds[station.code];
+            var parts = crd.split(",");
+            station.coords = {
+                "str": crd,
+                "lat": parts[0],
+                "long": parts[1]
+            };
+            d("Added coordinates for "+station);
         }
     };
 };

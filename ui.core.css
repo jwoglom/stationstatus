@@ -15,7 +15,6 @@ GR: rgb(0, 175, 81);
 }
 body {
     font-family: 'Open Sans', sans-serif;
-    overflow: none;
 }
 .container {
     position: absolute;

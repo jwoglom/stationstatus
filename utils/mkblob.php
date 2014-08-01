@@ -1,5 +1,6 @@
 <?php
 $d = array();
+rename("../data/blob.txt", "../data/blob.txt.".time());
 $base = "http://127.0.0.1/metro/";
 // Stations and Lines
 

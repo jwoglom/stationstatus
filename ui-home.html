@@ -24,7 +24,7 @@
         var _st = +new Date;
         WMATA.getblob(function() {
             metro.fill();
-            console.log("Loaded information in "+(+new Date - _st)+"ms");
+            console.info("Load time: "+(+new Date - _st)+"ms");
         });
     });
     </script>
