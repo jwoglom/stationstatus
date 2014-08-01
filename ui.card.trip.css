@@ -1,0 +1,15 @@
+.card.trip {
+    height: 150px;
+    background-color: white;
+    background-image: url(http://maps.googleapis.com/maps/api/staticmap?center=38.898567,-77.027887&zoom=12&size=600x300);
+    background-position: center center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+    outline: none;
+}
+.card.trip .bottom-button {
+    background: rgba(255,255,255,0.7);
+    position: absolute;
+    margin-top: 111px;
+    position: relative;
+}
