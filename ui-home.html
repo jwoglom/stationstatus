@@ -136,7 +136,7 @@ body {
 }
 .metrograph li.transfer:before {
     background-image: url(transfer-dot.png);
-    margin-right: 14px;
+    margin-right: 10px; /* 14px */
 }
 .metrograph li > .lines {
     position: absolute;
@@ -205,7 +205,7 @@ body {
     height: 239px;
 }
 .contents .card .half-bottom-button {
-    display: inline-block;
+    display: block;
     width: 100%;
     height: 40px;
     position: relative;
@@ -253,6 +253,21 @@ body {
     right: 0;
     left: auto;
     background: white, inherit;
+}
+@media (max-width: 330px) {
+    .contents .card.lines {
+        height: 273px;
+    }
+    .contents .card div.half-bottom-button {
+        height: 80px;
+    }
+    .contents .card div.half-bottom-button > div {
+        display: block;
+        width: 100%;
+    }
+    .contents .card .half-bottom-button > div.right:hover {
+        position: inherit;
+    }
 }
 </style>
 <div class="container">
