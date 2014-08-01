@@ -29,6 +29,6 @@ echo json_encode($allcoords);
 echo "\n";
 echo json_encode($allmapdata);
 
-file_put_contents("coords.txt", json_encode($allcoords));
-file_put_conetnts("mapdata.txt", json_encode($allmapdata));
+file_put_contents("../data/coords.txt", json_encode($allcoords));
+file_put_conetnts("../data/mapdata.txt", json_encode($allmapdata));
 ?>
