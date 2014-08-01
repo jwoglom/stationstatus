@@ -202,7 +202,7 @@ body {
     top: -1px;
 }
 .card.lines {
-    height: 239px;
+    height: 152px;
 }
 .contents .card .half-bottom-button {
     display: block;
@@ -213,6 +213,9 @@ body {
     font-size: 18px;
     line-height: 40px;
     overflow: hidden;
+
+    left: -1px;
+    width: calc(100% + 3px);
 }
 .contents .card .half-bottom-button > div {
     display: inline-block;
@@ -248,9 +251,12 @@ body {
     background-color: rgba(0, 175, 81, 0.7);
     color: white;
 }
+.contents .card .half-bottom-button > div:hover {
+    width: calc(100% - 28px);
+}
 .contents .card .half-bottom-button > div.right:hover {
     position: absolute;
-    right: 0;
+    right: 1px;
     left: auto;
     background: white, inherit;
 }
