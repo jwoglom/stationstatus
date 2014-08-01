@@ -11,6 +11,10 @@ if(isset($argv, $argv[1]) && $argv[1] == "all") {
     $d["stations"] = json_decode(file_get_contents("stations.txt"))->Stations;
 }
 
+// Coordinates
+// Run util_getcoords.php to regenerate
+$d["coords"] = json_decode(file_get_contents("coords.txt"));
+
 // Paths
 
 // Start and end points of each line
