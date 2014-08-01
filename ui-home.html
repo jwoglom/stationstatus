@@ -12,6 +12,12 @@ colorPrimary: rgb(66, 133, 244);
 colorPrimaryDark: rgb(51, 103, 214);
 textColorPrimary: rgb(237, 243, 254);
 windowBackground: rgb(48, 48, 48);
+OR: rgb(221, 134, 2);
+SV: rgb(160, 162, 160);
+BL: rgb(9, 147, 213);
+YL: rgb(246, 211, 22);
+RD: rgb(191, 18, 55);
+GR: rgb(0, 175, 81);
 */
 * {
   //  outline: none !important;
@@ -84,21 +90,71 @@ body {
     margin: 5px;
     padding-left: 10px;
 }
+.metrograph li {
+    font-size: 18px;
+    padding: 5px 0;
+}
 .metrograph li:before {
     content: '';
     position: relative;
     display: inline-block;
-    top: 4px;
-    height: 20px;
-    width: 20px;
+    top: 6px;
+    height: 25px;
+    width: 25px;
     background-image: url(station-dot.png);
-    background-size: 20px 20px;
+    background-size: 25px 25px;
     margin-right: 10px;
     vertical-align: center;
-    
+}
+.metrograph li.transfer:before {
+    background-image: url(transfer-dot.png);
+    margin-right: 14px;
+}
+.metrograph li > .lines {
+    position: absolute;
+    right: 8px;
+    margin-top: -28px;
+    height: 16px;
+    width: auto;
+}
+.metrograph li > .lines > span {
+    display: inline-block;
+    width: 32px;
+    height: 16px;
+    font-size: 10px;
+    text-align: center;
+    line-height: 16px;
+}
+.or {
+    background-color: rgb(221, 134, 2);
+    color: white;
+}
+.sv {
+    background-color: rgb(160, 162, 160);
+    color: black;
+}
+.bl {
+    background-color: rgb(9, 147, 213);
+    color: white;
+}
+.yl {
+    background-color: rgb(246, 211, 22);
+    color: black;
+}
+.rd {
+    background-color: rgb(191, 18, 55);
+    color: white;
+}
+.gr {
+    background-color: rgb(0, 175, 81);
+    color: white;
 }
 .metrograph-track {
-    position: relative;
+    position: absolute;
+    width: 6px;
+    height: 63px;
+    background-color: blue;
+    left: 22px;
 }
 </style>
 <div class="container">
@@ -112,10 +168,22 @@ body {
     <div class="contents">
         <div class="card">
             <div class="title">Closest Stations:</div>
-            <div class="metrograph-track"></div>
+            <!--div class="metrograph-track"></div-->
             <ul class="metrograph">
-                <li>Vienna</li>
-                <li class="transfer">Rosslyn</li>
+                <li>
+                    Vienna
+                    <div class="lines">
+                        <span class="or">OR</span>
+                    </div>
+                </li>
+                <li class="transfer">
+                    Rosslyn
+                    <div class="lines">
+                        <span class="or">OR</span>
+                        <span class="sv">SV</span>
+                        <span class="bl">BL</span>
+                    </div>
+                </li>
             </ul>
         </div>
     </div>
