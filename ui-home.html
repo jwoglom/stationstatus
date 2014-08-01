@@ -35,7 +35,7 @@ body {
     /*max-height: 640px;
     max-width: 360px;*/
     outline: 1px solid black;
-    overflow: auto;
+    overflow: hidden;
 }
 .header {
     width: 100%;
@@ -65,10 +65,12 @@ body {
 .contents {
     display: inline-block;
     width: 100%;
-    height: auto;
+    height: 100%;
     min-height: calc(100% - 40px);
     background-color: rgb(228, 228, 228);
     border-top: 1px solid rgb(47, 45, 43);
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 .contents .card {
     margin: 4px 8px;
@@ -77,7 +79,6 @@ body {
     height: 200px;
     width: calc(100% - 16px);
     box-shadow: rgba(0, 0, 0, 0.0470588) 0px 8px 11px 3px;
-    -webkit-transform: translateZ(50px);
 }
 .contents .card .title {
     font-size: 20px;
@@ -85,12 +86,37 @@ body {
     font-weight: 100;
     padding: 3px 8px;
 }
+.contents .card .bottom-button {
+    width: 100%;
+    width: calc(100% - 18px);
+    height: 40px;
+    display: block;
+    position: relative;
+    font-weight: 100;
+    font-size: 18px;
+    line-height: 40px;
+    padding-left: 20px;
+    left: -1px;
+}
+.contents .card .bottom-button:hover {
+    cursor: pointer;
+    transition: all 0.4s ease;
+    background-color: rgba(66, 133, 244, 0.3);
+}
+.metrograph-track {
+    position: absolute;
+    width: 6px;
+    height: 63px;
+    background-color: blue;
+    left: 22px;
+}
 .metrograph {
     list-style-type: none;
     margin: 5px;
     padding-left: 10px;
 }
 .metrograph li {
+    border: 1px solid transparent;
     font-size: 18px;
     padding: 5px 0;
 }
@@ -112,7 +138,7 @@ body {
 }
 .metrograph li > .lines {
     position: absolute;
-    right: 8px;
+    right: 16px;
     margin-top: -28px;
     height: 16px;
     width: auto;
@@ -124,6 +150,17 @@ body {
     font-size: 10px;
     text-align: center;
     line-height: 16px;
+}
+.metrograph li:hover {
+    transition: all 0.2s ease;
+    margin-left: 5px;
+    border: 1px solid rgba(66, 133, 244, 0.05);
+    box-shadow: rgba(66, 133, 244, 0.2) 0px 8px 11px 3px;
+    cursor: pointer;
+}
+.metrograph li:focus {
+    transition: all 0.5s ease;
+    margin-left: 50px;
 }
 .or {
     background-color: rgb(221, 134, 2);
@@ -149,13 +186,6 @@ body {
     background-color: rgb(0, 175, 81);
     color: white;
 }
-.metrograph-track {
-    position: absolute;
-    width: 6px;
-    height: 63px;
-    background-color: blue;
-    left: 22px;
-}
 </style>
 <div class="container">
     <div class="header">
@@ -166,7 +196,7 @@ body {
     </div>
 
     <div class="contents">
-        <div class="card">
+        <div class="card" style="height: 166px">
             <div class="title">Closest Stations:</div>
             <!--div class="metrograph-track"></div-->
             <ul class="metrograph">
@@ -185,6 +215,9 @@ body {
                     </div>
                 </li>
             </ul>
+            <div class="bottom-button">
+                See more stations
+            </div>
         </div>
     </div>
 </div>
