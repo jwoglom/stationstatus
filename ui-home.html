@@ -13,10 +13,12 @@ colorPrimaryDark: rgb(51, 103, 214);
 textColorPrimary: rgb(237, 243, 254);
 windowBackground: rgb(48, 48, 48);
 */
+* {
+  //  outline: none !important;
+}
 body {
-    width: 100%;
-    height: 100%;
     font-family: 'Open Sans', sans-serif;
+    overflow: none;
 }
 .container {
     position: absolute;
@@ -27,11 +29,14 @@ body {
     /*max-height: 640px;
     max-width: 360px;*/
     outline: 1px solid black;
+    overflow: auto;
 }
 .header {
     width: 100%;
     height: 40px;
     outline: 1px solid black;
+    background-color: rgb(66, 133, 244);
+    border-bottom: 1px solid rgb(55, 82, 126);
 }
 .header .logo {
     display: table-cell;
@@ -52,14 +57,28 @@ body {
     font-size: 24px;
 }
 .contents {
+    display: inline-block;
     width: 100%;
     height: auto;
+    min-height: calc(100% - 40px);
+    background-color: rgb(228, 228, 228);
+    border-top: 1px solid rgb(47, 45, 43);
 }
 .contents .card {
-    margin: 16px 8px;
-    outline: 1px solid black;
+    margin: 4px 8px;
+    outline: 1px solid white;
+    background: rgb(251, 249, 253);
     height: 200px;
     width: calc(100% - 16px);
+    box-shadow: rgba(0, 0, 0, 0.0470588) 0px 8px 11px 3px;
+    -webkit-transform: translateZ(50px);
+}
+.contents .card .title {
+    font-size: 20px;
+    font-color: rgb(117, 117, 117);
+    font-weight: 100;
+    padding: 3px 8px;
+
 }
 </style>
 <div class="container">
@@ -72,7 +91,10 @@ body {
 
     <div class="contents">
         <div class="card">
-
+            <div class="title">Closest Stations:</div>
+            <ul class="metrograph">
+                <li>Vienna</li>
+            </ul>
         </div>
     </div>
 </div>
