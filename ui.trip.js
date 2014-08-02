@@ -3,6 +3,7 @@ trip = {
     to: null,
     sfrom: null,
     sto: null,
+    stransfer: null,
     init: function() {
         if(location.hash.indexOf('from=') != -1) {
             this.from = location.hash.split('from=')[1];
@@ -25,13 +26,18 @@ trip = {
         });
     },
     load: function() {
+        this.stransfer = this.findTransferStart();
         this.addNames();
         this.addMap();
-        this.getPrediction();
+        this.getPrediction("sfrom"); // Get predictions for from station
     },
     addNames: function() {
         this.add(this.sfrom);
         $(".contents ul.allstations").append('<div class="arrow"></div>');
+        if(this.stransfer) {
+            this.add(this.stransfer);
+            $(".contents ul.allstations").append('<div class="arrow"></div>');
+        }
         this.add(this.sto);
     },
     add: function(st) {
@@ -54,34 +60,34 @@ trip = {
         $(".card.stationinfo").attr("style", "background-image: url('" + url + "')");
         assign(".stationinfo .bottom-button", "https://maps.google.com/maps?q="+this.sfrom.coords.lat+", "+this.sfrom.coords.long);
     },
-    getPrediction: function() {
-        $(".card.nexttrains .title").html("Next Trains at "+trip.sfrom.name);
+    getPrediction: function(type) {
+        $(".card.nexttrains."+type+" .title").html("Next Trains at "+trip[type].name);
         WMATA.gettiming(function() {
             var json = WMATA.timing["Trains"];
             console.log(json);
             var nm = 0;
             for(num in json) {
-                if(json[num].LocationCode.toLowerCase().trim() == trip.sfrom.code.toLowerCase()) {
+                if(json[num].LocationCode.toLowerCase().trim() == trip[type].code.toLowerCase()) {
                     console.log(json[num]);
-                    trip.addPrediction(json[num]);
+                    trip.addPrediction(json[num], type);
                     nm++;
 
                     if(nm > 2) { /* By default, Next Trains has room for two */
-                        var ch = parseInt($(".card.nexttrains").css("height").split("px")[0]);
-                        $(".card.nexttrains").css(
+                        var ch = parseInt($(".card.nexttrains."+type).css("height").split("px")[0]);
+                        $(".card.nexttrains."+type).css(
                             "height", ch + 30
                         )
                     }
                 }
             }
-            console.debug("Of "+num+" trains, "+nm+" are at "+station.sfrom);
+            console.debug("Of "+num+" trains, "+nm+" are at "+trip[type]);
             if(nm < 1) {
-                $(".card.nexttrains table tbody").append("<tr><td colspan=5><center style='font-size: 14px'>There are no trains scheduled to arrive at this station.</center></td></tr>");
+                $(".card.nexttrains."+type+" table tbody").append("<tr><td colspan=5><center style='font-size: 14px'>There are no trains scheduled to arrive at this station.</center></td></tr>");
             }
         });
     },
-    addPrediction: function(train) {
-        $c = $(".card.nexttrains table tbody");
+    addPrediction: function(train, type) {
+        $c = $(".card.nexttrains."+type+" table tbody");
         var mins = min = train.Min;
         if(mins == "ARR") mins = "<span class='arr'>ARR</span>";
         else if(mins == "BRD") mins = "<span class='brd'>BRD</span>";
@@ -102,6 +108,55 @@ trip = {
                   '<td class="time">' + timel + '</td>\n' +
                   '</tr>';
         $c.append(str);
+    },
+    isTransferPoint: function(cur, end) {
+        for(lid in cur.totalLines) {
+            var ln = cur.totalLines[lid];
+            if(end.totalLines.indexOf(ln) != -1) return true;
+        }
+        return false;
+    },
+    findTransferStart: function() {
+        var s = this.sfrom;
+        var e = this.sto;
+        var t = this.findTransfer(s, e, 0);
+        if(t == false) {
+            console.error("It is impossible to get between "+s+" and "+e);
+            return false;
+        } else if(t == s) {
+            console.info("No transfer needed");
+            return false;
+        } else {
+            console.info("Transfer needed at "+t+" between "+s+" and "+e);
+            return t;
+        }
+    },
+    findTransfer: function(s, e, t) {
+        // console.debug("fT "+s+" "+e);
+        if(s == null) return false;
+        if(this.isTransferPoint(s, e)) {
+            console.info(s+" is a transfer point to get to "+e);
+            return s;
+        } else if (t == 0) {
+            for(lid in s.totalLines) {
+                var l = s.totalLines[lid];
+                var n = s.next[l.code];
+                while(n != null && n.next[l.code]) {
+                    var f = this.findTransfer(n, e, t+1);
+                    // console.debug("F: "+l+" "+n+" "+f);
+                    if(!!f) return f;
+                    n = n.next[l.code];
+                }
+                var p = s.prev[l.code];
+                while(p != null && p.prev[l.code] != null) {
+                    var b = this.findTransfer(p, e, t+1);
+                    // console.debug("B: "+l+" "+p+" "+b);
+                    if(!!b) return b;
+                    p = p.prev[l.code];
+                }
+            }
+        }
+        return false;
     },
     click: function() { // binded: this=object
         var st = $(this).attr("data-station");

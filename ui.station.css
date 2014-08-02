@@ -35,7 +35,16 @@
 }
 .card.nexttrains {
     height: 140px; /* default height, expanded when needed */
-    overflow-x: auto;
+}
+@media (max-width: 400px) {
+    div.card.nexttrains {
+        zoom: 0.9;
+    }
+}
+@media (max-width: 355px) {
+    div.card.nexttrains {
+        zoom: 0.8;
+    }
 }
 .card.nexttrains table {
     width: 100%;
