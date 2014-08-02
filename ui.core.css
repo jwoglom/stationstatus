@@ -114,6 +114,15 @@ body {
     border: 2px solid rgb(51, 103, 214);
     z-index: 99;
 }
+.header .refresh {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    height: 32px;
+    width: 32px;
+    cursor: pointer;
+    background-image: url(refresh.png);
+}
 .container .multibackground {
     position: fixed;
 }

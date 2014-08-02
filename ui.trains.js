@@ -20,6 +20,12 @@ trains = {
         $(window).on("hashchange", function() {
             location.reload();
         });
+        $(".refresh").click(function() {
+            console.info("Refreshing");
+            $(".contents").html("<div class='loading'></div>");
+            trains.getPrediction();
+        });
+        setInterval(trains.getPrediction, 60000);
     },
     getPrediction: function() {
         WMATA.gettiming(function() {
@@ -64,6 +70,7 @@ trains = {
                     }
                 }
             }
+            $(".loading").hide();
         });
     },
     doStation: function(trns, cd) {

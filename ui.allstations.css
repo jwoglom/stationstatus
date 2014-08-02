@@ -22,3 +22,10 @@
     display: none;
     height: 38px;
 }
+
+@media (min-width: 800px) {
+    div.contents > div.card.seearrivals {
+        width: 100%;
+        float: none;
+    }
+}
