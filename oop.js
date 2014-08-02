@@ -31,6 +31,7 @@ Rail = function(params) {
     this.name = params.DisplayName,
     this.lines = {},
     this.stations = {},
+    this.trains = {},
     this.colors = {
         "OR": "DD8602",
         "SV": "A0A2A0",
@@ -96,6 +97,23 @@ Rail = function(params) {
             var line = this.lines[key];
             this.getLineRoute(line);
             console.log(line);
+        }
+        for(stnid in this.stations) {
+            var station = this.stations[stnid];
+            // Add next and prev for grouped stations
+            if(station.together.length > 0) {
+                console.debug("Fixing next, prev for "+station);
+                for(var i=0; i<station.together.length; i++) {
+                    var t = station.together[i];
+                    console.log(t.next, t.prev);
+                    for(cd in t.next) {
+                        station.next[cd] = t.next[cd];
+                    }
+                    for(cd in t.prev) {
+                        station.prev[cd] = t.prev[cd];
+                    }
+                }
+            }
         }
     },
     this.addStation = function(station) {
@@ -165,7 +183,10 @@ Rail = function(params) {
         }
 
         station.transfer = (tot > 1);
-    };
+    },
+    this.parseTiming = function() {
+
+    }
 };
 
 Rail.prototype = {
@@ -227,3 +248,4 @@ Station.prototype = {
         return this.name+" ("+this.code+")";
     }
 };
+

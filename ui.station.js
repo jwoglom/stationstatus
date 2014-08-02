@@ -29,6 +29,7 @@ station = {
     },
     showOrder: function() {
         $tpl = $(".contents .card-template.order");
+        
         for(line in this.st.next) {
             $l = $tpl.clone();
             var nxt = this.st.next[line], en;
@@ -96,8 +97,8 @@ station = {
     addPrediction: function(train) {
         $c = $(".card.nexttrains table tbody");
         var mins = min = train.Min;
-        if(mins == "ARR") mins = "<span class='arr'>Arriving</span>";
-        else if(mins == "BRD") mins = "<span class='brd'>Boarding</span>";
+        if(mins == "ARR") mins = "<span class='arr'>ARR</span>";
+        else if(mins == "BRD") mins = "<span class='brd'>BRD</span>";
         
         var tm = parseInt(+new Date);
         if(min != "ARR" && min != "BRD") {

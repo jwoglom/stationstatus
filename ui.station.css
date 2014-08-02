@@ -65,9 +65,11 @@
     overflow-x: hidden;
     white-space: nowrap;
 }
-.card.nexttrains table td.mins,
+.card.nexttrains table td.mins {
+    width: 10%;
+}
 .card.nexttrains table td.time {
-    width: 20%;
+    width: 30%;
 }
 .card.nexttrains table td .line {
     display: inline-block;

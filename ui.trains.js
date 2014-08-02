@@ -94,8 +94,8 @@ trains = {
     addPrediction: function(train, st) {
         $c = $(".card.nexttrains."+st+" table tbody");
         var mins = min = train.Min;
-        if(mins == "ARR") mins = "<span class='arr'>Arriving</span>";
-        else if(mins == "BRD") mins = "<span class='brd'>Boarding</span>";
+        if(mins == "ARR") mins = "<span class='arr'>ARR</span>";
+        else if(mins == "BRD") mins = "<span class='brd'>BRD</span>";
         
         var tm = parseInt(+new Date);
         if(min != "ARR" && min != "BRD") {
