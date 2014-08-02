@@ -31,20 +31,36 @@
         assign(".logo", "ui-home.html");
 
         stationsInit = function() {
+            if(location.hash.indexOf('line=') != -1) {
+                var id = location.hash.split('line=')[1];
+                id = id.split('&')[0];
+                stationsInitLine(id.toUpperCase());
+            } else {
+                console.error("No line given");
+                $(".contents > ul.allstations").html("<center>No line given</center>");
+                return
+            }
+        }
+        stationsInitLine = function(lin) {
             var st = +new Date;
             var stns = [];
-            for(code in metro.stations) {
-                stns.push(metro.stations[code]);
+            if(typeof metro.lines[lin] == 'undefined') {
+                console.error("Invalid line: "+lin);
+                $(".contents > ul.allstations").html("<center>Invalid line: "+lin+"</center>");
+                return;
             }
-            // Sort alphabetically
-            stns.sort(function(a, b) {
-                return a.name > b.name ? 1 : -1;
-            });
-            for(var i=0; i<stns.length; i++) {
-                addStation(stns[i]);
+
+            var line = metro.lines[lin];
+            for(var i=0; i<line.route.length; i++) {
+                addStation(line.route[i]);
             }
             $(".loading").hide();
             console.debug("Sorted in "+(+new Date - st)+"ms");
+
+            console.info("Showing "+line.name+" Line");
+            $(".header .title").html(line.name+" Line");
+            $(".header").css("background-color", "#"+metro.colors[line.code]);
+
             checkQuery();
         }
         addStation = function(st) {
@@ -108,20 +124,6 @@
                 return;
             }
 
-            $(".header .title").html("All Stations");
-            $(".header").css("background-color", "");
-            for(linecode in metro.lines) {
-                var line = metro.lines[linecode];
-                if(q.toLowerCase().split(" ")[0] == line.name.toLowerCase() || q.toLowerCase().split(" ")[0] == linecode.toLowerCase()) {
-                    console.info("Showing "+line.name+" Line");
-                    $(".header .title").html(line.name+" Line");
-                    $(".header").css("background-color", "#"+metro.colors[linecode]);
-                    if(dir) { // From query string (e.x. view line page)
-
-                    }
-                    break;
-                }
-            }
             $c.each(function() {
                 if(searchTest.bind(this)(q)) {
                     $(this).show();
@@ -159,6 +161,7 @@
         checkQuery = function() {
             if(location.hash.indexOf('q=') != -1) {
                 var q = location.hash.split('q=')[1];
+                q = q.split('&')[0];
                 console.info("Searching from querystring: "+q);
                 searchQuery(q, true);
                 $(".search").addClass("open");
@@ -176,7 +179,7 @@
         <div class="logo back">
             M
         </div>
-        <div class="title">All Stations</div>
+        <div class="title">Line Information</div>
         <div class="search">
             <div class="search-icon"></div>
             <input type="search" placeholder="Search" />

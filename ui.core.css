@@ -128,7 +128,9 @@ body {
     position: absolute;
     width: 100%;
     height: 20px;
+    background-color: white;
     background-image: url(load.gif);
     background-repeat: no-repeat;
     background-position: center center;
+    z-index: 99;
 }

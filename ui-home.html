@@ -26,11 +26,17 @@
         WMATA.getblob(function() {
             metro.fill();
             console.info("Load time: "+(+new Date - _st)+"ms");
+            doAssign();
         });
         
         geo.getPosition(geo.updateTripMap.bind(geo));
-
-        assign(".card.stations > .bottom-button", "ui-stations.html");
+        doAssign = function() {
+            assign(".card.stations > .bottom-button", "ui-stations.html");
+            for(linecode in metro.lines) {
+                console.log($(".contents .card.lines ."+linecode.toLowerCase()));
+                assign(".contents .card.lines ."+linecode.toLowerCase(), "ui-line.html#line="+linecode);
+            }
+        }
     });
     </script>
 </head>
