@@ -4,24 +4,28 @@ closest = {
     quick: function() {
         if(typeof localStorage != 'undefined' && typeof localStorage.pos != 'undefined') {
             var cd = localStorage.pos.split(",");
+            console.info("Showing close stations to previous location");
             this.run(cd[0], cd[1]);
         } else {
             console.info("No saved location");
         }
     },
     slow: function(pos) {
-        localStorage.pos = pos.coords.latitude+","+pos.coords.longitude;
+        localStorage.setItem("pos", pos.coords.latitude+","+pos.coords.longitude);
         this.run(pos.coords.latitude, pos.coords.longitude);
     },
-    run: function(lat, lon) {
-        this.me = null;
+    run: function(lat, long) {
+        this.me = new LatLon(parseFloat(lat), parseFloat(long));
+        if(this.me == null || this.me.lat == null) {
+            console.error("Invalid location", this.me);
+            return;
+        }
         this.stations = [];
         $(".card.closest > ul").html("");
-        this.check(lat, lon);
+        this.check(lat, long);
         this.display();
     },
     check: function(lat, long) {
-        this.me = new LatLon(parseFloat(lat), parseFloat(long));
         console.log("me:", this.me);
         for(sid in metro.stations) {
             var st = metro.stations[sid];
@@ -32,13 +36,14 @@ closest = {
         this.stations.sort(function(a, b) {
             return a.coords.dist - b.coords.dist;
         });
+        console.debug(this.stations);
         for(var i=0; i<this.stations.length; i++) {
             var s = this.stations[i];
-            console.log(s+": "+s.coords.dist);
         }
     },
     display: function() {
         for(var i=0; i<2; i++) {
+            console.info("Displaying close station "+this.stations[i])
             this.add(this.stations[i]);
         }
         $(".card.closest > .bottom-button").show();

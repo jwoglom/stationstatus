@@ -3,20 +3,18 @@ var geo = {
     getPosition: function(cb) {
         if(!!navigator.geolocation) {
             var st = +new Date;
+            console.info("Querying position..");
             navigator.geolocation.getCurrentPosition(function(pos) {
-                this.savePosition(pos, cb);
-                console.debug("Retrieved in "+(+new Date - st)+"ms");
+                geo.savePosition(pos, cb);
+                console.info("Retrieved position in "+(+new Date - st)+"ms");
+                console.info("Position: "+pos.coords.latitude+","+pos.coords.longitude);
             }.bind(geo));
         } else {
-            console.err("Geolocation is not supported.");
+            console.error("Geolocation is not supported.");
         }
     },
     savePosition: function(pos, cb) {
         this.savedPosition = pos;
-        if(typeof localStorage != 'undefined') {
-            localStorage.position = pos.coords.latitude+","+pos.coords.longitude;
-        }
-        console.info("Position: "+pos.coords.latitude+","+pos.coords.longitude);
         if(cb) cb(this.savedPosition);
     },
     getMapsURLGeoloc: function(savedpos, zm, sz) {
@@ -28,11 +26,20 @@ var geo = {
         if(!sz) sz = "584x150";
         return "http://maps.googleapis.com/maps/api/staticmap?center="+lat+","+long+"&zoom="+zm+"&size="+sz;
     },
+    tempTripMap: function() {
+        if(typeof localStorage != 'undefined' && typeof localStorage.pos != 'undefined') {
+            var pos = localStorage.pos.split(",");
+            this.setMap(this.getMapsURL(pos[0], pos[1]), 12);
+        }
+    },
     updateTripMap: function() {
         if(this.savedPosition) {
             this.mapsURL = this.getMapsURLGeoloc(this.savedPosition, 14);
-            $(".card.trip").attr("style", "background-image: url('" + this.mapsURL + "')");
+            this.setMap(this.mapsURL);
             this.tripMapUpdated = true;
         } else console.debug("No position for trip map")
+    },
+    setMap: function(url) {
+        $(".card.trip").attr("style", "background-image: url('" + url + "')");
     }
 }

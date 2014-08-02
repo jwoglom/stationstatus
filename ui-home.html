@@ -30,10 +30,11 @@
             console.info("Load time: "+(+new Date - _st)+"ms");
             doAssign();
             closest.quick();
+            geo.tempTripMap();
         });
         geoCallback = function() {
             geo.updateTripMap.bind(geo)();
-            closest.run(geo.savedPosition);
+            closest.slow(geo.savedPosition);
         }
         geo.getPosition(geoCallback);
 
