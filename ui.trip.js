@@ -30,6 +30,10 @@ trip = {
         this.addNames();
         this.addMap();
         this.getPrediction("sfrom"); // Get predictions for from station
+        if(this.stransfer) {
+            $(".card.nexttrans.stransfer").show();
+            this.getPrediction("stransfer");
+        }
     },
     addNames: function() {
         this.add(this.sfrom);

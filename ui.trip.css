@@ -6,3 +6,6 @@ ul > .arrow {
     border-top: 10px solid white;
     margin-left: calc(50% - 5px);
 }
+.nexttrip.stransfer {
+    display: none;
+}
