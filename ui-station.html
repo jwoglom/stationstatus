@@ -1,0 +1,152 @@
+<!doctype html>
+<html>
+<head>
+    <title>StationStatus</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=1">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,600,300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="ui.core.css" />
+    <link rel="stylesheet" type="text/css" href="ui.card.css" />
+    <link rel="stylesheet" type="text/css" href="ui.card.closest.css" />
+    <link rel="stylesheet" type="text/css" href="ui.card.stations.css" />
+    <link rel="stylesheet" type="text/css" href="ui.station.css" />
+    
+
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="oop.js"></script>
+    <script type="text/javascript" src="geo.js"></script>
+    <script type="text/javascript" src="ui.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        metro = new Rail({
+            DisplayName: "Washington Metro"
+        });
+        var _st = +new Date;
+        WMATA.getblob(function() {
+            metro.fill();
+            console.info("Load time: "+(+new Date - _st)+"ms");
+            station.init();
+            $(".loading").hide();
+        });
+        assign(".logo", "ui-home.html");
+
+        station = {
+            id: null,
+            st: null,
+            init: function() {
+                if(location.hash.indexOf('station=') != -1) {
+                    this.id = location.hash.split('station=')[1];
+                    this.id = this.id.split('&')[0];
+                    this.st = metro.stations[this.id];
+                    if(typeof this.st == 'undefined') return;
+                    this.add();
+                }
+            },
+            add: function() {
+                this.showInformation();
+                this.getPrediction();
+            },
+            showInformation: function() {
+                $(".header .title").html(this.st.name+" Station");
+                this.showColorbar();
+                var url = geo.getMapsURL(this.st.coords.lat, this.st.coords.long, 15);
+                $(".contents .stationinfo").attr("style", "background-image: url('" + url + "')");
+            },
+            showColorbar: function() {
+                for(var i=0; i<this.st.totalLines.length; i++) {
+                    $(".container .multibackground").append("<span style='background-color: #"+metro.colors[this.st.totalLines[i].code]+"; opacity: 1; width: "+(100 / this.st.totalLines.length)+"%'></span>");
+                }
+            },
+            getPrediction: function() {
+                $.get("data/example-getprediction.txt", {}, function(d) {
+                    var json = JSON.parse(d)["Trains"];
+                    console.log(json);
+                }, "text");
+            },
+            click: function() { // binded: this=object
+                var st = $(this).attr("data-station");
+                console.info("CLICK: "+st);
+                setTimeout(function() {
+                    location.href = "ui-station.html#id=" + st;
+                }, 400);
+            }
+        };
+    });
+    </script>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="multibackground">
+    </div>
+    <div class="header">
+        <div class="logo back">
+            M
+        </div>
+        <div class="title">Station</div>
+        <div class="search">
+            <div class="search-icon"></div>
+            <input type="search" placeholder="Search" />
+        </div>
+    </div>
+
+    <div class="contents">
+        <div class="card stationinfo">
+            <div class="bottom-button">
+                Navigate
+            </div>
+        </div>
+
+        <div class="card nexttrains">
+            <div class="title">
+                Next Trains:
+            </div>
+            <table>
+            <thead>
+            <tr>
+                <th>Line</th>
+                <th>Cars</th>
+                <th>Destination</th>
+                <th>Time</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="line"><span class="line or">OR</span></td>
+                <td class="num">6</td>
+                <td class="stop">Glenmont</td>
+                <td class="time">ARR</td>
+            </tr>
+            <tr>
+                <td class="line"><span class="line or">OR</span></td>
+                <td class="num">6</td>
+                <td class="stop">Glenmont</td>
+                <td class="time">2 min</td>
+            </tr>
+            </tbody>
+            </table>
+        </div>
+        <ul class="metrograph allstations">
+            <div class="loading"></div>
+            <!-- <li class="card">
+                Vienna
+                <div class="lines">
+                    <span class="or">OR</span>
+                </div>
+            </li>
+            <li class="card transfer">
+                Rosslyn
+                <div class="lines">
+                    <span class="or">OR</span>
+                    <span class="sv">SV</span>
+                    <span class="bl">BL</span>
+                </div>
+            </li> -->
+        </ul>
+
+
+    </div>
+</div>
+</body>
+</html>

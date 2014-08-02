@@ -47,6 +47,7 @@ body {
     line-height: 0;
     color: white;
     text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    z-index: 2;
 }
 .header .logo.back {
     cursor: pointer;
@@ -111,6 +112,9 @@ body {
     top: -15px;
     border: 2px solid rgb(51, 103, 214);
     z-index: 99;
+}
+.container .multibackground {
+    position: fixed;
 }
 .contents {
     display: block;

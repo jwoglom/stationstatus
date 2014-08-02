@@ -16,15 +16,18 @@ var geo = {
         console.info("Position: "+pos.coords.latitude+","+pos.coords.longitude)
         if(cb) cb(this.savedPosition);
     },
-    getMapsURL: function(pos, zm, sz) {
-        if(!pos) pos = this.savedPosition;
+    getMapsURLGeoloc: function(savedpos, zm, sz) {
+        if(!savedpos) savedpos = this.savedPosition;
+        return this.getMapsURL(savedpos.coords.latitude, savedpos.coords.longitude, zm, sz);
+    },
+    getMapsURL: function(lat, long, zm, sz) {
         if(!zm) zm = 13;
         if(!sz) sz = "584x150";
-        return "http://maps.googleapis.com/maps/api/staticmap?center="+pos.coords.latitude+","+pos.coords.longitude+"&zoom="+zm+"&size="+sz;
+        return "http://maps.googleapis.com/maps/api/staticmap?center="+lat+","+long+"&zoom="+zm+"&size="+sz;
     },
     updateTripMap: function() {
         if(this.savedPosition) {
-            this.mapsURL = this.getMapsURL(this.savedPosition, 14);
+            this.mapsURL = this.getMapsURLGeoloc(this.savedPosition, 14);
             $(".card.trip").attr("style", "background-image: url('" + this.mapsURL + "')");
             this.tripMapUpdated = true;
         } else console.debug("No position for trip map")
