@@ -58,6 +58,7 @@
                         }
                         stdata[d.LocationCode].push(d);
                     }
+                    var ltrs = {};
                     for(stcode in stdata) {
                         var cd = stcode.trim().toUpperCase();
                         var trns = stdata[cd];
@@ -68,20 +69,41 @@
                             continue;
                         }
                         console.info("Of "+num+" trains, "+trns.length+" are at "+stn);
-                        if(trns.length > 0) {
-                            trains.addStation(stn);
+                        if(trains.line == false) {
+                            // Showing all trains
+                            trains.doStation(trns, cd);
+                        } else {
+                            ltrs[stcode] = trns;
                         }
-                        for(var i=0; i<trns.length; i++) {
-                            trains.addPrediction(trns[i], stcode);
-                            if(i >= 2) {
-                                var ch = parseInt($(".card.nexttrains."+cd).css("height").split("px")[0]);
-                                $(".card.nexttrains."+cd).css(
-                                    "height", ch + 30
-                                )
+                    }
+                    if(trains.line != false) {
+                        // Show line in order
+                        console.log(ltrs);
+                        var ln = metro.lines[trains.line];
+                        for(var i=0; i<ln.route.length; i++) {
+                            var s = ln.route[i];
+                            console.log(s, ltrs[s.code]);
+                            if(typeof ltrs[s.code] != 'undefined') {
+                                trains.doStation(ltrs[s.code], s.code);
                             }
                         }
                     }
                 });
+            },
+            doStation: function(trns, cd) {
+                var stn = metro.stations[cd];
+                if(trns.length > 0) {
+                    trains.addStation(stn);
+                }
+                for(var i=0; i<trns.length; i++) {
+                    trains.addPrediction(trns[i], cd);
+                    if(i >= 2) {
+                        var ch = parseInt($(".card.nexttrains."+cd).css("height").split("px")[0]);
+                        $(".card.nexttrains."+cd).css(
+                            "height", ch + 30
+                        )
+                    }
+                }
             },
             addStation: function(st) {
                 var str = '<div class="card nexttrains ' + st.code + '">\n' +
