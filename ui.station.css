@@ -62,6 +62,8 @@
 }
 .card.nexttrains table td.stop {
     width: 40%;
+    overflow-x: hidden;
+    white-space: nowrap;
 }
 .card.nexttrains table td.mins,
 .card.nexttrains table td.time {

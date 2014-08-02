@@ -88,7 +88,7 @@ station = {
                 }
             }
             console.debug("Of "+num+" trains, "+nm+" are at "+station.st);
-            if(nm <= 1) {
+            if(nm < 1) {
                 $(".card.nexttrains table tbody").append("<tr><td colspan=5><center style='font-size: 14px'>There are no trains scheduled to arrive at this station.</center></td></tr>");
             }
         });
