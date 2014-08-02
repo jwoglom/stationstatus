@@ -13,7 +13,7 @@
     display: none;
 }
 
-.contents .card:last-child {
+.contents ul:last-child .card:last-child {
     /* bug fix to allow scrolling; accounts for header */
     margin-bottom: 50px !important;
 }

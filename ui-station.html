@@ -29,7 +29,15 @@
             console.info("Load time: "+(+new Date - _st)+"ms");
             station.init();
         });
-        assign(".logo", "ui-stations.html");
+        /* Use history.back() instead of going to all stations;
+           used for trip page */
+        if(location.hash.indexOf('historyback=true') != -1) {
+            $(".logo").click(function() {
+                history.back();
+            });
+        } else {
+            assign(".logo", "ui-stations.html");
+        }
 
     });
     </script>

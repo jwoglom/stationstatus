@@ -7,8 +7,9 @@
     <link rel="stylesheet" type="text/css" href="ui.core.css" />
     <link rel="stylesheet" type="text/css" href="ui.card.css" />
     <link rel="stylesheet" type="text/css" href="ui.card.closest.css" />
-    <link rel="stylesheet" type="text/css" href="ui.card.stations.css" />
+    <link rel="stylesheet" type="text/css" href="ui.station.css" />
     <link rel="stylesheet" type="text/css" href="ui.allstations.css" />
+    <link rel="stylesheet" type="text/css" href="ui.trip.css" />
     
 
 
@@ -16,8 +17,7 @@
     <script type="text/javascript" src="oop.js"></script>
     <script type="text/javascript" src="geo.js"></script>
     <script type="text/javascript" src="ui.js"></script>
-    <script type="text/javascript" src="ui.tripselect.js"></script>
-    <script type="text/javascript" src="ui.stations.search.js"></script>
+    <script type="text/javascript" src="ui.trip.js"></script>
     <script type="text/javascript">
     $(function() {
         metro = new Rail({
@@ -27,42 +27,36 @@
         WMATA.getblob(function() {
             metro.fill();
             console.info("Load time: "+(+new Date - _st)+"ms");
-            //stationsInit();
-            tripselect.init();
+            trip.init();
         });
-        search.init();
         assign(".logo", "ui-home.html");
+
     });
     </script>
 </head>
 <body>
 
 <div class="container">
+
     <div class="header">
         <div class="logo back">
             M
         </div>
-        <div class="title">Start Trip</div>
-        <div class="search">
-            <div class="search-icon"></div>
-            <input type="search" placeholder="Search" />
-        </div>
+        <div class="title">Trip</div>
     </div>
 
     <div class="contents">
-        <div class="card seestdetail">
-            <div class="bottom-button">
-                View <span></span> Line Details
-            </div>
-        </div>
+        <div class="loading"></div>
+
         <ul class="metrograph allstations">
-            <div class="loading"></div>
-            <!-- <li class="card">
+            <!--<li class="card">
                 Vienna
                 <div class="lines">
                     <span class="or">OR</span>
                 </div>
             </li>
+
+            <div class="arrow"></div>
             <li class="card transfer">
                 Rosslyn
                 <div class="lines">
@@ -70,11 +64,53 @@
                     <span class="sv">SV</span>
                     <span class="bl">BL</span>
                 </div>
-            </li> -->
+            </li>-->
             <div class="none">
                 No stations were found.
             </div>
         </ul>
+
+        <div class="card stationinfo">
+            <div class="bottom-button">
+                Navigate to $first
+            </div>
+        </div>
+
+        <div class="card nexttrains">
+            <div class="title">
+                Departing at $first:
+            </div>
+            <table>
+            <thead>
+                <tr>
+                    <th>Line</th>
+                    <th>Cars</th>
+                    <th>Destination</th>
+                    <th>Mins</th>
+                    <th>Arrival</th>
+                </tr>
+            </thead>
+            <tbody>
+            <!--
+                <tr>
+                    <td class="line"><span class="line or">OR</span></td>
+                    <td class="num">6</td>
+                    <td class="stop">Glenmont</td>
+                    <td class="time">ARR</td>
+                </tr>
+                <tr>
+                    <td class="line"><span class="line or">OR</span></td>
+                    <td class="num">6</td>
+                    <td class="stop">Glenmont</td>
+                    <td class="time">2 min</td>
+                </tr>
+            -->
+            </tbody>
+            </table>
+        </div>
+
+        <!-- Add padding to allow scrolling -->
+        <div class="card" style="height: 0px;visibility: hidden"></div>
 
 
     </div>

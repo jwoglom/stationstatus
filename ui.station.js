@@ -7,7 +7,7 @@ station = {
             this.id = this.id.split('&')[0];
             this.st = metro.stations[this.id];
             if(typeof this.st == 'undefined') return;
-            this.add();
+            this.add();   
         }
         $(window).on("hashchange", function() {
             location.reload();
@@ -29,7 +29,7 @@ station = {
     },
     showOrder: function() {
         $tpl = $(".contents .card-template.order");
-        
+
         for(line in this.st.next) {
             $l = $tpl.clone();
             var nxt = this.st.next[line], en;
