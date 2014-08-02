@@ -6,9 +6,7 @@
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,600,300' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="ui.core.css" />
     <link rel="stylesheet" type="text/css" href="ui.card.css" />
-    <link rel="stylesheet" type="text/css" href="ui.card.trip.css" />
     <link rel="stylesheet" type="text/css" href="ui.card.closest.css" />
-    <link rel="stylesheet" type="text/css" href="ui.card.lines.css" />
     <link rel="stylesheet" type="text/css" href="ui.card.stations.css" />
     <link rel="stylesheet" type="text/css" href="ui.allstations.css" />
     
@@ -64,17 +62,24 @@
             $(".contents ul.allstations").append(str);
         }
 
-        searchKeep = function() {
+        searchInit = function() {
             $(".search > input").keyup(searchCheck);
             $(".search .search-icon").click(function() {
                 $(this).parent().addClass("open");
-                $(".search > input").focus();
+                setTimeout(function() {
+                    $(".search > input").focus();
+                }, 400);
             }).hover(function() {
                 setTimeout(function() {
                     $(".search > input").focus();
-                }, 500);
+                }, 400);
             }, function() {
                 $(".search .search-icon").focus();
+            });
+            $(".header .title").css("cursor", "pointer").click(function() {
+                if($(".search").hasClass("open")) {
+                    $(".search").removeClass("open");
+                }
             })
         }
         searchCheck = function() {
@@ -100,7 +105,7 @@
             $(".header").css("background-color", "");
             for(linecode in metro.lines) {
                 var line = metro.lines[linecode];
-                if(q.toLowerCase() == line.name.toLowerCase() || q.toLowerCase() == linecode.toLowerCase()) {
+                if(q.toLowerCase().split(" ")[0] == line.name.toLowerCase() || q.toLowerCase().split(" ")[0] == linecode.toLowerCase()) {
                     console.info("Showing "+line.name+" Line");
                     $(".header .title").html(line.name+" Line");
                     $(".header").css("background-color", "#"+metro.colors[linecode]);
@@ -120,6 +125,11 @@
                     $(this).hide();
                 }
             });
+            if(trues.length == 0) {
+                $(".contents ul.allstations .none").show();
+            } else {
+                $(".contents ul.allstations .none").hide();
+            }
             location.hash = "#q=" + q;
             console.info("Query took "+(+new Date - st)+"ms", trues);
         }
@@ -144,9 +154,11 @@
                 var q = location.hash.split('q=')[1];
                 console.info("Searching from querystring: "+q);
                 searchQuery(q, true);
+                $(".search").addClass("open");
+                $(".search > input").val(q);
             }
         }
-        searchKeep();
+        searchInit();
     });
     </script>
 </head>
@@ -181,6 +193,9 @@
                     <span class="bl">BL</span>
                 </div>
             </li> -->
+            <div class="none">
+                No stations were found.
+            </div>
         </ul>
 
 
