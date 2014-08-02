@@ -33,9 +33,43 @@ search = {
         $c = $(".contents ul.allstations .card");
         var trues = [];
         q = q.trim();
+
+        // Only run with all stations
+        if(typeof linestations == 'undefined') {
+            $(".header .title").css("color", "").html("All Stations");
+            $(".header").css("background-color", "");
+            $(".card.seestdetail").hide();
+        }
+
         if(q.length == 0) {
             $c.show();
             return;
+        }
+
+        // Only run with all stations
+        if(typeof linestations == 'undefined') {
+            for(linecode in metro.lines) {
+                var line = metro.lines[linecode];
+                var parts = q.toLowerCase().split(" ");
+                for(var i=0; i<parts.length; i++) {
+                    if(parts[i] == line.name.toLowerCase() || parts[i] == linecode.toLowerCase()) {
+                        console.info("Showing "+line.name+" Line");
+                        $(".header .title").html(line.name+" Line");
+                        $(".header").css("background-color", "#"+metro.colors[linecode]);
+                        if(~$.inArray(line.code, metro.colorsBlack)) {
+                            $(".header .title").css("color", "black");
+                        }
+                        $(".card.seestdetail span").html(line.name);
+                        $(".card.seestdetail").attr("data-line", linecode).css("color", "#"+metro.colors[linecode]).click(function() {
+                            var ln = $(this).attr("data-line");
+                            setTimeout(function() {
+                                location.href = "ui-line.html#line="+ln;
+                            }, 400);
+                        }).show();
+                        break;
+                    }
+                }
+            }
         }
 
         $c.each(function() {
