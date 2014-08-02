@@ -12,7 +12,7 @@ $allmapdata = array();
 $allcoords = array();
 foreach($names as $code=>$name) {
     echo "\n".$code."=>".$name.": ";
-    $map = mapinfo($name." metro station");
+    $map = mapinfo($name." metro station Washington, DC");
     $res = $map->results[0];
     $allmapdata[$code] = $res;
     if(isset($res->geometry->location)) {
@@ -30,5 +30,5 @@ echo "\n";
 echo json_encode($allmapdata);
 
 file_put_contents("../data/coords.txt", json_encode($allcoords));
-file_put_conetnts("../data/mapdata.txt", json_encode($allmapdata));
+file_put_contents("../data/mapdata.txt", json_encode($allmapdata));
 ?>
