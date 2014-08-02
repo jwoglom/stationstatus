@@ -101,6 +101,7 @@ Rail = function(params) {
         }
     },
     this.addStationGroupings = function(station) {
+        var tot = 0;
         var lns = station.lineIDs;
         for(var i=0; i<lns.length; i++) {
             var ln = lns[i];
@@ -108,6 +109,8 @@ Rail = function(params) {
                 d("Grouped "+station+" on "+this.lines[ln]);
                 this.lines[ln].stations[station.code] = station;
                 station.lines.push(this.lines[ln]);
+                station.totalLines.push(this.lines[ln]);
+                tot++;
             }
         }
 
@@ -118,6 +121,15 @@ Rail = function(params) {
                 var nto = this.stations[to];
                 d("Grouped "+station+" together with "+nto);
                 station.together.push(nto);
+                // Add the lines on the grouped station to
+                // the totalLines of the current station
+                for(var j=0; j<nto.lineIDs.length; j++) {
+                    var ln = nto.lineIDs[j];
+                    if(this.lines[ln]) {
+                        station.totalLines.push(this.lines[ln]);
+                    }
+                }
+                tot++;
             }
         }
 
@@ -132,6 +144,8 @@ Rail = function(params) {
             };
             d("Added coordinates for "+station);
         }
+
+        station.transfer = (tot > 1);
     };
 };
 
@@ -164,6 +178,8 @@ Line.prototype = {
 Station = function(params) {
     this.name = params.Name,
     this.code = params.Code,
+    this.transfer = false,
+    this.totalLines = [],
     this.together = [], // Array of station objects
     this.togetherIDs = [
         params.StationTogether1,
