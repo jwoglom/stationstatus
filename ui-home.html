@@ -16,6 +16,8 @@
     <script type="text/javascript" src="oop.js"></script>
     <script type="text/javascript" src="geo.js"></script>
     <script type="text/javascript" src="ui.js"></script>
+    <script type="text/javascript" src="latlon.js"></script>
+    <script type="text/javascript" src="ui.closest.js"></script>
     <script type="text/javascript">
     $(function() {
         metro = new Rail({
@@ -27,17 +29,14 @@
             metro.fill();
             console.info("Load time: "+(+new Date - _st)+"ms");
             doAssign();
+            closest.quick();
         });
-        
-        geo.getPosition(geo.updateTripMap.bind(geo));
-        doAssign = function() {
-            assign(".card.stations > .bottom-button", "ui-stations.html");
-            for(linecode in metro.lines) {
-                console.log($(".contents .card.lines ."+linecode.toLowerCase()));
-                assign(".contents .card.lines ."+linecode.toLowerCase(), "ui-line.html#line="+linecode  );
-            }
-            assign(".card.trip > .bottom-button", "ui-tripselect.html");
+        geoCallback = function() {
+            geo.updateTripMap.bind(geo)();
+            closest.run(geo.savedPosition);
         }
+        geo.getPosition(geoCallback);
+
     });
     </script>
 </head>
@@ -62,7 +61,7 @@
             <div class="title">Closest Stations:</div>
             <!--div class="metrograph-track"></div-->
             <ul class="metrograph">
-                <li>
+                <!--<li>
                     Vienna
                     <div class="lines">
                         <span class="or">OR</span>
@@ -75,7 +74,8 @@
                         <span class="sv">SV</span>
                         <span class="bl">BL</span>
                     </div>
-                </li>
+                </li>-->
+                <div class="loading"></div>
             </ul>
             <div class="bottom-button">
                 See more stations

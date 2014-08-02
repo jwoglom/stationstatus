@@ -13,7 +13,10 @@ var geo = {
     },
     savePosition: function(pos, cb) {
         this.savedPosition = pos;
-        console.info("Position: "+pos.coords.latitude+","+pos.coords.longitude)
+        if(typeof localStorage != 'undefined') {
+            localStorage.position = pos.coords.latitude+","+pos.coords.longitude;
+        }
+        console.info("Position: "+pos.coords.latitude+","+pos.coords.longitude);
         if(cb) cb(this.savedPosition);
     },
     getMapsURLGeoloc: function(savedpos, zm, sz) {

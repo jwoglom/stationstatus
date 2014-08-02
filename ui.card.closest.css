@@ -91,3 +91,7 @@
     background-color: rgb(0, 175, 81);
     color: white;
 }
+
+.card.closest > .bottom-button {
+    display: none;
+}
