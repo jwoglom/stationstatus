@@ -15,6 +15,7 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <script type="text/javascript" src="oop.js"></script>
     <script type="text/javascript" src="geo.js"></script>
+    <script type="text/javascript" src="ui.js"></script>
     <script type="text/javascript">
     $(function() {
         metro = new Rail({
@@ -28,14 +29,7 @@
         });
         
         geo.getPosition(geo.updateTripMap.bind(geo));
-        
-        assign = function(id, url) {
-            $(id).click(function() {
-                setTimeout(function() {
-                    location.href = url;
-                }, 250);
-            });
-        }
+
         assign(".card.stations > .bottom-button", "ui-stations.html");
     });
     </script>

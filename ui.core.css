@@ -34,6 +34,7 @@ body {
     outline: 1px solid black;
     background-color: rgb(66, 133, 244);
     border-bottom: 1px solid rgb(55, 82, 126);
+    color: white;
 }
 .header .logo {
     display: table-cell;
@@ -44,14 +45,30 @@ body {
     font-weight: 700;
     padding: 0 10px;
     line-height: 0;
+    color: white;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
-.header .logo .back {
+.header .logo.back {
+    cursor: pointer;
+}
+.header .logo.back:hover {
+    transition: all 0.4s ease;
+    border-left: 10px solid rgb(66,133,244);
+}
+.header .logo.back:before {
+    content: "\276e"; /* ❮ */
     display: inline;
     position: relative;
     left: -8px;
     top: -7px;
     font-size: 20px;
     font-weight: 100;
+}
+.header .logo.back:hover:before {
+    transition: all 0.4s ease;
+    font-size: 42px;
+    margin-left: -12px;
+    top: 0;
 }
 .header .title {
     display: table-cell;
