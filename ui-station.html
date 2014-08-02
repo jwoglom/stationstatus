@@ -27,7 +27,6 @@
             metro.fill();
             console.info("Load time: "+(+new Date - _st)+"ms");
             station.init();
-            $(".loading").hide();
         });
         assign(".logo", "ui-home.html");
 
@@ -42,10 +41,15 @@
                     if(typeof this.st == 'undefined') return;
                     this.add();
                 }
+                $(window).on("hashchange", function() {
+                    location.reload();
+                });
             },
             add: function() {
                 this.showInformation();
                 this.getPrediction();
+
+                $(".loading").hide();
             },
             showInformation: function() {
                 $(".header .title").html(this.st.name+" Station");
@@ -58,28 +62,37 @@
                 $tpl = $(".contents .card-template.order");
                 for(line in this.st.next) {
                     $l = $tpl.clone();
-                    var nxt = this.st.next[line];
+                    var nxt = this.st.next[line], en;
                     if(nxt) {
                         $(".half-bottom-button .right", $l).attr("data-station", nxt.code).html(nxt.name);
                         $(".half-bottom-button .right", $l).addClass(line.toLowerCase());
-                        var en = metro.stations[metro.lines[line].codes.end];
-                        $(".toward .right").html(en.name);
+                        en = metro.stations[metro.lines[line].codes.end];
+                        $(".toward .right", $l).html(en.name);
                     } else {
                         $(".right", $l).css("visibility", "hidden");
                     }
-                    var prv = this.st.prev[line];
+                    var prv = this.st.prev[line], st;
                     if(prv) {
                         $(".half-bottom-button .left", $l).attr("data-station", prv.code).html(prv.name);
                         $(".half-bottom-button .left", $l).addClass(line.toLowerCase());
-                        var st = metro.stations[metro.lines[line].codes.start];
-                        $(".toward .left").html(st.name);
+                        st = metro.stations[metro.lines[line].codes.start];
+                        $(".toward .left", $l).html(st.name);
                     } else {
                         $(".left", $l).css("visibility", "hidden");
                     }
+
+                    console.debug(line+" prev: "+prv+" next: "+nxt);
+                    console.debug(line+" starts: "+st+" ends: "+en);
                     $l.removeClass("card-template").css("display","");
                     $l.addClass("card");
                     $tpl.after($l);
                 }
+
+                $(".half-bottom-button > div").click(function() {
+                    setTimeout(function() {
+                        location.href = "ui-station.html#station=" + $(this).attr("data-station");
+                    }.bind(this), 400);
+                });
             },
             showColorbar: function() {
                 for(var i=0; i<this.st.totalLines.length; i++) {
@@ -121,6 +134,8 @@
     </div>
 
     <div class="contents">
+
+        <div class="loading"></div>
         <div class="card stationinfo">
             <div class="bottom-button">
                 Navigate
@@ -177,7 +192,6 @@
         </div>
 
         <ul class="metrograph allstations">
-            <div class="loading"></div>
             <!-- <li class="card">
                 Vienna
                 <div class="lines">
