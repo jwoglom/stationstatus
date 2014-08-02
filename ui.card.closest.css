@@ -18,6 +18,7 @@
     border: 1px solid transparent;
     font-size: 18px;
     padding: 5px 0;
+    position: relative; /* Keep consistant: line markers move with name */
 }
 .metrograph li:before {
     content: '';
@@ -52,6 +53,7 @@
 }
 .metrograph li:hover {
     transition: all 0.4s ease;
+    -webkit-transform: translateZ(0); /* force GPU on mobile devices */
     margin-left: -5px;
     width: 100%;
     width: calc(100% - 7px);
@@ -62,6 +64,7 @@
 }
 .metrograph li:focus {
     transition: all 0.5s ease;
+    -webkit-transform: translateZ(0); /* force GPU on mobile devices */
     margin-left: 50px;
 }
 .or {

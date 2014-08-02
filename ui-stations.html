@@ -33,10 +33,34 @@
         assign(".logo", "ui-home.html");
 
         stationsInit = function() {
+            var st = +new Date;
+            var stns = [];
             for(code in metro.stations) {
-                var st = metro.stations[code];
-
+                stns.push(metro.stations[code]);
             }
+            // Sort alphabetically
+            stns.sort(function(a, b) {
+                return a.name > b.name ? 1 : -1;
+            });
+            for(var i=0; i<stns.length; i++) {
+                addStation(stns[i]);
+            }
+            $(".loading").hide();
+            console.debug("Sorted in "+(+new Date - st)+"ms");
+        }
+        addStation = function(st) {
+            var str = '<li class="card' + (st.transfer ? ' transfer' : '') + '" data-station="' + st.code + '" data-lines="">\n' +
+                      st.name + '\n' +
+                      '<div class="lines">\n';
+            for(var i=0; i<st.totalLines.length; i++) {
+                var ln = st.totalLines[i];
+                str +='<span class="' + ln.code.toLowerCase() + '">' + ln.code + '</span>\n';
+                str = str.replace('data-lines="', 'data-lines=",' + ln.code);
+            }
+            str +=    '</div>\n</li>';
+            // Remove leading , in lines list
+            str = str.replace('data-lines=",', 'data-lines="');
+            $(".contents ul.allstations").append(str);
         }
     });
     </script>
@@ -49,11 +73,16 @@
             M
         </div>
         <div class="title">All Stations</div>
+        <div class="search">
+            <div class="search-icon">&#9906;</div>
+            <input type="search" />
+        </div>
     </div>
 
     <div class="contents">
         <ul class="metrograph allstations">
-            <li class="card">
+            <div class="loading"></div>
+            <!-- <li class="card">
                 Vienna
                 <div class="lines">
                     <span class="or">OR</span>
@@ -66,7 +95,7 @@
                     <span class="sv">SV</span>
                     <span class="bl">BL</span>
                 </div>
-            </li>
+            </li> -->
         </ul>
 
 

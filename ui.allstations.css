@@ -1,3 +1,9 @@
+.contents {
+    /* Prevent station labels from moving around */
+    position: relative;
+}
+
 .contents ul.allstations > li.card {
-    height: 40px
+    height: 40px;
+    margin: 8px; /* smaller margin */
 }
