@@ -53,7 +53,8 @@ search = {
         } else {
             $(".contents ul.allstations .none").hide();
         }
-        location.hash = "#line="+linestations.id+"&q=" + q;
+        // Add line ID in querystring if applicable
+        location.hash = "#"+(typeof linestations != 'undefined' ? "line="+linestations.id+"&" : "")+"q=" + q;
         console.info("Query took "+(+new Date - st)+"ms", trues);
     },
     test: function(q) {
