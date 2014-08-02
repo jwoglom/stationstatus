@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+<head>
+    <title>StationStatus</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=1">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,600,300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="ui.core.css" />
+    <link rel="stylesheet" type="text/css" href="ui.card.css" />
+    <link rel="stylesheet" type="text/css" href="ui.card.trip.css" />
+    <link rel="stylesheet" type="text/css" href="ui.card.closest.css" />
+    <link rel="stylesheet" type="text/css" href="ui.card.lines.css" />
+    <link rel="stylesheet" type="text/css" href="ui.card.stations.css" />
+
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="oop.js"></script>
+    <script type="text/javascript" src="geo.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        metro = new Rail({
+            DisplayName: "Washington Metro"
+        });
+
+        var _st = +new Date;
+        WMATA.getblob(function() {
+            metro.fill();
+            console.info("Load time: "+(+new Date - _st)+"ms");
+        });
+    });
+    </script>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <div class="logo">
+            <div class="back">&#10094;</div>
+            M
+        </div>
+        <div class="title">All Stations</div>
+    </div>
+
+    <div class="contents">
+        <div class="card station">
+            <div>
+                Test
+            </div>
+        </div>
+
+
+    </div>
+</div>
+</body>
+</html>

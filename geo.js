@@ -30,6 +30,3 @@ var geo = {
         } else console.debug("No position for trip map")
     }
 }
-$(function() {
-    geo.getPosition(geo.updateTripMap.bind(geo));
-});

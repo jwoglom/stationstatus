@@ -26,6 +26,17 @@
             metro.fill();
             console.info("Load time: "+(+new Date - _st)+"ms");
         });
+        
+        geo.getPosition(geo.updateTripMap.bind(geo));
+        
+        assign = function(id, url) {
+            $(id).click(function() {
+                setTimeout(function() {
+                    location.href = url;
+                }, 250);
+            });
+        }
+        assign(".card.stations > .bottom-button", "ui-stations.html");
     });
     </script>
 </head>
