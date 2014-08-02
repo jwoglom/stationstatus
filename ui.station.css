@@ -73,3 +73,40 @@
     line-height: 24px;
     margin-left: auto;
 }
+
+.card.order {
+    height: 59px;
+}
+.card.order .half-bottom-button {
+    top: 0;
+}
+.card.order .toward {
+    position: relative;
+    height: 20px;
+    font-size: 18px;
+    color: rgba(48, 48, 48, 0.4);
+    text-align: center;
+    text-transform: lowercase;
+    font-variant: small-caps;
+    line-height: 15px;
+}
+.card.order .toward span.left {
+    position: absolute;
+    left: 20px;
+}
+.card.order .toward span.left:before {
+    content: "\00AB";
+    padding-right: 5px;
+}
+.card.order .toward span.right {
+    position: absolute;
+    right: 20px;
+    text-align: right;
+}
+.card.order .toward span.right:after {
+    content: "\00BB";
+    padding-left: 5px;
+}
+.card-template {
+    display: none;
+}

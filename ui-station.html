@@ -6,6 +6,7 @@
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,600,300' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="ui.core.css" />
     <link rel="stylesheet" type="text/css" href="ui.card.css" />
+    <link rel="stylesheet" type="text/css" href="ui.card.lines.css" />
     <link rel="stylesheet" type="text/css" href="ui.card.closest.css" />
     <link rel="stylesheet" type="text/css" href="ui.card.stations.css" />
     <link rel="stylesheet" type="text/css" href="ui.station.css" />
@@ -51,6 +52,34 @@
                 this.showColorbar();
                 var url = geo.getMapsURL(this.st.coords.lat, this.st.coords.long, 15);
                 $(".contents .stationinfo").attr("style", "background-image: url('" + url + "')");
+                this.showOrder();
+            },
+            showOrder: function() {
+                $tpl = $(".contents .card-template.order");
+                for(line in this.st.next) {
+                    $l = $tpl.clone();
+                    var nxt = this.st.next[line];
+                    if(nxt) {
+                        $(".half-bottom-button .right", $l).attr("data-station", nxt.code).html(nxt.name);
+                        $(".half-bottom-button .right", $l).addClass(line.toLowerCase());
+                        var en = metro.stations[metro.lines[line].codes.end];
+                        $(".toward .right").html(en.name);
+                    } else {
+                        $(".right", $l).css("visibility", "hidden");
+                    }
+                    var prv = this.st.prev[line];
+                    if(prv) {
+                        $(".half-bottom-button .left", $l).attr("data-station", prv.code).html(prv.name);
+                        $(".half-bottom-button .left", $l).addClass(line.toLowerCase());
+                        var st = metro.stations[metro.lines[line].codes.start];
+                        $(".toward .left").html(st.name);
+                    } else {
+                        $(".left", $l).css("visibility", "hidden");
+                    }
+                    $l.removeClass("card-template").css("display","");
+                    $l.addClass("card");
+                    $tpl.after($l);
+                }
             },
             showColorbar: function() {
                 for(var i=0; i<this.st.totalLines.length; i++) {
@@ -127,6 +156,26 @@
             </tbody>
             </table>
         </div>
+
+        <div class="card-template order">
+            <div class="toward">
+                <span class="left">
+                    <!--&laquo;-->
+                </span>
+                <span class="right">
+                    <!-- &raquo;-->
+                </span>
+            </div>
+            <div class="half-bottom-button">
+                <div class="bottom-button left">
+                    
+                </div>
+                <div class="bottom-button right">
+                    
+                </div>
+            </div>
+        </div>
+
         <ul class="metrograph allstations">
             <div class="loading"></div>
             <!-- <li class="card">
