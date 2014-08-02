@@ -15,9 +15,6 @@ tripselect = {
         } else {
             this.start();
         }
-        $(window).on("hashchange", function() {
-            location.reload();
-        });
     },
     start: function() {
         var st = +new Date;
@@ -62,13 +59,18 @@ tripselect = {
         var st = $(this).attr("data-station");
         console.info("CLICK: "+st);
         if(tripselect.from == null) {
-            var url = "ui-tripselect.html#from=" + st;
+            var url = "./ui-tripselect.html#from=" + st;
+            setTimeout(function() {
+                location.href = url;
+                location.reload();
+            }, 400);
         } else {
-            var url = "ui-trip.html#from=" + tripselect.from + "&to=" + st;
+            var url = "./ui-trip.html#from=" + tripselect.from + "&to=" + st;
+            setTimeout(function() {
+                location.href = url;
+            }, 400);
         }
 
-        setTimeout(function() {
-            location.href = url;
-        }, 400);
+        
     }
 };

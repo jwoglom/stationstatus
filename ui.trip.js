@@ -3,7 +3,7 @@ trip = {
     to: null,
     sfrom: null,
     sto: null,
-    stransfer: null,
+    stransfer: false,
     init: function() {
         if(location.hash.indexOf('from=') != -1) {
             this.from = location.hash.split('from=')[1];
@@ -123,6 +123,10 @@ trip = {
     findTransferStart: function() {
         var s = this.sfrom;
         var e = this.sto;
+        if(this.isTransferPoint(s, e)) {
+            console.info("No transfer needed");
+            return false;
+        }
         var t = this.findTransfer(s, e, 0);
         if(t == false) {
             console.error("It is impossible to get between "+s+" and "+e);
