@@ -1,7 +1,8 @@
 .card.trip {
     height: 150px;
     background-color: white;
-    background-image: url(http://maps.googleapis.com/maps/api/staticmap?center=38.898567,-77.027887&zoom=12&size=600x300);
+    /* Default if no geolocation */
+    background-image: url(http://maps.googleapis.com/maps/api/staticmap?center=38.898567,-77.027887&zoom=12&size=584x150);
     background-position: center center;
     background-repeat: no-repeat;
     overflow: hidden;

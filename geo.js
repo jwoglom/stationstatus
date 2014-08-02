@@ -19,7 +19,7 @@ var geo = {
     getMapsURL: function(pos, zm, sz) {
         if(!pos) pos = this.savedPosition;
         if(!zm) zm = 13;
-        if(!sz) sz = "600x300";
+        if(!sz) sz = "584x150";
         return "http://maps.googleapis.com/maps/api/staticmap?center="+pos.coords.latitude+","+pos.coords.longitude+"&zoom="+zm+"&size="+sz;
     },
     updateTripMap: function() {
