@@ -48,7 +48,7 @@
             checkQuery();
         }
         addStation = function(st) {
-            var str = '<li class="card' + (st.transfer ? ' transfer' : '') + '" data-station="' + st.code + '" data-lines="" onclick="return clickStation.bind(this)()">\n' +
+            var str = '<li class="card' + (st.transfer ? ' transfer' : '') + '" data-name="' + st.name + '" data-station="' + st.code + '" data-lines="" onclick="return clickStation.bind(this)()">\n' +
                       st.name + '\n' +
                       '<div class="lines">\n';
             for(var i=0; i<st.totalLines.length; i++) {
@@ -59,6 +59,11 @@
             str +=    '</div>\n</li>';
             // Remove leading , in lines list
             str = str.replace('data-lines=",', 'data-lines="');
+            // Only show Metro Center and L'Enfant once
+            if($(".contents ul.allstations .card[data-name='" + st.name + "']").length > 0) {
+                console.debug("Skipping second "+st.name);
+                return;
+            }
             $(".contents ul.allstations").append(str);
         }
         clickStation = function() {
@@ -70,7 +75,7 @@
 
         }
         searchInit = function() {
-            $(".search > input").keyup(searchCheck);
+            $(".search > input").on("input", searchCheck);
             $(".search .search-icon").click(function() {
                 $(this).parent().addClass("open");
                 setTimeout(function() {
@@ -103,23 +108,30 @@
             $c = $(".contents ul.allstations .card");
             var trues = [];
             q = q.trim();
+            $(".header .title").css("color", "").html("All Stations");
+            $(".header").css("background-color", "");
+            $(".card.seestdetail").hide();
+
             if(q.length == 0) {
                 $c.show();
                 return;
             }
-
-            $(".header .title").html("All Stations");
-            $(".header").css("background-color", "");
+            
             for(linecode in metro.lines) {
                 var line = metro.lines[linecode];
-                if(q.toLowerCase().split(" ")[0] == line.name.toLowerCase() || q.toLowerCase().split(" ")[0] == linecode.toLowerCase()) {
-                    console.info("Showing "+line.name+" Line");
-                    $(".header .title").html(line.name+" Line");
-                    $(".header").css("background-color", "#"+metro.colors[linecode]);
-                    if(dir) { // From query string (e.x. view line page)
-
+                var parts = q.toLowerCase().split(" ");
+                for(var i=0; i<parts.length; i++) {
+                    if(parts[i] == line.name.toLowerCase() || parts[i] == linecode.toLowerCase()) {
+                        console.info("Showing "+line.name+" Line");
+                        $(".header .title").html(line.name+" Line");
+                        $(".header").css("background-color", "#"+metro.colors[linecode]);
+                        if(~$.inArray(line.code, metro.colorsBlack)) {
+                            $(".header .title").css("color", "black");
+                        }
+                        $(".card.seestdetail span").html(line.name);
+                        $(".card.seestdetail").css("color", "#"+metro.colors[linecode]).show();
+                        break;
                     }
-                    break;
                 }
             }
             $c.each(function() {
@@ -145,14 +157,30 @@
             var st = metro.stations[stcode];
             q = q.toLowerCase();
             if(st) {
-                if(st.name.toLowerCase().indexOf(q) != -1) return true;
-                if(st.code.toLowerCase() == q) return true;
-                for(var i=0; i<st.totalLines.length; i++) {
-                    var ln = st.totalLines[i];
-                    if(q == ln.name.toLowerCase() || q == ln.code.toLowerCase()) {
-                        return true;
+                var success = [];
+                var parts = q.split(" ");
+                loop1:
+                for(var i=0; i<parts.length; i++) {
+                    parts[i] = parts[i].toLowerCase().trim();
+                    if(st.name.toLowerCase().indexOf(parts[i]) != -1 || st.code.toLowerCase() == parts[i]) {
+                        success[i] = true;
+                        continue;
                     }
+                    loop2:
+                    for(var j=0; j<st.totalLines.length; j++) {
+                        var ln = st.totalLines[j];
+                        if(parts[i] == ln.name.toLowerCase() || parts[i] == ln.code.toLowerCase()) {
+                            success[i] = true;
+                            continue loop1;
+                        }
+                    }
+                    success[i] = false;
                 }
+                console.log(parts, success);
+                for(var i=0; i<success.length; i++) {
+                    if(!success[i] || success.length != parts.length) return false;
+                }
+                return true;
             }
             return false;
         }
@@ -184,6 +212,11 @@
     </div>
 
     <div class="contents">
+        <div class="card seestdetail">
+            <div class="bottom-button">
+                View <span></span> Line Details
+            </div>
+        </div>
         <ul class="metrograph allstations">
             <div class="loading"></div>
             <!-- <li class="card">

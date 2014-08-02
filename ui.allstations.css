@@ -17,3 +17,8 @@
     /* bug fix to allow scrolling; accounts for header */
     margin-bottom: 50px !important;
 }
+
+.contents .card.seestdetail {
+    display: none;
+    height: 38px;
+}
