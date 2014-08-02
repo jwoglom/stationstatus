@@ -28,7 +28,7 @@
             console.info("Load time: "+(+new Date - _st)+"ms");
             station.init();
         });
-        assign(".logo", "ui-home.html");
+        assign(".logo", "ui-stations.html");
 
         station = {
             id: null,
@@ -103,7 +103,31 @@
                 $.get("data/example-getprediction.txt", {}, function(d) {
                     var json = JSON.parse(d)["Trains"];
                     console.log(json);
+                    for(num in json) {
+                        station.addPrediction(json[num]);
+                    }
                 }, "text");
+            },
+            addPrediction: function(train) {
+                $c = $(".card.nexttrains table tbody");
+                var mins = min = train.Min;
+                if(mins == "ARR") mins = "<span class='arr'>Arriving</span>";
+                else if(mins == "BRD") mins = "<span class='brd'>Boarding</span>";
+                
+                var tm = parseInt(+new Date);
+                if(min != "ARR" && min != "BRD") {
+                    tm += 60 * parseInt(min) * 1000;
+                }
+                var time = new Date(tm);
+                var timel = time.getHours()+":"+(time.getMinutes()+1);
+                var str = '<tr>\n' +
+                          '<td class="line"><span class="line ' + train.Line.toLowerCase() + '">' + train.Line + '</span></td>\n' +
+                          '<td class="num">' + train.Car + '</td>\n' +
+                          '<td class="stop">' + train.DestinationName + '</td>' +
+                          '<td class="mins">' + mins + '</td>\n' +
+                          '<td class="time">' + timel + '</td>\n' +
+                          '</tr>';
+                $c.append(str);
             },
             click: function() { // binded: this=object
                 var st = $(this).attr("data-station");
@@ -127,10 +151,6 @@
             M
         </div>
         <div class="title">Station</div>
-        <div class="search">
-            <div class="search-icon"></div>
-            <input type="search" placeholder="Search" />
-        </div>
     </div>
 
     <div class="contents">
@@ -148,26 +168,29 @@
             </div>
             <table>
             <thead>
-            <tr>
-                <th>Line</th>
-                <th>Cars</th>
-                <th>Destination</th>
-                <th>Time</th>
-            </tr>
+                <tr>
+                    <th>Line</th>
+                    <th>Cars</th>
+                    <th>Destination</th>
+                    <th>Mins</th>
+                    <th>Arriving At</th>
+                </tr>
             </thead>
             <tbody>
-            <tr>
-                <td class="line"><span class="line or">OR</span></td>
-                <td class="num">6</td>
-                <td class="stop">Glenmont</td>
-                <td class="time">ARR</td>
-            </tr>
-            <tr>
-                <td class="line"><span class="line or">OR</span></td>
-                <td class="num">6</td>
-                <td class="stop">Glenmont</td>
-                <td class="time">2 min</td>
-            </tr>
+            <!--
+                <tr>
+                    <td class="line"><span class="line or">OR</span></td>
+                    <td class="num">6</td>
+                    <td class="stop">Glenmont</td>
+                    <td class="time">ARR</td>
+                </tr>
+                <tr>
+                    <td class="line"><span class="line or">OR</span></td>
+                    <td class="num">6</td>
+                    <td class="stop">Glenmont</td>
+                    <td class="time">2 min</td>
+                </tr>
+            -->
             </tbody>
             </table>
         </div>
