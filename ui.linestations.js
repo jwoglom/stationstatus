@@ -52,7 +52,7 @@ linestations = {
         var st = $(this).attr("data-station");
         console.info("CLICK: "+st);
         setTimeout(function() {
-            location.href = "ui-station.html#id=" + st;
+            location.href = "ui-station.html#station=" + st;
         }, 400);
     }
 };
