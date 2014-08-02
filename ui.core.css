@@ -140,3 +140,18 @@ body {
     background-position: center center;
     z-index: 99;
 }
+
+@media (min-width: 800px) {
+    div.contents {
+        min-width: 100%;
+    }
+    div.contents > div.card {
+        width: calc(50% - 20px);
+        float: left;
+    }
+    div.contents > .ordercards {
+        width: 100%;
+        position: fixed;
+        bottom: 0;
+    }
+}
