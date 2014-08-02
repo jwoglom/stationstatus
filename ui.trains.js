@@ -5,11 +5,15 @@ trains = {
             this.line = location.hash.split('line=')[1];
             this.line = this.line.split('&')[0];
             this.line = this.line.toUpperCase();
-            $(".header .title").html(metro.lines[this.line].name+" Line");
+            $(".header .title").html("Trains: "+metro.lines[this.line].name+" Line");
             $(".header").css("background-color", "#"+metro.colors[this.line]);
             if(~$.inArray(this.line, metro.colorsBlack)) {
                 $(".header .title").css("color", "black");
             }
+
+            assign(".logo", "ui-line.html#line="+this.line);
+        } else {
+            assign(".logo", "ui-stations.html");
         }
         this.getPrediction();
         $(".loading").hide();
@@ -81,7 +85,7 @@ trains = {
         var str = '<div class="card nexttrains ' + st.code + '">\n' +
                   '<div class="title">' + st.name + '</div>' +
                   '<table><thead><tr>' +
-                  '<th>Line</th><th>Cars</th><th>Destination</th><th>Mins</th><th>Arriving At</th>' +
+                  '<th>Line</th><th>Cars</th><th>Destination</th><th>Mins</th><th>Arrival</th>' +
                   '</tr></thead>' +
                   '<tbody></tbody>' +
                   '</table></div>';

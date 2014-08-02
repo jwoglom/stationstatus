@@ -32,6 +32,9 @@ linestations = {
         if(~$.inArray(line.code, metro.colorsBlack)) {
             $(".header .title").css("color", "black");
         }
+
+        assign(".card.seearrivals .bottom-button", "ui-trains.html#line="+lin);
+
         search.checkQuery();
     },
     add: function(st) {

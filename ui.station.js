@@ -78,6 +78,13 @@ station = {
                     console.log(json[num]);
                     station.addPrediction(json[num]);
                     nm++;
+
+                    if(nm > 2) { /* By default, Next Trains has room for two */
+                        var ch = parseInt($(".card.nexttrains").css("height").split("px")[0]);
+                        $(".card.nexttrains").css(
+                            "height", ch + 30
+                        )
+                    }
                 }
             }
             console.debug("Of "+num+" trains, "+nm+" are at "+station.st);
