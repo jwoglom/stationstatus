@@ -31,6 +31,10 @@ Rail = function(params) {
         "RD": "BF1237",
         "GR": "00AF51"
     },
+    this.colorsBlack = [
+        "SV",
+        "YL"
+    ],
     this.addLine = function(line) {
         var cd = line.code;
         this.lines[cd] = line;

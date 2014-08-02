@@ -60,7 +60,9 @@
             console.info("Showing "+line.name+" Line");
             $(".header .title").html(line.name+" Line");
             $(".header").css("background-color", "#"+metro.colors[line.code]);
-
+            if(~$.inArray(line.code, metro.colorsBlack)) {
+                $(".header .title").css("color", "black");
+            }
             checkQuery();
         }
         addStation = function(st) {
