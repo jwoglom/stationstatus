@@ -100,13 +100,22 @@
                 }
             },
             getPrediction: function() {
-                $.get("data/example-getprediction.txt", {}, function(d) {
-                    var json = JSON.parse(d)["Trains"];
+                WMATA.gettiming(function() {
+                    var json = WMATA.timing["Trains"];
                     console.log(json);
+                    var tot = 0;
                     for(num in json) {
-                        station.addPrediction(json[num]);
+                        if(json[num].LocationCode == station.st.code) {
+                            console.log(json[num]);
+                            station.addPrediction(json[num]);
+                            num++;
+                        }
                     }
-                }, "text");
+                    console.debug("Of "+num+" trains, "+tot+" are at "+station.st);
+                    if(tot <= 1) {
+                        $(".card.nexttrains table tbody").append("<tr><td colspan=5><center style='font-size: 14px'>There are no trains scheduled to arrive at this station.</center></td></tr>");
+                    }
+                });
             },
             addPrediction: function(train) {
                 $c = $(".card.nexttrains table tbody");

@@ -5,11 +5,19 @@ WMATA = {
         "format": "json"
     },
     blob: {},
+    timing: {},
     // Run a modified jQuery.get
     getblob: function(cb) {
         var ths = this;
         $.get("data/blob.txt", {}, function(ret) {
             ths.blob = JSON.parse(ret);
+            cb();
+        }, "text");
+    },
+    gettiming: function(cb) {
+        var ths = this;
+        $.get("data/timing.txt", {}, function(ret) {
+            ths.timing = JSON.parse(ret);
             cb();
         }, "text");
     },
