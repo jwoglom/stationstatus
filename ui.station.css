@@ -15,7 +15,7 @@
     position: relative;
 }
 
-.header {
+.header.transparent {
     background: transparent;
     position: relative;
 }
@@ -80,6 +80,15 @@
 }
 .card.order .half-bottom-button {
     top: 0;
+}
+.contents .card .half-bottom-button > div.bottom-button.left {
+    padding-left: 20px;
+    padding-right: 0;
+}
+.contents .card .half-bottom-button > div.bottom-button.right {
+    padding-left: 0;
+    padding-right: 20px;
+    text-align: right;
 }
 .card.order .toward {
     position: relative;

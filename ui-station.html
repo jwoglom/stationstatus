@@ -56,6 +56,7 @@
                 this.showColorbar();
                 var url = geo.getMapsURL(this.st.coords.lat, this.st.coords.long, 15);
                 $(".contents .stationinfo").attr("style", "background-image: url('" + url + "')");
+                assign(".stationinfo .bottom-button", "https://maps.google.com/maps?q="+this.st.coords.lat+", "+this.st.coords.long);
                 this.showOrder();
             },
             showOrder: function() {
@@ -103,16 +104,16 @@
                 WMATA.gettiming(function() {
                     var json = WMATA.timing["Trains"];
                     console.log(json);
-                    var tot = 0;
+                    var nm = 0;
                     for(num in json) {
-                        if(json[num].LocationCode == station.st.code) {
+                        if(json[num].LocationCode.toLowerCase().trim() == station.st.code.toLowerCase()) {
                             console.log(json[num]);
                             station.addPrediction(json[num]);
-                            num++;
+                            nm++;
                         }
                     }
-                    console.debug("Of "+num+" trains, "+tot+" are at "+station.st);
-                    if(tot <= 1) {
+                    console.debug("Of "+num+" trains, "+nm+" are at "+station.st);
+                    if(nm <= 1) {
                         $(".card.nexttrains table tbody").append("<tr><td colspan=5><center style='font-size: 14px'>There are no trains scheduled to arrive at this station.</center></td></tr>");
                     }
                 });
@@ -127,8 +128,10 @@
                 if(min != "ARR" && min != "BRD") {
                     tm += 60 * parseInt(min) * 1000;
                 }
-                var time = new Date(tm);
-                var timel = time.getHours()+":"+(time.getMinutes()+1);
+                var time = new Date(tm),
+                h = (time.getHours() > 12 ? time.getHours() - 12 : time.getHours()),
+                m = (time.getMinutes()+1),
+                timel = h+":"+(m<10 ? "0"+m : m);
                 var str = '<tr>\n' +
                           '<td class="line"><span class="line ' + train.Line.toLowerCase() + '">' + train.Line + '</span></td>\n' +
                           '<td class="num">' + train.Car + '</td>\n' +
@@ -155,7 +158,7 @@
 
     <div class="multibackground">
     </div>
-    <div class="header">
+    <div class="header transparent">
         <div class="logo back">
             M
         </div>
