@@ -23,7 +23,14 @@ Rail = function(params) {
     this.name = params.DisplayName,
     this.lines = {},
     this.stations = {},
-
+    this.colors = {
+        "OR": "DD8602",
+        "SV": "A0A2A0",
+        "BL": "0993D5",
+        "YL": "F6D316",
+        "RD": "BF1237",
+        "GR": "00AF51"
+    },
     this.addLine = function(line) {
         var cd = line.code;
         this.lines[cd] = line;

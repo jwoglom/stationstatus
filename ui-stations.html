@@ -47,6 +47,7 @@
             }
             $(".loading").hide();
             console.debug("Sorted in "+(+new Date - st)+"ms");
+            checkQuery();
         }
         addStation = function(st) {
             var str = '<li class="card' + (st.transfer ? ' transfer' : '') + '" data-station="' + st.code + '" data-lines="">\n' +
@@ -62,6 +63,90 @@
             str = str.replace('data-lines=",', 'data-lines="');
             $(".contents ul.allstations").append(str);
         }
+
+        searchKeep = function() {
+            $(".search > input").keyup(searchCheck);
+            $(".search .search-icon").click(function() {
+                $(this).parent().addClass("open");
+                $(".search > input").focus();
+            }).hover(function() {
+                setTimeout(function() {
+                    $(".search > input").focus();
+                }, 500);
+            }, function() {
+                $(".search .search-icon").focus();
+            })
+        }
+        searchCheck = function() {
+            searchQuery($(this).val());
+            if($(this).val().trim().length <= 1) {
+                $(this).parent().removeClass("open");
+            } else {
+                $(this).parent().addClass("open");
+            }
+        }
+        searchQuery = function(q, dir) {
+            var st = +new Date;
+            console.debug("Search: "+q);
+            $c = $(".contents ul.allstations .card");
+            var trues = [];
+            q = q.trim();
+            if(q.length == 0) {
+                $c.show();
+                return;
+            }
+
+            $(".header .title").html("All Stations");
+            $(".header").css("background-color", "");
+            for(linecode in metro.lines) {
+                var line = metro.lines[linecode];
+                if(q.toLowerCase() == line.name.toLowerCase() || q.toLowerCase() == linecode.toLowerCase()) {
+                    console.info("Showing "+line.name+" Line");
+                    $(".header .title").html(line.name+" Line");
+                    $(".header").css("background-color", "#"+metro.colors[linecode]);
+                    if(dir) { // From query string (e.x. view line page)
+
+                    }
+                    break;
+                }
+            }
+            $c.each(function() {
+                if(searchTest.bind(this)(q)) {
+                    $(this).show();
+                    try {
+                        trues.push(metro.stations[$(this).attr("data-station")]);
+                    } catch(e) {}
+                } else {
+                    $(this).hide();
+                }
+            });
+            location.hash = "#q=" + q;
+            console.info("Query took "+(+new Date - st)+"ms", trues);
+        }
+        searchTest = function(q) {
+            var stcode = $(this).attr("data-station");
+            var st = metro.stations[stcode];
+            q = q.toLowerCase();
+            if(st) {
+                if(st.name.toLowerCase().indexOf(q) != -1) return true;
+                if(st.code.toLowerCase() == q) return true;
+                for(var i=0; i<st.totalLines.length; i++) {
+                    var ln = st.totalLines[i];
+                    if(q == ln.name.toLowerCase() || q == ln.code.toLowerCase()) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+        checkQuery = function() {
+            if(location.hash.indexOf('q=') != -1) {
+                var q = location.hash.split('q=')[1];
+                console.info("Searching from querystring: "+q);
+                searchQuery(q, true);
+            }
+        }
+        searchKeep();
     });
     </script>
 </head>
@@ -74,8 +159,8 @@
         </div>
         <div class="title">All Stations</div>
         <div class="search">
-            <div class="search-icon">&#9906;</div>
-            <input type="search" />
+            <div class="search-icon"></div>
+            <input type="search" placeholder="Search" />
         </div>
     </div>
 
