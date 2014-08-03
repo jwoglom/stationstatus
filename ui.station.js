@@ -77,7 +77,9 @@ station = {
             console.log(json);
             var nm = 0;
             for(num in json) {
-                if(json[num].LocationCode.toLowerCase().trim() == station.st.code.toLowerCase()) {
+                if(json[num].LocationCode.toLowerCase().trim() == station.st.code.toLowerCase() ||
+                    (typeof station.st.together[0] != 'undefined' && json[num].LocationCode.toLowerCase().trim() == station.st.together[0].code.toLowerCase()) ||
+                    (typeof station.st.together[1] != 'undefined' && json[num].LocationCode.toLowerCase().trim() == station.st.together[1].code.toLowerCase())) {
                     console.log(json[num]);
                     station.addPrediction(json[num]);
                     nm++;
@@ -91,6 +93,8 @@ station = {
                 }
             }
             console.debug("Of "+num+" trains, "+nm+" are at "+station.st);
+            if(typeof station.st.together[0] != 'undefined') console.debug("(or "+station.st.together[0]+")");
+            if(typeof station.st.together[1] != 'undefined') console.debug("(or "+station.st.together[1]+")");
             if(nm < 1) {
                 $(".card.nexttrains table tbody").append("<tr><td colspan=5><center style='font-size: 14px'>There are no trains scheduled to arrive at this station.</center></td></tr>");
             }
