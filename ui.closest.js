@@ -24,17 +24,41 @@ closest = {
         }
         this.stations = [];
         $("ul.metrograph.closest").html("");
-        this.check(lat, long);
-        this.display();
+        this.checkLocal(lat, long, false);
+        this.checkAPI(lat, long);
     },
-    check: function(lat, long) {
+    checkAPI: function(lat, long) {
+        console.log("me:", this.me);
+        $.get("tools/getclosests.php", {
+            lat: lat,
+            lon: long
+        }, function(d) {
+            var json = JSON.parse(d);
+            var entrs = json["Entrances"];
+            var usedsts = [];
+            for(eid in entrs) {
+                var entr = entrs[eid];
+                var st = entr["StationCode1"];
+                var st2 = entr["StationCode2"];
+                if(usedsts.indexOf(st) != -1 || (st2.length > 0 && usedsts.indexOf(st2))) {
+                    console.info("Skipping additional "+metro.stations[st]);
+                    continue;
+                }
+                usedsts.push(st);
+                if(st2.length > 0) usedsts.push(st2);
+                closest.stations.push(metro.stations[st]);
+            }
+            closest.display();
+        }, "text");
+    },
+    checkLocal: function(lat, long, add) {
         console.log("me:", this.me);
         for(sid in metro.stations) {
             var st = metro.stations[sid];
             st.coords.latlon = new LatLon(parseFloat(st.coords.lat), parseFloat(st.coords.long));
             st.coords.dist = this.me.distanceTo(st.coords.latlon); // kilometers
             st.coords.distmiles = st.coords.dist * 0.621371;
-            this.stations.push(st);
+            if(add) this.stations.push(st);
         }
         this.stations.sort(function(a, b) {
             return a.coords.dist - b.coords.dist;
@@ -43,6 +67,7 @@ closest = {
         for(var i=0; i<this.stations.length; i++) {
             var s = this.stations[i];
         }
+        if(add) this.display();
     },
     display: function() {
         for(var i=0; i<this.numCards; i++) {
