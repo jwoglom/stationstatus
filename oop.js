@@ -5,19 +5,21 @@ WMATA = {
         "format": "json"
     },
     blob: {},
-    timing: {},
+    dynamic: {},
     // Run a modified jQuery.get
     getblob: function(cb) {
+        if(!$.isEmptyObject(this.blob)) return cb();
         var ths = this;
         $.get("data/blob.txt", {}, function(ret) {
             ths.blob = JSON.parse(ret);
             cb();
         }, "text");
     },
-    gettiming: function(cb) {
+    getdynamic: function(cb) {
+        if(!$.isEmptyObject(this.dynamic)) return cb();
         var ths = this;
-        $.get("data/timing.txt", {}, function(ret) {
-            ths.timing = JSON.parse(ret);
+        $.get("data/dynamic.php", {}, function(ret) {
+            ths.dynamic = JSON.parse(ret);
             cb();
         }, "text");
     },
