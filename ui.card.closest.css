@@ -1,6 +1,6 @@
 .card.closest {
     position: relative;
-    height: 166px;
+    height: 192px;
 }
 .metrograph-track {
     position: absolute;
@@ -31,6 +31,12 @@
     background-size: 25px 25px;
     margin: 0 10px;
     vertical-align: center;
+}
+.metrograph.closest {
+    margin: 0 5px;
+}
+.metrograph.closest li {
+    height: 48px; /* keep mile distance in hover area */
 }
 .metrograph li.transfer:before {
     background-image: url(transfer-dot.png);
@@ -97,7 +103,7 @@
 }
 ul > li.station .dist {
     position: absolute;
-    left: 45px;
+    left: 60px;
     margin-top: 30px;
     padding-left: 5px;
     font-size: 12px;
