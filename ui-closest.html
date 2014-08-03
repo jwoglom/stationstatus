@@ -11,9 +11,10 @@
     <link rel="stylesheet" type="text/css" href="ui.core.css" />
     <link rel="stylesheet" type="text/css" href="ui.card.css" />
     <link rel="stylesheet" type="text/css" href="ui.card.trip.css" />
-    <link rel="stylesheet" type="text/css" href="ui.card.closest.css" />
     <link rel="stylesheet" type="text/css" href="ui.card.lines.css" />
     <link rel="stylesheet" type="text/css" href="ui.card.stations.css" />
+    <link rel="stylesheet" type="text/css" href="ui.allstations.css" />
+    <link rel="stylesheet" type="text/css" href="ui.card.closest.css" />
 
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.js"></script>
@@ -33,6 +34,7 @@
             metro.fill();
             console.info("Load time: "+(+new Date - _st)+"ms");
             doAssign();
+            closest.separateCards = true;
             closest.quick();
             geo.tempTripMap();
         });
@@ -49,78 +51,29 @@
 
 <div class="container">
     <div class="header">
-        <div class="logo">
+        <div class="logo back">
             M
         </div>
-        <div class="title">StationStatus</div>
+        <div class="title">Closest Stations</div>
     </div>
-
     <div class="contents">
-        <div class="card trip">
-            <div class="bottom-button">
-                Start Trip
-            </div>
-        </div>
-
-        <div class="card closest">
-            <div class="title">Closest Stations:</div>
-            <!--div class="metrograph-track"></div-->
-            <ul class="metrograph closest">
-                <!--<li>
-                    Vienna
-                    <div class="lines">
-                        <span class="or">OR</span>
-                    </div>
-                </li>
-                <li class="transfer">
-                    Rosslyn
-                    <div class="lines">
-                        <span class="or">OR</span>
-                        <span class="sv">SV</span>
-                        <span class="bl">BL</span>
-                    </div>
-                </li>-->
-                <div class="loading"></div>
-            </ul>
-            <div class="bottom-button">
-                See more stations
-            </div>
-        </div>
-
-        <div class="card lines">
-            <div class="title">View Lines:</div>
-            <div class="half-bottom-button">
-                <div class="bottom-button rd left">
-                    Red
+        <ul class="metrograph closest allstations">
+            <!--<li>
+                Vienna
+                <div class="lines">
+                    <span class="or">OR</span>
                 </div>
-                <div class="bottom-button gr right">
-                    Green
+            </li>
+            <li class="transfer">
+                Rosslyn
+                <div class="lines">
+                    <span class="or">OR</span>
+                    <span class="sv">SV</span>
+                    <span class="bl">BL</span>
                 </div>
-            </div>
-            <div class="half-bottom-button">
-                <div class="bottom-button bl left">
-                    Blue
-                </div>
-                <div class="bottom-button yl right">
-                    Yellow
-                </div>
-            </div>
-            <div class="half-bottom-button">
-                <div class="bottom-button or left">
-                    Orange
-                </div>
-                <div class="bottom-button sv right">
-                    Silver
-                </div>
-            </div>
-        </div>
-
-        <div class="card stations">
-            <div class="bottom-button">
-                View Stations
-            </div>
-        </div>
-
+            </li>-->
+            <div class="loading"></div>
+        </ul>
     </div>
 </div>
 </body>

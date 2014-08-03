@@ -119,6 +119,7 @@
 .card.order .toward span.left {
     position: absolute;
     left: 20px;
+    background-color: white;
 }
 .card.order .toward span.left:before {
     content: "\00AB";
@@ -128,6 +129,7 @@
     position: absolute;
     right: 20px;
     text-align: right;
+    background-color: white;
 }
 .card.order .toward span.right:after {
     content: "\00BB";
@@ -135,4 +137,20 @@
 }
 .card-template {
     display: none;
+}
+@media (max-width: 350px) {
+    /* more room for text labels */
+    .card.order div.toward span.right {
+        right: 1px;
+    }
+    .card.order div.toward span.left {
+        left: 1px;
+    }
+}
+
+@media (max-width: 330px) {
+    /* fill to size of buttons on separate rows */
+    .ordercards .order.card {
+        height: 99px;
+    }
 }

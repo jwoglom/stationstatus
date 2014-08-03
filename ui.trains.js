@@ -25,7 +25,7 @@ trains = {
             $(".contents").html("<div class='loading'></div>");
             trains.getPrediction();
         });
-        setInterval(trains.getPrediction, 60000);
+        // setInterval(trains.getPrediction, 60000);
     },
     getPrediction: function() {
         WMATA.gettiming(function() {
