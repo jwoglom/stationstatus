@@ -23,7 +23,7 @@ var geo = {
     },
     getMapsURL: function(lat, long, zm, sz) {
         if(!zm) zm = 13;
-        if(!sz) sz = "640x300";
+        if(!sz) sz = "640x640";
         return "http://maps.googleapis.com/maps/api/staticmap?center="+lat+","+long+"&zoom="+zm+"&size="+sz;
     },
     tempTripMap: function() {
