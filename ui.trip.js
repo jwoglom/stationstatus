@@ -90,7 +90,7 @@ trip = {
             if(typeof trip[type].together[0] != 'undefined') console.debug("(or "+trip[type].together[0]+")");
             if(typeof trip[type].together[1] != 'undefined') console.debug("(or "+trip[type].together[1]+")");
             if(nm < 1) {
-                $(".card.nexttrains."+type+" table tbody").append("<tr><td colspan=5><center style='font-size: 14px'>There are no trains scheduled to arrive at this station.</center></td></tr>");
+                $(".card.nexttrains."+type+" table tbody").append("<tr><td colspan=5><center style='font-size: 14px'>There are no trains currently scheduled to arrive at this station.</center></td></tr>");
             }
         });
     },

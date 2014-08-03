@@ -96,7 +96,7 @@ station = {
             if(typeof station.st.together[0] != 'undefined') console.debug("(or "+station.st.together[0]+")");
             if(typeof station.st.together[1] != 'undefined') console.debug("(or "+station.st.together[1]+")");
             if(nm < 1) {
-                $(".card.nexttrains table tbody").append("<tr><td colspan=5><center style='font-size: 14px'>There are no trains scheduled to arrive at this station.</center></td></tr>");
+                $(".card.nexttrains table tbody").append("<tr><td colspan=5><center style='font-size: 14px'>There are no trains currently scheduled to arrive at this station.</center></td></tr>");
             }
         });
     },
