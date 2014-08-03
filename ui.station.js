@@ -38,7 +38,7 @@ station = {
         assign(".stationinfo .bottom-button", "https://maps.google.com/maps?q="+this.st.coords.lat+", "+this.st.coords.long);
         assign(".card.starttrip .bottom-button", "ui-tripselect.html#from=" + this.id);
         $(".card.starttrip .bottom-button").html("Start Trip from "+this.st.name);
-        assign(".card.nexttrains .bottom-button", "ui-trains.html");
+        assign(".card.nexttrains .bottom-button", "ui-trains.html#station=" + this.st.code + "&historyback=true");
         this.showOrder();
     },
     showOrder: function() {

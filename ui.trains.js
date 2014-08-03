@@ -12,6 +12,10 @@ trains = {
             }
 
             assign(".logo", "ui-line.html#line="+this.line);
+        } else if(location.hash.indexOf('historyback=true') != -1) {
+            $(".logo").click(function() {
+                history.back();
+            });
         } else {
             assign(".logo", "ui-stations.html");
         }
@@ -97,7 +101,7 @@ trains = {
                 $e = $(".nexttrains."+sj);
                 console.debug("Station hash "+sj, $e);
                 if($e.length > 0) {
-                    $('html, body').animate({
+                    $('.contents').animate({
                         scrollTop: $e.offset().top - 45
                     }, 500);
                 } else if(typeof metro.stations[sj] != 'undefined' && typeof metro.stations[sj].together[0] != 'undefiend') {
