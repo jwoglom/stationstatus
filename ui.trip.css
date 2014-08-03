@@ -9,3 +9,9 @@ ul > .arrow {
 .nexttrains.stransfer {
     display: none;
 }
+.card.reverse {
+    height: 38px;
+}
+.card.reverse .bottom-button {
+    top: -1px;
+}

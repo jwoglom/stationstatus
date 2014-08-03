@@ -63,6 +63,7 @@ trip = {
         var url = geo.getMapsURL(this.sfrom.coords.lat, this.sfrom.coords.long, 15);
         $(".card.stationinfo").attr("style", "background-image: url('" + url + "')");
         assign(".stationinfo .bottom-button", "https://maps.google.com/maps?q="+this.sfrom.coords.lat+", "+this.sfrom.coords.long);
+        assign(".card.reverse .bottom-button", "ui-trip.html#from="+this.to+"&to="+this.from);
     },
     getPrediction: function(type) {
         $(".card.nexttrains."+type+" .title").html("Next Trains at "+trip[type].name);
