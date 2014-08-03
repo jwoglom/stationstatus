@@ -2,6 +2,7 @@ closest = {
     me: null,
     stations: [],
     separateCards: false,
+    numCards: 2,
     quick: function() {
         if(typeof localStorage != 'undefined' && typeof localStorage.pos != 'undefined') {
             var cd = localStorage.pos.split(",");
@@ -44,7 +45,7 @@ closest = {
         }
     },
     display: function() {
-        for(var i=0; i<2; i++) {
+        for(var i=0; i<this.numCards; i++) {
             console.info("Displaying close station "+this.stations[i])
             this.add(this.stations[i]);
         }
