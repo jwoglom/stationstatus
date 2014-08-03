@@ -138,6 +138,12 @@
 .card-template {
     display: none;
 }
+.card.starttrip {
+    height: 38px;
+}
+.card.starttrip .bottom-button {
+    top: -1px;
+}
 @media (max-width: 350px) {
     /* more room for text labels */
     .card.order div.toward span.right {

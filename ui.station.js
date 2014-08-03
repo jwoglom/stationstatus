@@ -25,6 +25,8 @@ station = {
         var url = geo.getMapsURL(this.st.coords.lat, this.st.coords.long, 15);
         $(".contents .stationinfo").attr("style", "background-image: url('" + url + "')");
         assign(".stationinfo .bottom-button", "https://maps.google.com/maps?q="+this.st.coords.lat+", "+this.st.coords.long);
+        assign(".card.starttrip .bottom-button", "ui-tripselect.html#from=" + this.id);
+        $(".card.starttrip .bottom-button").html("Start Trip from "+this.st.name);
         this.showOrder();
     },
     showOrder: function() {
