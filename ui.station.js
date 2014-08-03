@@ -12,6 +12,17 @@ station = {
         $(window).on("hashchange", function() {
             location.reload();
         });
+        $(".card.nexttrains").attr("data-origheight", $(".card.nexttrains").css("height"));
+        setInterval(station.refresh, 60000);
+        $(".refresh").click(station.refresh);
+    },
+    refresh: function() {
+        console.info("Refreshing");
+        $(".card.nexttrains tbody").html("<div class='loading'></div>");
+        $(".card.nexttrains").css(
+            "height", $(".card.nexttrains").attr("data-origheight")
+        );
+        station.getPrediction();
     },
     add: function() {
         this.showInformation();
@@ -98,6 +109,7 @@ station = {
             if(nm < 1) {
                 $(".card.nexttrains table tbody").append("<tr><td colspan=5><center style='font-size: 14px'>There are no trains currently scheduled to arrive at this station.</center></td></tr>");
             }
+            $(".loading").hide();
         });
     },
     addPrediction: function(train) {

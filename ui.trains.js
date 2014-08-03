@@ -20,12 +20,13 @@ trains = {
         $(window).on("hashchange", function() {
             location.reload();
         });
-        $(".refresh").click(function() {
-            console.info("Refreshing");
-            $(".contents").html("<div class='loading'></div>");
-            trains.getPrediction();
-        });
-        // setInterval(trains.getPrediction, 60000);
+        $(".refresh").click(trains.refresh);
+        setInterval(trains.refresh, 60000);
+    },
+    refresh: function() {
+        console.info("Refreshing");
+        $(".contents").html("<div class='loading'></div>");
+        trains.getPrediction();
     },
     getPrediction: function() {
         WMATA.gettiming(function() {
