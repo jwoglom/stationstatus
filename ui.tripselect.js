@@ -42,7 +42,7 @@ tripselect = {
         $(".header .title").html("Navigate to:");
     },
     add: function(st) {
-        var str = '<li class="card' + (st.transfer ? ' transfer' : '') + '" data-station="' + st.code + '" data-lines="" onclick="return tripselect.click.bind(this)()">\n' +
+        var str = '<li class="card' + (st.transfer ? ' transfer' : '') + '" data-name="' + st.name + '" data-station="' + st.code + '" data-lines="" onclick="return tripselect.click.bind(this)()">\n' +
                   st.name + '\n' +
                   '<div class="lines">\n';
         for(var i=0; i<st.totalLines.length; i++) {
@@ -53,6 +53,11 @@ tripselect = {
         str +=    '</div>\n</li>';
         // Remove leading , in lines list
         str = str.replace('data-lines=",', 'data-lines="');
+        if($(".contents ul.allstations [data-name=\""+st.name+"\"]").length > 0) {
+            // Prevent duplicate Metro Center or L'Enfant Plaza
+            console.debug("Not showing duplicate "+st.name);
+            return;
+        }
         $(".contents ul.allstations").append(str);
     },
     click: function() { // binded: this=object

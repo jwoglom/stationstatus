@@ -89,13 +89,18 @@ trains = {
         }
     },
     addStation: function(st) {
-        var str = '<div class="card nexttrains ' + st.code + '">\n' +
+        var str = '<div class="card nexttrains ' + st.code + '" data-name="' + st.name + '">\n' +
                   '<div class="title">' + st.name + '</div>' +
                   '<table><thead><tr>' +
                   '<th>Line</th><th>Cars</th><th>Destination</th><th>Mins</th><th>Arrival</th>' +
                   '</tr></thead>' +
                   '<tbody></tbody>' +
                   '</table></div>';
+        if($(".contents [data-name=\""+st.name+"\"]").length > 0) {
+            // Prevent duplicate Metro Center or L'Enfant Plaza
+            console.debug("Not showing duplicate "+st.name);
+            return;
+        }
         $(".contents").append(str);
     },
     addPrediction: function(train, st) {

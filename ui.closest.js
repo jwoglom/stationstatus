@@ -52,7 +52,7 @@ closest = {
         assign(".card.closest > .bottom-button", "ui-closest.html");
     },
     add: function(st) {
-        var str = '<li class="station' + (this.separateCards ? ' card' : '') + (st.transfer ? ' transfer' : '') + '" data-station="' + st.code + '" data-lines="" onclick="return closest.click.bind(this)()">\n' +
+        var str = '<li class="station' + (this.separateCards ? ' card' : '') + (st.transfer ? ' transfer' : '') + '" data-name="' + st.name + '" data-station="' + st.code + '" data-lines="" onclick="return closest.click.bind(this)()">\n' +
                   st.name + '\n' +
                   ' <span class="dist">' + (parseInt(st.coords.distmiles * 100) / 100) + ' mi</span>\n' +
                   '<div class="lines">\n';
@@ -64,6 +64,11 @@ closest = {
         str +=    '</div>\n</li>';
         // Remove leading , in lines list
         str = str.replace('data-lines=",', 'data-lines="');
+        if($("ul.metrograph.closest [data-name=\""+st.name+"\"]").length > 0) {
+            // Prevent duplicate Metro Center or L'Enfant Plaza
+            console.debug("Not showing duplicate "+st.name);
+            return;
+        }
         $("ul.metrograph.closest").append(str);
     },
     click: function() {
