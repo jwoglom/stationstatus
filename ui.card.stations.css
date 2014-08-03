@@ -4,3 +4,10 @@
 .card.stations .bottom-button {
     top: -1px;
 }
+
+.card.trains {
+    height: 38px;
+}
+.card.trains .bottom-button {
+    top: -1px;
+}

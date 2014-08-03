@@ -41,6 +41,13 @@ trains = {
                 stdata[d.LocationCode].push(d);
             }
             var ltrs = {};
+
+            var stns = [];
+            // Sort alphabetically
+            
+            for(var i=0; i<stns.length; i++) {
+                this.add(stns[i]);
+            }
             for(stcode in stdata) {
                 var cd = stcode.trim().toUpperCase();
                 var trns = stdata[cd];
@@ -53,7 +60,8 @@ trains = {
                 console.info("Of "+num+" trains, "+trns.length+" are at "+stn);
                 if(trains.line == false) {
                     // Showing all trains
-                    trains.doStation(trns, cd);
+                    // trains.doStation(trns, cd);
+                    stns.push([trns, cd]);
                 } else {
                     ltrs[stcode] = trns;
                 }
@@ -69,6 +77,16 @@ trains = {
                         trains.doStation(ltrs[s.code], s.code);
                     }
                 }
+            } else {
+                console.log(stns);
+                stns.sort(function(a, b) {
+                    return metro.stations[a[1]].name > metro.stations[b[1]].name ? 1 : -1;
+                });
+                console.log(stns);
+                for(var i=0; i<stns.length; i++) {
+                    var e = stns[i];
+                    trains.doStation(e[0], e[1]);
+                }
             }
             $(".loading").hide();
         });
@@ -81,10 +99,14 @@ trains = {
         for(var i=0; i<trns.length; i++) {
             trains.addPrediction(trns[i], cd);
             if(i >= 2) {
-                var ch = parseInt($(".card.nexttrains."+cd).css("height").split("px")[0]);
-                $(".card.nexttrains."+cd).css(
-                    "height", ch + 30
-                )
+                if($(".card.nexttrains."+cd).length > 0) {
+                    var ch = parseInt($(".card.nexttrains."+cd).css("height").split("px")[0]);
+                    $(".card.nexttrains."+cd).css(
+                        "height", ch + 30
+                    );
+                } else {
+                    console.error("nexttrains card with cd: "+cd+" does not exist.");
+                }
             }
         }
     },
