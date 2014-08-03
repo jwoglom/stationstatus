@@ -90,6 +90,27 @@ trains = {
                 }
             }
             $(".loading").hide();
+
+            if(location.hash.indexOf('station=') != -1) {
+                var sj = location.hash.split('station=')[1];
+                sj = sj.split('&')[0];
+                $e = $(".nexttrains."+sj);
+                console.debug("Station hash "+sj, $e);
+                if($e.length > 0) {
+                    $('html, body').animate({
+                        scrollTop: $e.offset().top - 45
+                    }, 500);
+                } else if(typeof metro.stations[sj] != 'undefined' && typeof metro.stations[sj].together[0] != 'undefiend') {
+                    var sj = metro.stations[sj].together[0].code;
+                    $e = $(".nexttrains."+sj);
+                    console.debug("Alt", $e);
+                    if($e.length > 0) {
+                        $('.contents').animate({
+                            scrollTop: $e.offset().top - 45
+                        }, 500);
+                    }
+                }
+            }
         });
     },
     doStation: function(trns, cd) {

@@ -34,7 +34,12 @@
     height: 40px;
 }
 .card.nexttrains {
-    height: 140px; /* default height, expanded when needed */
+    height: 180px; /* default height, expanded when needed */
+    position: relative; /* allow button on bottom */
+}
+.card.nexttrains .bottom-button {
+    position: absolute;
+    bottom: -1px;
 }
 @media (max-width: 400px) {
     div.card.nexttrains {
