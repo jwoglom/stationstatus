@@ -31,7 +31,7 @@ trip = {
         this.addMap();
         this.getPrediction("sfrom"); // Get predictions for from station
         if(this.stransfer) {
-            $(".card.nexttrans.stransfer").show();
+            $(".card.nexttrains.stransfer").show();
             this.getPrediction("stransfer");
         }
     },
