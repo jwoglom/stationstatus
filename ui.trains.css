@@ -2,7 +2,9 @@
     /* small opening height */
     height: 140px;
 }
-
+.contents .card.nexttrains[data-name] .title {
+    padding-left: 10px;
+}
 .contents .card.nexttrains[data-name] .title:hover {
     transition: all 0.4s ease;
     -webkit-transform: translateZ(0); /* force GPU on mobile devices */
@@ -11,4 +13,5 @@
     border: 1px solid rgba(66, 133, 244, 0.05);
     background-color: rgba(66, 133, 244, 0.3);
     cursor: pointer;
+    margin-bottom: -2px;
 }
