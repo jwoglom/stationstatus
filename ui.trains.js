@@ -111,7 +111,7 @@ trains = {
         }
     },
     addStation: function(st) {
-        var str = '<div class="card nexttrains ' + st.code + '" data-name="' + st.name + '">\n' +
+        var str = '<div class="card nexttrains ' + st.code + '" data-name="' + st.name + '" data-station="' + st.code + '">\n' +
                   '<div class="title">' + st.name + '</div>' +
                   '<table><thead><tr>' +
                   '<th>Line</th><th>Cars</th><th>Destination</th><th>Mins</th><th>Arrival</th>' +
@@ -124,6 +124,7 @@ trains = {
             return;
         }
         $(".contents").append(str);
+        assign(".card.nexttrains."+st.code+" .title", "ui-station.html#station="+st.code+"&historyback=true");
     },
     addPrediction: function(train, st) {
         $c = $(".card.nexttrains."+st+" table tbody");
@@ -147,12 +148,5 @@ trains = {
                   '<td class="time">' + timel + '</td>\n' +
                   '</tr>';
         $c.append(str);
-    },
-    click: function() { // binded: this=object
-        var st = $(this).attr("data-station");
-        console.info("CLICK: "+st);
-        setTimeout(function() {
-            location.href = "ui-station.html#id=" + st;
-        }, 400);
     }
 };
