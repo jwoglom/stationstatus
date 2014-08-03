@@ -83,8 +83,8 @@ station = {
         }
     },
     getPrediction: function() {
-        WMATA.gettiming(function() {
-            var json = WMATA.timing["Trains"];
+        WMATA.getdynamic(function() {
+            var json = WMATA.dynamic["timing"];
             console.log(json);
             var nm = 0;
             for(num in json) {
