@@ -52,7 +52,7 @@
     color: white;
 }
 .contents .card .half-bottom-button > div:hover {
-    width: calc(100% - 28px);
+    width: calc(50% - 28px);
 }
 .contents .card .half-bottom-button > div.right:hover {
     position: absolute;
