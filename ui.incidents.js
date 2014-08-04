@@ -8,6 +8,16 @@ incidents = {
             incidents.parse.bind(incidents)();
         });
     },
+    checkHome: function() {
+        this.locdat = {
+            showAll: true,
+            home: true
+        };
+        WMATA.getdynamic(function() {
+            incidents.data = WMATA.dynamic["incidents"];
+            incidents.parse.bind(incidents)();
+        });
+    },
     arrayMatch: function(a, b) {
         console.debug("check incident match",a,b);
         for(var i=0; i<a.length; i++) {
@@ -32,15 +42,31 @@ incidents = {
                     tonotify.push(inc);
                 }
             } else if(this.locdat.showAll) {
-                this.notify(inc);
-                notified++;
+                tonotify.push(inc);
             }
         }
         for(var i=0; i<tonotify.length; i++) {
             this.notify(tonotify[i]);
             notified++;
         }
-        if(tonotify.length > 1) {
+        if(this.locdat.home) {
+            $(".card.homeincidents .bottom-button").html("View Incidents (" + tonotify.length + ")");
+            if(tonotify.length > 0) {
+                $(".card.homeincidents .bottom-button").css("color", "red");
+                $m = $(".card.homeincidents").clone();
+                $(".card.homeincidents").remove();
+                $m.click(function() {
+                    $(".card.incident").show();
+                    $(this).hide();
+                });
+                $m.insertBefore($(".card.trip"));
+                $(".card.incident").hide();
+            } else {
+                assign(".card.homeincidents", "ui-incidents.html");
+            }
+            return;
+        }
+        if(tonotify.length > 1 && !this.locdat.showAll) {
             // Group together
             var str = '<div class="card show-incidents">' +
                       '<div class="bottom-button">Show Alerts (' + tonotify.length + ')</div>' +

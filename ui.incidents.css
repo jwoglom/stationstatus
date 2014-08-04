@@ -21,3 +21,10 @@ div.card.incident.nocolor {
     top: -1px;
     color: red;
 }
+
+.card.homeincidents {
+    height: 38px;
+}
+.card.homeincidents .bottom-button {
+    top: -1px;
+}
