@@ -28,3 +28,13 @@ div.card.incident.nocolor {
 .card.homeincidents .bottom-button {
     top: -1px;
 }
+
+@media (min-width: 800px) {
+    div.card.show-incidents, div.card.homeincidents {
+        width: calc(100% - 20px)
+    }
+    div.contents > div.card.show-incidents {
+        width: 100%;
+        float: none;
+    }
+}

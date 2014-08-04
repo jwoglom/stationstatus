@@ -55,6 +55,7 @@ incidents = {
                 $(".card.homeincidents .bottom-button").css("color", "red");
                 $m = $(".card.homeincidents").clone();
                 $(".card.homeincidents").remove();
+                $m.addClass("show-incidents");
                 $m.click(function() {
                     $(".card.incident").show();
                     $(this).hide();

@@ -27,5 +27,6 @@
     div.contents > div.card.seearrivals {
         width: 100%;
         float: none;
+        display: inline-block;
     }
 }
