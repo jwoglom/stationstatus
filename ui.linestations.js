@@ -35,7 +35,8 @@ linestations = {
 
         if(typeof incidents != 'undefined') {
             incidents.check({
-                lines: [lin]
+                lines: [lin],
+                alertsOn: line.name + " Line"
             });
         }
 

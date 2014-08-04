@@ -68,8 +68,12 @@ incidents = {
         }
         if(tonotify.length > 1 && !this.locdat.showAll) {
             // Group together
+            var on = "";
+            if(!!this.locdat.alertsOn) {
+                on = " on " + this.locdat.alertsOn + " ";
+            }
             var str = '<div class="card show-incidents">' +
-                      '<div class="bottom-button">Show Alerts (' + tonotify.length + ')</div>' +
+                      '<div class="bottom-button">Show Alerts ' + on + '(' + tonotify.length + ')</div>' +
                       '</div>';
             $(".card.incident").hide();
             $(".contents").prepend(str);
