@@ -28,6 +28,7 @@ trip = {
     load: function() {
         this.stransfer = this.findTransferStart();
         this.addNames();
+        if(typeof incidents != 'undefined') this.checkAdvs();
         this.addMap();
         this.getPrediction("sfrom"); // Get predictions for from station
         if(this.stransfer) {
@@ -43,6 +44,30 @@ trip = {
             $(".contents ul.allstations").append('<div class="arrow"></div>');
         }
         this.add(this.sto);
+    },
+    checkAdvs: function() {
+        var lines = [];
+        var linesinfo = {};
+        var stns = [this.sfrom, this.sto];
+        if(this.stransfer) stns.push(this.stransfer);
+        for(var i=0; i<stns.length; i++) {
+            var stn = stns[i];
+            if(stn != null && stn.lineIDs != null) {
+                var lids = stn.linesIDs;
+                for(var j=0; j<lids.length; j++) {
+                    var l = lids[j];
+                    if(l != null && l != "") {
+                        if(lines.indexOf(l) == -1) lines.push(l);
+                        if(typeof linesinfo[l] == 'undefined') linesinfo[l] = [];
+                        linesinfo[l].push(stn);
+                    }
+                }
+            }
+        }
+        console.debug("Checking lines:",lines,linesinfo);
+        incidents.check({
+            lines: lines
+        });
     },
     add: function(st) {
         var str = '<li class="card' + (st.transfer ? ' transfer' : '') + '" data-station="' + st.code + '" data-lines="" onclick="return trip.click.bind(this)()">\n' +
