@@ -32,6 +32,9 @@ www.wogloms.com / j@wogloms.net
     });
     </script>
     <style type="text/css">
+    .contents {
+        background-color: white;
+    }
     .contents .map {
         width: auto;
         height: 100%;
@@ -41,6 +44,11 @@ www.wogloms.com / j@wogloms.net
     .contents .map img {
         width: auto;
         height: 100%;
+    }
+    @media (min-width: 600px) {
+        div.contents {
+            max-width: 100%;
+        }
     }
     @media (min-width: 800px) {
         .contents div.map {
