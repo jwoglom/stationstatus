@@ -133,5 +133,9 @@ incidents = {
                   '<p>' + text + '</p>' +
                   '</div>';
         $(".contents").prepend(str);
+        $(".card.incident .title").click(function() {
+            console.debug("Hiding incident card");
+            $(this).parent().slideUp(250);
+        })
     }
 };

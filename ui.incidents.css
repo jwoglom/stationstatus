@@ -4,6 +4,7 @@
 }
 .card.incident .title {
     color: red;
+    cursor: pointer;
 }
 .card.incident > p {
     font-size: 14px;
