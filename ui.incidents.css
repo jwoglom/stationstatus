@@ -11,7 +11,7 @@
     margin: 3px 10px;
 }
 
-div.card.incident.nocolor {
+div.card.incident.nocolor .title {
     color: black;
 }
 

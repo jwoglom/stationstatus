@@ -97,6 +97,7 @@ incidents = {
                   '<div class="title">No incidents</div>' +
                   '<p>There are no incidents at this time. Lucky you!</p>' +
                   '</div>';
+            $(".contents").prepend(str);
         }
         if(this.locdat.callback) this.locdat.callback(notified);
     },
