@@ -1,6 +1,14 @@
 <!doctype html>
 <html>
 <head>
+<!--
+StationStatus
+=============
+A web-based and mobile-optimized application for viewing the status of the Washington DC Metro system.
+
+James Woglom
+www.wogloms.com / j@wogloms.net
+-->
     <title>StationStatus</title>
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=1">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,600,300' rel='stylesheet' type='text/css'>
@@ -44,6 +52,7 @@
             closest.slow(geo.savedPosition);
         }
         geo.getPosition(geoCallback);
+        assign(".header .map", "ui-map.html");
 
     });
     </script>
@@ -56,6 +65,7 @@
             M
         </div>
         <div class="title">StationStatus</div>
+        <div class="map"></div>
     </div>
 
     <div class="contents">

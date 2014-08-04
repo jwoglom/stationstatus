@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+<head>
+<!--
+StationStatus
+=============
+A web-based and mobile-optimized application for viewing the status of the Washington DC Metro system.
+
+James Woglom
+www.wogloms.com / j@wogloms.net
+-->
+    <title>StationStatus</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=1">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,600,300' rel='stylesheet' type='text/css'>
+    <meta name="Description" content="Shows the status of the Washington DC Metro system, and assists with the planning of trips to find the shortest route." />
+    <meta name="keywords" content="WMATA, Metro, DC Metro, Metrorail, StationStatus, DC Metro status, DC Metro application" />
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="James Woglom" />
+    <link rel="stylesheet" type="text/css" href="ui.core.css" />
+    <link rel="stylesheet" type="text/css" href="ui.card.css" />
+    <link rel="stylesheet" type="text/css" href="ui.card.trip.css" />
+    <link rel="stylesheet" type="text/css" href="ui.card.closest.css" />
+    <link rel="stylesheet" type="text/css" href="ui.card.lines.css" />
+    <link rel="stylesheet" type="text/css" href="ui.card.stations.css" />
+
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="ui.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        assign(".logo", "ui-home.html");
+    });
+    </script>
+    <style type="text/css">
+    .contents .map {
+        width: auto;
+        height: 100%;
+        height: calc(100% - 40px);
+        overflow: auto;
+    }
+    .contents .map img {
+        width: auto;
+        height: 100%;
+    }
+    @media (min-width: 800px) {
+        .contents div.map {
+            height: auto;
+            width: 100%;
+        }
+        .contents div.map img {
+            width: 100%;
+            height: auto;
+        }
+    }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <div class="logo back">
+            M
+        </div>
+        <div class="title">StationStatus</div>
+    </div>
+
+    <div class="contents">
+        <div class="map">
+            <img src="metromap.png" />
+        </div>
+        <div class="card" style="height: 0px;visibility: hidden; margin-bottom: 40px"></div>
+    </div>
+</div>
+</body>
+</html>

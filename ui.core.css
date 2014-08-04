@@ -123,6 +123,16 @@ body {
     cursor: pointer;
     background-image: url(refresh.png);
 }
+.header .map {
+    position: absolute;
+    top: 4px;
+    right: 8px;
+    height: 32px;
+    width: 32px;
+    cursor: pointer;
+    background-image: url(map-icon.png);
+    background-position: center center;
+}
 .container .multibackground {
     position: fixed;
 }
