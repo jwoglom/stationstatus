@@ -163,11 +163,27 @@ body {
 
 @media (min-width: 800px) {
     div.contents {
-        min-width: 100%;
+        /* min-width: 100%; */
+        max-width: 1200px;
+        /* max-width: none;
+        width: 100%;
+        -webkit-column-count: 2;
+        -webkit-column-gap: 10px;
+        -webkit-column-fill: auto;
+        -moz-column-count: 2;
+        -moz-column-gap: 10px;
+        -moz-column-fill: auto;
+        column-count: 2;
+        column-gap: 15px;
+        column-fill: auto; */
     }
     div.contents > div.card {
         width: calc(50% - 20px);
         float: left;
+        /* display: inline-block;
+        -webkit-column-break-inside: avoid;
+        -moz-column-break-inside: avoid;
+        column-break-inside: avoid; */
     }
     div.contents > .ordercards {
         width: 100%;
