@@ -14,3 +14,12 @@
     margin-top: 111px;
     position: relative;
 }
+
+@media (min-width: 800px) {
+    div.card.trip {
+        height: 192px; /* in line with closest stns */
+    }
+    div.card.trip .bottom-button {
+        margin-top: 153px;
+    }
+}
