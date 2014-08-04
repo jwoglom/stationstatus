@@ -21,10 +21,11 @@ var geo = {
         if(!savedpos) savedpos = this.savedPosition;
         return this.getMapsURL(savedpos.coords.latitude, savedpos.coords.longitude, zm, sz);
     },
+    mapsBaseURL: "http://maps.googleapis.com/maps/api/staticmap",
     getMapsURL: function(lat, long, zm, sz) {
         if(!zm) zm = 13;
         if(!sz) sz = "640x640";
-        return "http://maps.googleapis.com/maps/api/staticmap?center="+lat+","+long+"&zoom="+zm+"&size="+sz;
+        return this.mapsBaseURL+"?center="+lat+","+long+"&zoom="+zm+"&size="+sz;
     },
     tempTripMap: function() {
         if(typeof localStorage != 'undefined' && typeof localStorage.pos != 'undefined') {
