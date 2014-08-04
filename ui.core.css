@@ -185,9 +185,37 @@ body {
         -moz-column-break-inside: avoid;
         column-break-inside: avoid; */
     }
-    div.contents > .ordercards {
-        width: 100%;
-        position: fixed;
-        bottom: 0;
+    @media (min-height: 600px) {
+        div.contents > .ordercards {
+            width: 100%;
+            position: fixed;
+            /* bottom: 0; */
+            max-width: 600px;
+            left: 50%;
+            margin-left: -300px;
+            bottom: auto;
+            top: calc(100% - 144px);
+        }
+        div.contents > .ordercards.one-line {
+            top: calc(100% - 72px);
+        }
+    }
+     @media (max-height: 600px) {
+        div.contents > .ordercards {
+            position: static;
+            display: inline-block;
+            margin-left: calc(50% - 300px);
+            left: initial;
+            top: initial;
+            width: 100%;
+            max-width: 600px;
+        }
+    }
+    div.contents > .ordercards.more-lines {
+        position: static;
+        display: inline-block;
+        margin-left: calc(50% - 300px);
+        left: initial;
+        top: initial;
     }
 }

@@ -1,5 +1,8 @@
 .card.closest {
     position: relative;
+    height: 156px;
+}
+.card.closest.withmiles {
     height: 192px;
 }
 .metrograph-track {
@@ -35,7 +38,7 @@
 .metrograph.closest {
     margin: 0 5px;
 }
-.contents ul.metrograph.closest > li {
+.contents ul.metrograph.closest.withmiles > li {
     height: 48px; /* keep mile distance in hover area */
 }
 .metrograph li.transfer:before {

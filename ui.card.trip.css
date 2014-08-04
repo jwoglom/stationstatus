@@ -17,9 +17,15 @@
 
 @media (min-width: 800px) {
     div.card.trip {
-        height: 192px; /* in line with closest stns */
+        height: 156px; /* in line with closest stns */
     }
     div.card.trip .bottom-button {
+        margin-top: 116px;
+    }
+    div.card.trip.withmiles {
+        height: 192px; /* in line with closest stns */
+    }
+    div.card.trip.withmiles .bottom-button {
         margin-top: 153px;
     }
 }
