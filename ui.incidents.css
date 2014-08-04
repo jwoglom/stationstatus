@@ -1,0 +1,13 @@
+.card.incident {
+    height: auto;
+    padding-bottom: 4px;
+}
+
+.card.incident .title {
+    color: red;
+}
+
+.card.incident > p {
+    font-size: 14px;
+    margin: 3px 10px;
+}

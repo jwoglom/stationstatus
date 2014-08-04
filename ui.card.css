@@ -8,7 +8,7 @@
 }
 .contents .card .title {
     font-size: 20px;
-    font-color: rgb(117, 117, 117);
+    /* font-color: rgb(117, 117, 117); */
     font-weight: 100;
     padding: 3px 8px;
 }

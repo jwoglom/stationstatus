@@ -27,7 +27,11 @@ station = {
     add: function() {
         this.showInformation();
         this.getPrediction();
-
+        if(typeof incidents != 'undefined') {
+            incidents.check({
+                lines: station.st.lineIDs
+            });
+        }
         $(".loading").hide();
     },
     showInformation: function() {
