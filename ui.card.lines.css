@@ -55,10 +55,11 @@
     width: calc(50% - 28px);
 }
 .contents .card .half-bottom-button > div.right:hover {
-    position: absolute;
+/*    position: absolute;
     right: 1px;
-    left: auto;
-    background: white, inherit;
+    left: auto; */
+    width: calc(50% - 28px);
+    left: -1px;
 }
 @media (max-width: 330px) {
     .contents .card.lines {
