@@ -118,11 +118,20 @@ ul > li.station .dist:after {
 
 .card.customloc {
     height: 72px;
+    position: relative;
 }
 .card.customloc input {
     position: absolute;
-    top: 12px;
-    left: 200px;
-    width: calc(100% - 220px);
+    top: 4px;
+    left: 180px;
+    width: calc(100% - 205px);
     font-size: 14px;
+}
+@media (min-width: 800px) {
+    div.contents > div.card.customloc {
+        width: 50%;
+        float: none;
+        margin-left: auto;
+        margin-right: auto;
+    }
 }
