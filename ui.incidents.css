@@ -37,4 +37,7 @@ div.card.incident.nocolor {
         width: 100%;
         float: none;
     }
+    div.contents > div.card.incident {
+        min-height: 100px; /* keep even */
+    }
 }
