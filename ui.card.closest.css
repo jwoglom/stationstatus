@@ -127,6 +127,17 @@ ul > li.station .dist:after {
     width: calc(100% - 205px);
     font-size: 14px;
 }
+@media (max-width: 450px) {
+    div.card.customloc {
+        height: 99px;
+    }
+    div.card.customloc input {
+        position: static;
+        margin-left: 10px;
+        width: 100%;
+        width: calc(100% - 25px);
+    }
+}
 @media (min-width: 800px) {
     div.contents > div.card.customloc {
         width: 50%;
