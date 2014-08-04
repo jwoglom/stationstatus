@@ -52,10 +52,10 @@ incidents = {
         if(this.locdat.home) {
             $(".card.homeincidents .bottom-button").html("View Incidents (" + tonotify.length + ")");
             if(tonotify.length > 0) {
-                $(".card.homeincidents .bottom-button").css("color", "red");
                 $m = $(".card.homeincidents").clone();
                 // $(".card.homeincidents").remove(); // Still show
                 $m.addClass("show-incidents");
+                $m.css("color", "red");
                 $m.click(function() {
                     $(".card.incident").show();
                     $(this).hide();
