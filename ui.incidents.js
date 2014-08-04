@@ -60,6 +60,7 @@ incidents = {
                 $m = $(".card.homeincidents").clone();
                 // $(".card.homeincidents").remove(); // Still show
                 $m.addClass("show-incidents");
+                $m.removeClass("homeincidents");
                 $m.css("color", "red");
                 $m.click(function() {
                     $(".card.incident").show();
