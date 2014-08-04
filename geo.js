@@ -41,5 +41,21 @@ var geo = {
     },
     setMap: function(url) {
         $(".card.trip").attr("style", "background-image: url('" + url + "')");
+    },
+    geocode: function(loc, cb) {
+        $.get("http://maps.google.com/maps/api/geocode/json", {
+            address: loc
+        }, function(d) {
+            var json = JSON.parse(d);
+            var res = json["results"];
+            if(res.length > 0) {
+                res = res[0];
+                var coords = res.geometry.location; // {lat, lng}
+                var addr = res.formatted_address;
+                cb(coords, addr);
+            } else {
+                cb(false, loc);
+            }
+        }, "text");
     }
 }
