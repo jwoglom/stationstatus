@@ -143,8 +143,8 @@ trip = {
             tm += 60 * parseInt(min) * 1000;
         }
         var time = new Date(tm),
-        h = (time.getHours() > 12 ? time.getHours() - 12 : time.getHours()),
-        m = (time.getMinutes()+1),
+        h = (time.getHours() > 12 ? time.getHours() - 12 : time.getHours() == 0 ? 12 : time.getHours()),
+        m = time.getMinutes(),
         timel = h+":"+(m<10 ? "0"+m : m);
         var str = '<tr>\n' +
                   '<td class="line"><span class="line ' + train.Line.toLowerCase() + '">' + train.Line + '</span></td>\n' +
