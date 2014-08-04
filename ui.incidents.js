@@ -31,6 +31,7 @@ incidents = {
         if(location.hash.indexOf('showAllAlerts=true') != -1) {
             console.info("Showing all alerts");
             this.locdat.showAll = true;
+            this.locdat.noGroup = true;
         }
         var tonotify = [], notified = 0;
         for(iid in this.data) {
@@ -55,7 +56,7 @@ incidents = {
         }
         if(this.locdat.home) {
             $(".card.homeincidents .bottom-button").html("View Incidents (" + tonotify.length + ")");
-            if(tonotify.length > 0 && !this.locdat.showAll) {
+            if(tonotify.length > 0) {
                 $m = $(".card.homeincidents").clone();
                 // $(".card.homeincidents").remove(); // Still show
                 $m.addClass("show-incidents");
@@ -68,9 +69,13 @@ incidents = {
                 $(".card.incident").hide();
             }
             assign(".card.homeincidents", "ui-incidents.html");
-            if(!this.locdat.showAll) return;
+            if(this.locdat.noGroup) {
+                $(".card.incident").show();
+                $(".card.show-incidents").hide();
+            }
+            return;
         }
-        if(tonotify.length > 1 && !this.locdat.showAll) {
+        if(tonotify.length > 1 && !(this.locdat.showAll || this.locdat.noGroup)) {
             // Group together
             var on = "";
             if(!!this.locdat.alertsOn) {
