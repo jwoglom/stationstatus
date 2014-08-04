@@ -18,7 +18,7 @@ incidents = {
         return false;
     },
     parse: function() {
-        var tonotify = [];
+        var tonotify = [], notified = 0;
         for(iid in this.data) {
             var inc = this.data[iid];
             if(inc.LinesAffected != null) inc.lines = inc.LinesAffected.split(";");
@@ -31,10 +31,14 @@ incidents = {
                 if(this.arrayMatch(inc.lines, this.locdat.lines)) {
                     tonotify.push(inc);
                 }
+            } else if(this.locdat.showAll) {
+                this.notify(inc);
+                notified++;
             }
         }
         for(var i=0; i<tonotify.length; i++) {
             this.notify(tonotify[i]);
+            notified++;
         }
         if(tonotify.length > 1) {
             // Group together
@@ -48,6 +52,13 @@ incidents = {
                 $(this).hide();
             })
         }
+        if(this.locdat.showNoneMsg && notified == 0) {
+            var str = '<div class="card incident nocolor">' +
+                  '<div class="title">No incidents</div>' +
+                  '<p>There are no incidents at this time. Lucky you!</p>' +
+                  '</div>';
+        }
+        if(this.locdat.callback) this.locdat.callback(notified);
     },
     notify: function(inc) {
         console.info("Notifying incident:", inc);

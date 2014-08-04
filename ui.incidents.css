@@ -10,6 +10,10 @@
     margin: 3px 10px;
 }
 
+div.card.incident.nocolor {
+    color: black;
+}
+
 .card.show-incidents {
     height: 38px;
 }
