@@ -106,6 +106,9 @@
     padding-left: 20px;
     padding-right: 0;
 }
+.contents .card .half-bottom-button > div.bottom-button.left:hover {
+    margin-left: 8px; /* TEST if breaks in Safari */
+}
 .contents .card .half-bottom-button > div.bottom-button.right {
     padding-left: 0;
     padding-right: 20px;

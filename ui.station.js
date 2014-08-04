@@ -47,8 +47,9 @@ station = {
     },
     showOrder: function() {
         $tpl = $(".contents .card-template.order");
-
+        var lnum = 0;
         for(line in this.st.next) {
+            lnum++;
             $l = $tpl.clone();
             var nxt = this.st.next[line], en;
             if(nxt) {
@@ -74,6 +75,11 @@ station = {
             $l.removeClass("card-template").css("display","");
             $l.addClass("card");
             $tpl.after($l);
+        }
+        if(lnum == 1) {
+            $(".ordercards").addClass("one-line");
+        } else if(lnum > 2) {
+            $(".ordercards").addClass("more-lines");
         }
 
         $(".half-bottom-button > div").click(function() {

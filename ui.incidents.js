@@ -54,7 +54,7 @@ incidents = {
             if(tonotify.length > 0) {
                 $(".card.homeincidents .bottom-button").css("color", "red");
                 $m = $(".card.homeincidents").clone();
-                $(".card.homeincidents").remove();
+                // $(".card.homeincidents").remove(); // Still show
                 $m.addClass("show-incidents");
                 $m.click(function() {
                     $(".card.incident").show();
@@ -62,9 +62,8 @@ incidents = {
                 });
                 $m.insertBefore($(".card.trip"));
                 $(".card.incident").hide();
-            } else {
-                assign(".card.homeincidents", "ui-incidents.html");
             }
+            assign(".card.homeincidents", "ui-incidents.html");
             return;
         }
         if(tonotify.length > 1 && !this.locdat.showAll) {

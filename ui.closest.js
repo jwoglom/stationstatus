@@ -114,7 +114,8 @@ closest = {
     add: function(st) {
         var str = '<li class="station' + (this.separateCards ? ' card' : '') + (st.transfer ? ' transfer' : '') + '" data-name="' + st.name + '" data-station="' + st.code + '" data-lines="" onclick="return closest.click.bind(this)()">\n' +
                   st.name + '\n' +
-                  ' <span class="dist">~' + (parseInt(st.coords.distmiles * 100) / 100) + ' mi</span>\n' +
+                  // Inaccurate
+                  //' <span class="dist">~' + (parseInt(st.coords.distmiles * 100) / 100) + ' mi</span>\n' +
                   '<div class="lines">\n';
         for(var i=0; i<st.totalLines.length; i++) {
             var ln = st.totalLines[i];
