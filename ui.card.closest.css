@@ -115,3 +115,14 @@ ul > li.station .dist:before {
 ul > li.station .dist:after {
     content: ')';
 }
+
+.card.customloc {
+    height: 72px;
+}
+.card.customloc input {
+    position: absolute;
+    top: 12px;
+    left: 200px;
+    width: calc(100% - 220px);
+    font-size: 14px;
+}
