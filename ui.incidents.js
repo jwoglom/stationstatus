@@ -18,6 +18,7 @@ incidents = {
         return false;
     },
     parse: function() {
+        var tonotify = [];
         for(iid in this.data) {
             var inc = this.data[iid];
             if(inc.LinesAffected != null) inc.lines = inc.LinesAffected.split(";");
@@ -28,10 +29,24 @@ incidents = {
             console.debug(inc);
             if(typeof this.locdat.lines != 'undefined') {
                 if(this.arrayMatch(inc.lines, this.locdat.lines)) {
-                    this.notify(inc);
+                    tonotify.push(inc);
                 }
             }
-
+        }
+        for(var i=0; i<tonotify.length; i++) {
+            this.notify(tonotify[i]);
+        }
+        if(tonotify.length > 1) {
+            // Group together
+            var str = '<div class="card show-incidents">' +
+                      '<div class="bottom-button">Show Alerts (' + tonotify.length + ')</div>' +
+                      '</div>';
+            $(".card.incident").hide();
+            $(".contents").prepend(str);
+            $(".card.show-incidents").click(function() {
+                $(".card.incident").show();
+                $(this).hide();
+            })
         }
     },
     notify: function(inc) {
@@ -45,6 +60,21 @@ incidents = {
         lines = lines.substring(0, lines.length - 2);
         if(inc.lines.length == 1) lines = ": "+lines+" Line";
         else lines = ": "+lines+" Lines";
+        if(typeof this.locdat.linesinfo != 'undefined') {
+            // Show description of why affected by line
+            var stns = "";
+            for(var i=0; i<inc.lines.length; i++) {
+                var l = inc.lines[i];
+                var sts = this.locdat.linesinfo[l];
+                if(typeof sts != 'undefined') {
+                    for(var j=0; j<sts.length; j++) {
+                        stns += sts[j].name + ", ";
+                    }
+                }
+            }
+            stns = stns.substring(0, stns.length - 2);
+            lines += " (" + stns + ")";
+        }
         if(inc.Description != null) {
             text += inc.Description;
         }

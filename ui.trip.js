@@ -53,7 +53,18 @@ trip = {
         for(var i=0; i<stns.length; i++) {
             var stn = stns[i];
             if(stn != null && stn.lineIDs != null) {
-                var lids = stn.linesIDs;
+                var lids = stn.lineIDs;
+                // ugh, grouped stations
+                for(var j=0; j<stn.togetherIDs.length; j++) {
+                    var t = stn.togetherIDs[j];
+                    if(t != null && t != "") {
+                        var s = metro.stations[t];
+                        for(var k=0; k<s.lineIDs.length; k++) {
+                            var l = s.lineIDs[k];
+                            lids.push(l);
+                        }
+                    }
+                }
                 for(var j=0; j<lids.length; j++) {
                     var l = lids[j];
                     if(l != null && l != "") {
@@ -66,7 +77,8 @@ trip = {
         }
         console.debug("Checking lines:",lines,linesinfo);
         incidents.check({
-            lines: lines
+            lines: lines,
+            linesinfo: linesinfo
         });
     },
     add: function(st) {

@@ -2,12 +2,18 @@
     height: auto;
     padding-bottom: 4px;
 }
-
 .card.incident .title {
     color: red;
 }
-
 .card.incident > p {
     font-size: 14px;
     margin: 3px 10px;
+}
+
+.card.show-incidents {
+    height: 38px;
+}
+.card.show-incidents .bottom-button {
+    top: -1px;
+    color: red;
 }
