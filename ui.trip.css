@@ -15,3 +15,9 @@ ul > .arrow {
 .card.reverse .bottom-button {
     top: -1px;
 }
+@media (min-width: 800px) {
+    ul.metrograph.allstations {
+        float: left;
+        width: calc(100% - 10px);
+    }
+}
