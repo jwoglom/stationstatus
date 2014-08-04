@@ -33,9 +33,15 @@ linestations = {
             $(".header .title").css("color", "black");
         }
 
+        if(typeof incidents != 'undefined') {
+            incidents.check({
+                lines: [lin]
+            });
+        }
+
         assign(".card.seearrivals .bottom-button", "ui-trains.html#line="+lin);
 
-        search.checkQuery();
+        if(typeof search != 'undefined') search.checkQuery();
     },
     add: function(st) {
         var str = '<li class="card' + (st.transfer ? ' transfer' : '') + '" data-name="' + st.name + '" data-station="' + st.code + '" data-lines="" onclick="return linestations.click.bind(this)()">\n' +
