@@ -1,5 +1,6 @@
 trains = {
     line: false,
+    jumpedStation: false,
     init: function() {
         if(location.hash.indexOf('line=') != -1) {
             this.line = location.hash.split('line=')[1];
@@ -25,11 +26,27 @@ trains = {
             location.reload();
         });
         $(".refresh").click(trains.refresh);
-        setInterval(trains.refresh, 60000);
+        $(".contents").addClass("trains-append");
+        var tm = tmst = 30;
+        $(".refresh-time").html("Updating in "+tm+" seconds");
+        setInterval(function() {
+            tm -= 5;
+            if(tm <= 0) {
+                $(".refresh-time").html("Updating..");
+                trains.refresh();
+                tm = tmst;
+            } else {
+                $(".refresh-time").html("Updating in "+tm+" seconds");
+            }
+        }, 5000);
     },
     refresh: function() {
         console.info("Refreshing");
-        $(".contents").html("<div class='loading'></div>");
+        $(".contents").removeClass("trains-append");
+        $c = $(".contents").clone();
+        $c.html("<div class='loading'></div>");
+        $c.addClass("trains-append");
+        $(".contents").before($c);
         trains.getPrediction();
     },
     getPrediction: function() {
@@ -95,7 +112,7 @@ trains = {
             }
             $(".loading").hide();
 
-            if(location.hash.indexOf('station=') != -1) {
+            if(location.hash.indexOf('station=') != -1 && !this.jumpedStation) {
                 var sj = location.hash.split('station=')[1];
                 sj = sj.split('&')[0];
                 $e = $(".nexttrains."+sj);
@@ -114,7 +131,10 @@ trains = {
                         }, 500);
                     }
                 }
+                this.jumpedStation = true;
             }
+            $(".contents.trains-append").show();
+            $(".contents:not(.trains-append)").hide().remove();
         });
     },
     doStation: function(trns, cd) {
@@ -144,16 +164,16 @@ trains = {
                   '</tr></thead>' +
                   '<tbody></tbody>' +
                   '</table></div>';
-        if($(".contents [data-name=\""+st.name+"\"]").length > 0) {
+        if($(".contents.trains-append .card.nexttrains[data-name=\""+st.name+"\"]").length > 0) {
             // Prevent duplicate Metro Center or L'Enfant Plaza
             console.debug("Not showing duplicate "+st.name);
             return;
         }
-        $(".contents").append(str);
+        $(".contents.trains-append").append(str);
         assign(".card.nexttrains."+st.code+" .title", "ui-station.html#station="+st.code+"&historyback=true");
     },
     addPrediction: function(train, st) {
-        $c = $(".card.nexttrains."+st+" table tbody");
+        $c = $(".contents.trains-append .card.nexttrains."+st+" table tbody");
         var mins = min = train.Min;
         if(mins == "ARR") mins = "<span class='arr'>ARR</span>";
         else if(mins == "BRD") mins = "<span class='brd'>BRD</span>";

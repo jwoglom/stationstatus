@@ -123,6 +123,15 @@ body {
     cursor: pointer;
     background-image: url(refresh.png);
 }
+.header .refresh-time {
+    position: absolute;
+    top: 4px;
+    right: 42px;
+    height: 32px;
+    width: auto;
+    font-size: 16px;
+    line-height: 32px;
+}
 .header .map {
     position: absolute;
     top: 4px;
