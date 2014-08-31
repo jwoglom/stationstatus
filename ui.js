@@ -5,3 +5,8 @@ assign = function(id, url) {
         }, 250);
     });
 }
+
+title = function(text) {
+    $(".header .title").html(text);
+    document.title = "StationStatus - " + text;
+}
