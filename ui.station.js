@@ -38,7 +38,7 @@ station = {
         $(".header .title").html(this.st.name+" Station");
         this.showColorbar();
         // var url = geo.getMapsURL(this.st.coords.lat, this.st.coords.long, 15);
-        var url = geo.mapsBaseURL+"?center=" + this.st.name + " WMATA station&zoom=15&size=640x640";
+        var url = geo.mapsBaseURL+"?center=" + escape(this.st.name) + " WMATA station&zoom=15&size=640x640";
         $(".contents .stationinfo").attr("style", "background-image: url('" + url + "')");
         assign(".stationinfo .bottom-button", "https://maps.google.com/maps?q="+this.st.name+" WMATA station");
         assign(".card.starttrip .bottom-button", "ui-tripselect.html#from=" + this.id);
