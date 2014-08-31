@@ -32,6 +32,9 @@ station = {
                 lines: station.st.lineIDs
             });
         }
+        if(typeof outages != 'undefined') {
+            outages.check(this.st);
+        }
         $(".loading").hide();
     },
     showInformation: function() {
