@@ -11,8 +11,9 @@
     margin-bottom: 0;
 }
 
-.ordercards {
+div.contents > div.ordercards {
     display: none;
+    visibility: hidden;
 }
 
 .minilogo {
