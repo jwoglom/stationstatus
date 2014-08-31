@@ -29,3 +29,10 @@
     font-size: 12px;
     display: block;
 }
+
+@media (min-width: 800px) {
+    .card.about {
+        margin-right: 50%;
+        margin-left: 25%;
+    }
+}
