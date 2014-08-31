@@ -30,3 +30,11 @@
         display: inline-block;
     }
 }
+
+/* trip select page */
+@media (min-width: 800px) {
+    div.contents > div.card.closest {
+        float: none;
+        width: calc(100% - 20px);
+    }
+}
