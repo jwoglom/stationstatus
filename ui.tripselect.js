@@ -8,7 +8,7 @@ tripselect = {
             if(location.hash.indexOf('to=') != -1) {
                 this.to = location.hash.split('to=')[1];
                 this.to = this.to.split('&')[0];
-                this.three();
+                location.href = 'ui-trip.html#from=' + this.from + '&to=' + this.to;
             } else {
                 this.two();
             }

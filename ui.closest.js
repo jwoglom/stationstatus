@@ -4,6 +4,7 @@ closest = {
     separateCards: false,
     numCards: 2,
     stopGPSWait: false,
+    nextLocation: 'ui-station.html#station=',
     quick: function() {
         if(typeof localStorage != 'undefined' && typeof localStorage.pos != 'undefined') {
             var cd = localStorage.pos.split(",");
@@ -134,7 +135,7 @@ closest = {
         $("ul.metrograph.closest").append(str);
     },
     click: function() {
-        location.href = "ui-station.html#station=" + $(this).attr("data-station");
+        location.href = closest.nextLocation + $(this).attr("data-station");
     }
 }
 doAssign = function() {
