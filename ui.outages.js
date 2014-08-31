@@ -1,6 +1,9 @@
 outages = {
     data: null,
     stations: [],
+    showAll: false,
+    showStation: false,
+    parentelem: $(".card.nexttrains").last(),
     check: function(stns) {
         if(stns instanceof Array) {
             this.stations = stns;
@@ -26,14 +29,16 @@ outages = {
                 }
             }
         }
-        if(num > 0) {
-            $(".card.nexttrains").last().after('<div class="card show-outages">' +
+        if(num > 0 && !this.showAll) {
+            this.parentelem.after('<div class="card show-outages">' +
                                    '<div class="bottom-button" style="color: red">Elevator/Escalator Outages (' + num + ')</div>' +
                                    '</div>');
             $(".card.show-outages").click(function() {
                 $(this).hide();
                 $(".card.outage").show();
             })
+        } else {
+            $(".card.outage").show();
         }
     },
     timeDiff: function(now, date) {
@@ -57,11 +62,15 @@ outages = {
         var text = out.LocationDescription + ' at ' + out.StationName + ' has been down for ' + time + '.';
         var type = out.UnitType;
         type = type.charAt(0).toUpperCase() + type.slice(1).toLowerCase();
+        var title = type + ' outage: ' + out.SymptomDescription + '.';
+        if(this.showStation) {
+            title = metro.stations[out.StationCode].name + ' ' + type + ' ' + out.SymptomDescription;
+        }
         var str = '<div class="card outage">' +
-                  '<div class="title">' + type + ' outage: ' + out.SymptomDescription + '</div>' +
+                  '<div class="title">' + title + '</div>' +
                   '<p>' + text + '</p>' +
                   '</div>';
-        $(".card.nexttrains").last().after(str);
+        this.parentelem.after(str);
         $(".card.outage .title").click(function() {
             console.debug("Hiding outage card");
             $(this).parent().slideUp(250);
