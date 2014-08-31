@@ -10,12 +10,23 @@ outages = {
     },
     parse: function() {
         console.log("Parsing");
+        var num = 0;
         for(var i=0; i<this.data.length; i++) {
             var out = this.data[i];
             if(this.station.code == out.StationCode || (this.station.together.length > 0 && this.station.together[0].code == out.StationCode)) {
                 console.warn("Outage", out);
                 this.notify(out);
+                num++;
             }
+        }
+        if(num > 0) {
+            $(".card.nexttrains").after('<div class="card show-outages">' +
+                                   '<div class="bottom-button">Elevator/Escalator Outages (' + num + ')</div>' +
+                                   '</div>');
+            $(".card.show-outages").click(function() {
+                $(this).hide();
+                $(".card.outage").show();
+            })
         }
     },
     timeDiff: function(now, date) {
@@ -43,7 +54,7 @@ outages = {
                   '<div class="title">' + type + ' outage: ' + out.SymptomDescription + '</div>' +
                   '<p>' + text + '</p>' +
                   '</div>';
-        $(".contents").prepend(str);
+        $(".card.nexttrains").after(str);
         $(".card.outage .title").click(function() {
             console.debug("Hiding outage card");
             $(this).parent().slideUp(250);

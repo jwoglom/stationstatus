@@ -1,8 +1,18 @@
 .card.outage {
     height: auto;
+    display: none;
+}
+
+.card.show-outages {
+    height: 38px;
+}
+
+.card.show-outages .bottom-button {
+    top: -1px;
 }
 
 .card.outage p {
     margin: 5px 10px;
     padding-bottom: 5px;
+    font-size: 14px;
 }
