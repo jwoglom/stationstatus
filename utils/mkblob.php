@@ -5,8 +5,11 @@ $base = "http://127.0.0.1/metro/";
 // Stations and Lines
 $key = trim(file_get_contents("../data/apikey.txt"));
 if(isset($argv, $argv[1]) && $argv[1] == "all") {
-    $d["lines"] = json_decode(file_get_contents($base."query.php?path=Rail.svc/json/jLines&api_key=".$key."&format=json"));
-    $d["lines"] = json_decode(file_get_contents($base."query.php?path=Rail.s    vc/json/jStations&api_key=".$key."&format=json"));
+    $d["lines"] = json_decode(file_get_contents($base."query.php?path=Rail.svc/json/jLines&api_key=".$key."&format=json"))->Lines;
+    $d["stations"] = json_decode(file_get_contents($base."query.php?path=Rail.svc/json/jStations&api_key=".$key."&format=json"))->Stations;
+    $between = file_get_contents($base."query.php?path=Rail.svc/json/jSrcStationToDstStationInfo&api_key=".$key."&format=json");
+    file_put_contents("../data/between.txt", $between);
+    // Note: run redo-between.php to change format.
 } else {
     $d["lines"] = json_decode(file_get_contents("../data/lines.txt"))->Lines;
     $d["stations"] = json_decode(file_get_contents("../data/stations.txt"))->Stations;
