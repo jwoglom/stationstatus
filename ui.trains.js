@@ -6,7 +6,7 @@ trains = {
             this.line = location.hash.split('line=')[1];
             this.line = this.line.split('&')[0];
             this.line = this.line.toUpperCase();
-            $(".header .title").html("Trains: "+metro.lines[this.line].name+" Line");
+            title("Trains: "+metro.lines[this.line].name+" Line");
             $(".header").css("background-color", "#"+metro.colors[this.line]);
             if(~$.inArray(this.line, metro.colorsBlack)) {
                 $(".header .title").css("color", "black");

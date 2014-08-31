@@ -38,7 +38,7 @@ station = {
         $(".loading").hide();
     },
     showInformation: function() {
-        $(".header .title").html(this.st.name+" Station");
+        title(this.st.name+" Station");
         this.showColorbar();
         // var url = geo.getMapsURL(this.st.coords.lat, this.st.coords.long, 15);
         var url = geo.mapsBaseURL+"?center=" + escape(this.st.name) + " WMATA station&zoom=15&size=640x640";

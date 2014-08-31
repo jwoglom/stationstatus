@@ -5,6 +5,7 @@ trip = {
     sto: null,
     stransfer: false,
     init: function() {
+        title("Trip");
         if(location.hash.indexOf('from=') != -1) {
             this.from = location.hash.split('from=')[1];
             this.from = this.from.split('&')[0];

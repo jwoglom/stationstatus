@@ -36,7 +36,8 @@ search = {
 
         // Only run with all stations
         if(typeof linestations == 'undefined') {
-            $(".header .title").css("color", "").html("All Stations");
+            $(".header .title").css("color", "");
+            title("All Stations");
             $(".header").css("background-color", "");
             $(".card.seestdetail").hide();
         }
@@ -54,7 +55,7 @@ search = {
                 for(var i=0; i<parts.length; i++) {
                     if(parts[i] == line.name.toLowerCase() || parts[i] == linecode.toLowerCase()) {
                         console.info("Showing "+line.name+" Line");
-                        $(".header .title").html(line.name+" Line");
+                        title(line.name+" Line");
                         $(".header").css("background-color", "#"+metro.colors[linecode]);
                         if(~$.inArray(line.code, metro.colorsBlack)) {
                             $(".header .title").css("color", "black");

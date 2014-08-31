@@ -50,7 +50,7 @@ closest = {
                 closest.me = new LatLon(parseFloat(coords.lat), parseFloat(coords.lng));
                 closest.calcDistances();
                 closest.checkAPI(coords.lat, coords.lng);
-                $(".header .title").html("Closest Stations to "+addr);
+                title("Closest Stations to "+addr);
             }
         });
     },

@@ -27,7 +27,7 @@ linestations = {
         console.debug("Sorted in "+(+new Date - st)+"ms");
 
         console.info("Showing "+line.name+" Line");
-        $(".header .title").html(line.name+" Line");
+        title(line.name+" Line");
         $(".header").css("background-color", "#"+metro.colors[line.code]);
         if(~$.inArray(line.code, metro.colorsBlack)) {
             $(".header .title").css("color", "black");

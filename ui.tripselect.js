@@ -33,13 +33,13 @@ tripselect = {
         }
         $(".loading").hide();
         console.debug("Sorted in "+(+new Date - st)+"ms");
-        $(".header .title").html("Navigate from:");
+        title("Navigate from:");
         search.checkQuery();
     },
     two: function() {
         // Show same list of stations
         this.start();
-        $(".header .title").html("Navigate to:");
+        title("Navigate to:");
     },
     add: function(st) {
         var str = '<li class="card' + (st.transfer ? ' transfer' : '') + '" data-name="' + st.name + '" data-station="' + st.code + '" data-lines="" onclick="return tripselect.click.bind(this)()">\n' +
