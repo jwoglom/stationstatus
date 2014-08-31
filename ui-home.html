@@ -41,6 +41,7 @@ www.wogloms.com / j@wogloms.net
     <link rel="stylesheet" type="text/css" href="ui.card.lines.css" />
     <link rel="stylesheet" type="text/css" href="ui.card.stations.css" />
     <link rel="stylesheet" type="text/css" href="ui.incidents.css" />
+    <link rel="stylesheet" type="text/css" href="ui.about.css" />
 
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.js"></script>
@@ -71,6 +72,20 @@ www.wogloms.com / j@wogloms.net
         }
         geo.getPosition(geoCallback);
         assign(".header .map", "ui-map.html");
+
+        if(!!localStorage && localStorage.seenAbout != "1") {
+            $(".card.about").hide();
+            $(".contents").prepend($(".card.about"));
+            $(".card.about").show();
+            $(".card.about").addClass("firsttime");
+        }
+        $(".card.about").click(function() {
+            localStorage.seenAbout = "1";
+            $(this).hide();
+            $(".contents").append($(".card.about"));
+            $(".card.about").show();
+            
+        })
 
     });
     </script>
@@ -164,6 +179,11 @@ www.wogloms.com / j@wogloms.net
             </div>
         </div>
 
+        <div class="card about">
+            <div class="title">StationStatus helps you navigate around the Washington, D.C. Metro system.</div>
+            <p>&nbsp; &nbsp; Start your trip by finding your closest station. Select your destination, keeping note of any transfer stations on the route, if needed. Check the arrival time for the next train, and for any service alerts or advisories that may be in effect, and then get up and go. It's the Metro app that doesn't suck.</p>
+            <div class="close">Press anywhere to close.</div>
+        </div>
     </div>
 </div>
 </body>
