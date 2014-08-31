@@ -1,14 +1,18 @@
 <?php
 $jsontxt = file_get_contents("../data/between.txt");
 $d = json_decode($jsontxt)->StationToStationInfos;
-
-function find($from, $to) {
-    global $d;
+$n = array();
+function redo() {
+    global $d, $n;
     for($i=0; $i<sizeof($d); $i++) {
-        if($d[$i]->SourceStation == $from && $d[$i]->DestinationStation == $to) {
-            return $d[$i];
+        $f = $d[$i]->SourceStation;
+        $t = $d[$i]->DestinationStation;
+        if(array_key_exists($f, $n) == false) {
+            $n[$f] = array();
         }
+        $n[$f][$t] = $d[$i];
     }
 }
 
-echo json_encode(find($_GET['from'], $_GET['to']));
+redo();
+echo json_encode($n);
