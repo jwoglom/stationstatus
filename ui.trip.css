@@ -28,7 +28,7 @@ ul > .arrow {
 
 .card.overview .title span {
     display: table-cell;
-    width: 33%;
+    width: auto;
     text-align: center;
 }
 
@@ -45,5 +45,20 @@ ul > .arrow {
 
     div.contents > div.card.overview {
         width: calc(100% - 20px);
+    }
+}
+
+@media (min-width: 550px) {
+    .card.overview .title > span {
+        width: 33%;
+    }
+}
+
+@media (max-width: 420px) {
+    .card.overview .title > span > em {
+        display: none;
+    }
+    .card.overview .title > span {
+        width: 33%;
     }
 }
