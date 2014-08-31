@@ -37,8 +37,10 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <script type="text/javascript" src="oop.js"></script>
     <script type="text/javascript" src="geo.js"></script>
+    <script type="text/javascript" src="latlon.js"></script>
     <script type="text/javascript" src="ui.js"></script>
     <script type="text/javascript" src="ui.tripselect.js"></script>
+    <script type="text/javascript" src="ui.closest.js"></script>
     <script type="text/javascript" src="ui.stations.search.js"></script>
     <script type="text/javascript">
     $(function() {
@@ -51,9 +53,36 @@
             console.info("Load time: "+(+new Date - _st)+"ms");
             //stationsInit();
             tripselect.init();
+            closest.quick();
+            fixClick();
         });
+
+        geoCallback = function() {
+            geo.updateTripMap.bind(geo)();
+            closest.slow(geo.savedPosition);
+        }
+        
+        geo.getPosition(geoCallback);
+        
         search.init();
         assign(".logo", "ui-home.html");
+
+        fixClick = function() {
+            closest.clickDef = closest.click;
+            closest.click = function() {
+                if(tripselect.from == null) {
+                    location.href = "ui-tripselect.html?#from=" + $(this).attr("data-station");
+                } else {
+                    location.href = "ui-trip.html?#from=" + tripselect.from + "&to=" + $(this).attr("data-station");
+                }
+            }
+            var hsh = "next=" + (tripselect.from == null ? "tripselect" : "trip&from=" + tripselect.from);
+            console.debug("hsh", hsh);
+            $(".card.closest > .bottom-button").click(function(e) {
+                e.preventDefault();
+                location.href = "ui-closest.html#" + hsh;
+            });
+        }
     });
     </script>
 </head>
@@ -77,8 +106,33 @@
                 View <span></span> Line Details
             </div>
         </div>
+        <div class="card closest">
+            <div class="title">Closest Stations:</div>
+            <!--div class="metrograph-track"></div-->
+            <ul class="metrograph closest">
+                <!--<li>
+                    Vienna
+                    <div class="lines">
+                        <span class="or">OR</span>
+                    </div>
+                </li>
+                <li class="transfer">
+                    Rosslyn
+                    <div class="lines">
+                        <span class="or">OR</span>
+                        <span class="sv">SV</span>
+                        <span class="bl">BL</span>
+                    </div>
+                </li>-->
+                <div class="loading"></div>
+            </ul>
+            <div class="bottom-button">
+                See more stations
+            </div>
+        </div>
         <ul class="metrograph allstations">
             <div class="loading"></div>
+
             <!-- <li class="card">
                 Vienna
                 <div class="lines">
