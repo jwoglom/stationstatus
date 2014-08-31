@@ -127,7 +127,7 @@
 .card.order .toward span.left {
     position: absolute;
     left: 20px;
-    background-color: white;
+    background-color: rgb(251, 249, 253);
 }
 .card.order .toward span.left:before {
     content: "\00AB";
@@ -137,7 +137,7 @@
     position: absolute;
     right: 20px;
     text-align: right;
-    background-color: white;
+    background-color: rgb(251, 249, 253);
 }
 .card.order .toward span.right:after {
     content: "\00BB";
