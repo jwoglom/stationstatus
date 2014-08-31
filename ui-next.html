@@ -56,7 +56,9 @@
             console.info("Load time: "+(+new Date - _st)+"ms");
             station.init();
             var htm = $(".card.nexttrains .title").html();
-            $(".card.nexttrains .title").html(htm.replace(":", " at "+station.st.name+":"));
+            htm = htm.replace(":", " at "+station.st.name+":");
+            $(".card.nexttrains .title").html(htm);
+            title(htm);
             $(".nexttrains .bottom-button").click(function(e) {
                 e.preventDefault();
                 top.location.href = location.href.replace('ui-next.html', 'ui-station.html');

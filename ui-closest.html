@@ -66,6 +66,17 @@
 
         assign(".logo", "ui-home.html");
 
+        if(location.hash.indexOf('next=') != -1) {
+            var n = location.hash.split('next=')[1].split('&')[0];
+            if(n == "tripselect") {
+                closest.nextLocation = 'ui-tripselect.html#from=';
+            } else if(n == "trip") {
+                var f = location.hash.split('from=')[1].split('&')[0];
+                closest.nextLocation = 'ui-trip.html#from=' + f + '&to=';
+            }
+            console.info("Next Location:", closest.nextLocation);
+        }
+
     });
     </script>
 </head>
