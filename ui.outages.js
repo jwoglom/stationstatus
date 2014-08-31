@@ -1,8 +1,12 @@
 outages = {
     data: null,
-    station: null,
-    check: function(dat) {
-        if(dat != null) this.station = dat;
+    stations: [],
+    check: function(stns) {
+        if(stns instanceof Array) {
+            this.stations = stns;
+        } else if(typeof stns == 'object') {
+            this.stations.push(stns);
+        }
         WMATA.getdynamic(function() {
             outages.data = WMATA.dynamic["outages"];
             outages.parse.bind(outages)();
@@ -13,10 +17,13 @@ outages = {
         var num = 0;
         for(var i=0; i<this.data.length; i++) {
             var out = this.data[i];
-            if(this.station.code == out.StationCode || (this.station.together.length > 0 && this.station.together[0].code == out.StationCode)) {
-                console.warn("Outage", out);
-                this.notify(out);
-                num++;
+            for(var j=0; j<this.stations.length; j++) {
+                var st = this.stations[j];
+                if(st.code == out.StationCode || (st.together.length > 0 && st.together[0].code == out.StationCode)) {
+                    console.warn("Outage", out);
+                    this.notify(out);
+                    num++;
+                }
             }
         }
         if(num > 0) {
