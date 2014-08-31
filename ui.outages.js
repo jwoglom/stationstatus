@@ -28,7 +28,7 @@ outages = {
         }
         if(num > 0) {
             $(".card.nexttrains").last().after('<div class="card show-outages">' +
-                                   '<div class="bottom-button">Elevator/Escalator Outages (' + num + ')</div>' +
+                                   '<div class="bottom-button" style="color: red">Elevator/Escalator Outages (' + num + ')</div>' +
                                    '</div>');
             $(".card.show-outages").click(function() {
                 $(this).hide();
