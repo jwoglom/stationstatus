@@ -7,12 +7,14 @@ $key = trim(file_get_contents("../data/apikey.txt"));
 if(isset($argv, $argv[1]) && $argv[1] == "all") {
     $d["lines"] = json_decode(file_get_contents($base."query.php?path=Rail.svc/json/jLines&api_key=".$key."&format=json"))->Lines;
     $d["stations"] = json_decode(file_get_contents($base."query.php?path=Rail.svc/json/jStations&api_key=".$key."&format=json"))->Stations;
-    $between = file_get_contents($base."query.php?path=Rail.svc/json/jSrcStationToDstStationInfo&api_key=".$key."&format=json");
-    file_put_contents("../data/between.txt", $between);
-    // Note: run redo-between.php to change format.
+    // Note: run redo-between.php to change format before use
+    // $between = file_get_contents($base."query.php?path=Rail.svc/json/jSrcStationToDstStationInfo&api_key=".$key."&format=json");
+    // file_put_contents("../data/between.txt", $between);
+    $d["times"] = json_decode(file_get_contents($base."query.php?path=Rail.svc/json/jStationTimes&api_key=".$key."&format=json"))->StationTimes;
 } else {
     $d["lines"] = json_decode(file_get_contents("../data/lines.txt"))->Lines;
     $d["stations"] = json_decode(file_get_contents("../data/stations.txt"))->Stations;
+    $d["times"] = json_decode(file_get_contents("../data/times.txt"))->StationTimes;
 }
 
 // Coordinates
