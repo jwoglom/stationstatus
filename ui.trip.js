@@ -36,6 +36,7 @@ trip = {
             this.getPrediction("stransfer");
         }
         if(typeof incidents != 'undefined') this.checkAdvs();
+        if(typeof outages != 'undefined') this.checkOutages();
     },
     addNames: function() {
         this.add(this.sfrom);
@@ -81,6 +82,11 @@ trip = {
             lines: lines,
             linesinfo: linesinfo
         });
+    },
+    checkOutages: function() {
+        var stns = [this.sfrom, this.sto];
+        if(this.stransfer) stns.push(this.stransfer);
+        outages.check(stns);
     },
     add: function(st) {
         var str = '<li class="card' + (st.transfer ? ' transfer' : '') + '" data-station="' + st.code + '" data-lines="" onclick="return trip.click.bind(this)()">\n' +
