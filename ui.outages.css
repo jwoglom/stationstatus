@@ -1,0 +1,8 @@
+.card.outage {
+    height: auto;
+}
+
+.card.outage p {
+    margin: 5px 10px;
+    padding-bottom: 5px;
+}
