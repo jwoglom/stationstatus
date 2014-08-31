@@ -1,6 +1,6 @@
 trains = {
     line: false,
-    jumpedStation: false,
+    jumped: false,
     init: function() {
         if(location.hash.indexOf('line=') != -1) {
             this.line = location.hash.split('line=')[1];
@@ -25,8 +25,12 @@ trains = {
         $(window).on("hashchange", function() {
             location.reload();
         });
-        $(".refresh").click(trains.refresh);
-        $(".contents").addClass("trains-append");
+        $(".refresh").click(function() {
+            console.info("Refresh clicked");
+            $(".refresh-time").html("Updating..");
+            tm = tmst;
+            trains.refresh();
+        });
         var tm = tmst = 30;
         $(".refresh-time").html("Updating in "+tm+" seconds");
         setInterval(function() {
@@ -42,11 +46,7 @@ trains = {
     },
     refresh: function() {
         console.info("Refreshing");
-        $(".contents").removeClass("trains-append");
-        $c = $(".contents").clone();
-        $c.html("<div class='loading'></div>");
-        $c.addClass("trains-append");
-        $(".contents").before($c);
+        $(".card.nexttrains").removeClass("new");
         trains.getPrediction();
     },
     getPrediction: function() {
@@ -112,11 +112,11 @@ trains = {
             }
             $(".loading").hide();
 
-            if(location.hash.indexOf('station=') != -1 && !this.jumpedStation) {
+            if(location.hash.indexOf('station=') != -1 && !trains.jumped) {
+                trains.jumped = true;
                 var sj = location.hash.split('station=')[1];
                 sj = sj.split('&')[0];
                 $e = $(".nexttrains."+sj);
-                console.debug("Station hash "+sj, $e);
                 if($e.length > 0) {
                     $('.contents').animate({
                         scrollTop: $e.offset().top - 45
@@ -131,10 +131,7 @@ trains = {
                         }, 500);
                     }
                 }
-                this.jumpedStation = true;
             }
-            $(".contents.trains-append").show();
-            $(".contents:not(.trains-append)").hide().remove();
         });
     },
     doStation: function(trns, cd) {
@@ -151,29 +148,33 @@ trains = {
                         "height", ch + 30
                     );
                 } else {
-                    console.error("nexttrains card with cd: "+cd+" does not exist.");
+                    console.debug("nexttrains card with cd: "+cd+" does not exist. Most likely a duplicate station");
                 }
             }
         }
     },
     addStation: function(st) {
-        var str = '<div class="card nexttrains ' + st.code + '" data-name="' + st.name + '" data-station="' + st.code + '">\n' +
+        var str = '<div class="card nexttrains new ' + st.code + '" data-name="' + st.name + '" data-station="' + st.code + '">\n' +
                   '<div class="title">' + st.name + '</div>' +
                   '<table><thead><tr>' +
                   '<th>Line</th><th>Cars</th><th>Destination</th><th>Mins</th><th>Arrival</th>' +
                   '</tr></thead>' +
                   '<tbody></tbody>' +
                   '</table></div>';
-        if($(".contents.trains-append .card.nexttrains[data-name=\""+st.name+"\"]").length > 0) {
+        if($(".contents .card.nexttrains.new[data-name=\""+st.name+"\"]").length > 0) {
             // Prevent duplicate Metro Center or L'Enfant Plaza
             console.debug("Not showing duplicate "+st.name);
             return;
         }
-        $(".contents.trains-append").append(str);
+        $pr = $(".contents .card.nexttrains." + st.code);
+        if($pr.length > 0) {
+            $pr.remove(); // Used when reloading
+        }
+        $(".contents").append(str);
         assign(".card.nexttrains."+st.code+" .title", "ui-station.html#station="+st.code+"&historyback=true");
     },
     addPrediction: function(train, st) {
-        $c = $(".contents.trains-append .card.nexttrains."+st+" table tbody");
+        $c = $(".card.nexttrains."+st+" table tbody");
         var mins = min = train.Min;
         if(mins == "ARR") mins = "<span class='arr'>ARR</span>";
         else if(mins == "BRD") mins = "<span class='brd'>BRD</span>";
