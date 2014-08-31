@@ -42,6 +42,7 @@
     <script type="text/javascript" src="ui.js"></script>
     <script type="text/javascript" src="ui.trip.js"></script>
     <script type="text/javascript" src="ui.incidents.js"></script>
+    <script type="text/javascript" src="between.js"></script>
     <script type="text/javascript">
     $(function() {
         metro = new Rail({
@@ -71,6 +72,13 @@
 
     <div class="contents">
         <div class="loading"></div>
+        <div class="card overview">
+            <div class="title">
+                <span><em>Time:</em> <b class='time'></b></span>
+                <span><em>Cost:</em> <b class='cost'></b></span>
+                <span><em>Distance:</em> <b class='dist'></b></span>
+            </div>
+        </div>
 
         <ul class="metrograph allstations">
             <!--<li class="card">

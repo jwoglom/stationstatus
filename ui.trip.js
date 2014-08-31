@@ -28,13 +28,14 @@ trip = {
     load: function() {
         this.stransfer = this.findTransferStart();
         this.addNames();
-        if(typeof incidents != 'undefined') this.checkAdvs();
+        this.calcOverview();
         this.addMap();
         this.getPrediction("sfrom"); // Get predictions for from station
         if(this.stransfer) {
             $(".card.nexttrains.stransfer").show();
             this.getPrediction("stransfer");
         }
+        if(typeof incidents != 'undefined') this.checkAdvs();
     },
     addNames: function() {
         this.add(this.sfrom);
@@ -210,6 +211,17 @@ trip = {
             }
         }
         return false;
+    },
+    calcOverview: function() {
+        between.fill(this.from, this.to, function() {
+            var obj = between.data[trip.from][trip.to];
+            var time = obj['RailTime'];
+            var fare = between.fare(trip.from, trip.to);
+            var length = obj['CompositeMiles'];
+            $(".card.overview .time").html(time+" min");
+            $(".card.overview .cost").html(between.formatMoney(fare));
+            $(".card.overview .dist").html(length+" mi");
+        })
     },
     click: function() { // binded: this=object
         var st = $(this).attr("data-station");

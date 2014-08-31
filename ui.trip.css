@@ -15,9 +15,35 @@ ul > .arrow {
 .card.reverse .bottom-button {
     top: -1px;
 }
+
+.card.overview {
+    height: 52px;
+}
+
+.card.overview .title {
+    display: table;
+    width: 100%;
+    padding: 10px 0;
+}
+
+.card.overview .title span {
+    display: table-cell;
+    width: 33%;
+    text-align: center;
+}
+
+.card.overview .title span em {
+    font-style: normal;
+    font-weight: 100;
+}
+
 @media (min-width: 800px) {
     ul.metrograph.allstations {
         float: left;
         width: calc(100% - 10px);
+    }
+
+    div.contents > div.card.overview {
+        width: calc(100% - 20px);
     }
 }
