@@ -27,7 +27,7 @@ outages = {
             }
         }
         if(num > 0) {
-            $(".card.nexttrains").after('<div class="card show-outages">' +
+            $(".card.nexttrains").last().after('<div class="card show-outages">' +
                                    '<div class="bottom-button">Elevator/Escalator Outages (' + num + ')</div>' +
                                    '</div>');
             $(".card.show-outages").click(function() {
@@ -61,7 +61,7 @@ outages = {
                   '<div class="title">' + type + ' outage: ' + out.SymptomDescription + '</div>' +
                   '<p>' + text + '</p>' +
                   '</div>';
-        $(".card.nexttrains").after(str);
+        $(".card.nexttrains").last().after(str);
         $(".card.outage .title").click(function() {
             console.debug("Hiding outage card");
             $(this).parent().slideUp(250);
