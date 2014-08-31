@@ -146,10 +146,13 @@ trip = {
         h = (time.getHours() > 12 ? time.getHours() - 12 : time.getHours() == 0 ? 12 : time.getHours()),
         m = time.getMinutes(),
         timel = h+":"+(m<10 ? "0"+m : m);
+        var dest = train.DestinationName;
+        // Usability fix: Crop "Mt Vernon Sq 7th St-Convention Center" to "Mt Vernon Sq"
+        if(dest.substring(0,12) == 'Mt Vernon Sq') dest = 'Mt Vernon Sq'; 
         var str = '<tr>\n' +
                   '<td class="line"><span class="line ' + train.Line.toLowerCase() + '">' + train.Line + '</span></td>\n' +
                   '<td class="num">' + (train.Car ? train.Car : '-') + '</td>\n' +
-                  '<td class="stop">' + train.DestinationName + '</td>' +
+                  '<td class="stop">' + dest + '</td>' +
                   '<td class="mins">' + mins + '</td>\n' +
                   '<td class="time">' + timel + '</td>\n' +
                   '</tr>';
