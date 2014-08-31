@@ -1,0 +1,42 @@
+.contents {
+    display: inline-block;
+    max-width: none !important;
+    border: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.contents .card.nexttrains {
+    margin-bottom: 0;
+}
+
+.ordercards {
+    display: none;
+}
+
+.minilogo {
+    position: absolute;
+    top: 17px;
+    right: 2px;
+    font-size: 35px;
+    font-weight: 700;
+    line-height: 0;
+    color: white;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+@-webkit-keyframes logohover {
+  from { color: white; }
+  to { color: rgb(66, 133, 244);}
+}
+
+.minilogo:hover {
+    color: rgb(66, 133, 244);
+    -webkit-animation: logohover 1s 1 alternate;
+    -moz-animation: logohover 1s 1 alternate;
+    -ms-animation: logohover 1s 1 alternate;
+    -o-animation: logohover 1s 1 alternate;
+    animation: logohover 1s 1 alternate;
+    cursor: pointer;
+}
