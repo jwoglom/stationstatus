@@ -33,7 +33,7 @@ trains = {
         });
         var tm = tmst = 30;
         $(".refresh-time").html("Updating in "+tm+" seconds");
-        setInterval(function() {
+        window.updint = setInterval(function() {
             tm -= 5;
             if(tm <= 0) {
                 $(".refresh-time").html("Updating..");
@@ -154,20 +154,32 @@ trains = {
     },
     doStation: function(trns, cd) {
         var stn = metro.stations[cd];
+        var dup = false;
         if(trns.length > 0) {
-            trains.addStation(stn);
+            if(!trains.addStation(stn)) {
+                // Duplicate
+                dup = true;
+            }
         }
         for(var i=0; i<trns.length; i++) {
             trains.addPrediction(trns[i], cd);
-            if(i >= 2) {
-                if($(".card.nexttrains."+cd).length > 0) {
-                    var ch = parseInt($(".card.nexttrains."+cd).css("height").split("px")[0]);
-                    $(".card.nexttrains."+cd).css(
-                        "height", ch + 30
-                    );
+            if(i >= 2) { // 140px default is for 2 trains
+                if(dup && $(".card.nexttrains."+stn.together[0].code).length > 0) {
+                    var $e = $(".card.nexttrains."+stn.together[0].code);
+                    console.log("Using "+stn.together[0].code+" instead of "+stn.code);
+                    cd = stn.together[0].code;
+                } else if($(".card.nexttrains."+cd).length > 0) {
+                    var $e = $(".card.nexttrains."+cd);
                 } else {
-                    console.debug("nexttrains card with cd: "+cd+" does not exist. Most likely a duplicate station");
+                    console.error("nexttrains card with cd: "+cd+" does not exist.");
+                    continue;
                 }
+                var ch = parseInt($e.css("height").split("px")[0]);
+                $e.css(
+                    "height", ch + 29
+                );
+                if(cd=="F03" || cd=="D03")console.debug("Moving nexttrains card "+cd+" +29 to "+(ch+29), trns[i]);
+                
             }
         }
     },
@@ -182,7 +194,7 @@ trains = {
         if($(".contents .card.nexttrains.new[data-name=\""+st.name+"\"]").length > 0) {
             // Prevent duplicate Metro Center or L'Enfant Plaza
             console.debug("Not showing duplicate "+st.name);
-            return;
+            return false;
         }
         $pr = $(".contents .card.nexttrains." + st.code);
         if($pr.length > 0) {
@@ -190,6 +202,7 @@ trains = {
         }
         $(".contents").append(str);
         assign(".card.nexttrains."+st.code+" .title", "ui-station.html#station="+st.code+"&historyback=true");
+        return true;
     },
     addPrediction: function(train, st) {
         $c = $(".card.nexttrains."+st+" table tbody");
