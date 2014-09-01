@@ -36,3 +36,9 @@
         margin-left: 25%;
     }
 }
+
+@media (min-width: 800px) {
+    div.contents > div.card.show-incidents {
+        float: left;
+    }
+}
