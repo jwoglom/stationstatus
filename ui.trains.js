@@ -74,7 +74,8 @@ trains = {
                 var cd = stcode.trim().toUpperCase();
                 var trns = stdata[cd];
                 var stn = metro.stations[cd];
-                if(trains.line != false && stn.totalLines.indexOf(metro.lines[trains.line]) == -1) {
+                console.log("T",typeof stn.together[0] != 'undefined' ? stn.together[0].totalLines.indexOf(metro.lines[trains.line]) != -1 : null);
+                if(trains.line != false && (stn.totalLines.indexOf(metro.lines[trains.line]) == -1) && !(typeof stn.together[0] != 'undefined' && stn.together[0].totalLines.indexOf(metro.lines[trains.line]) != -1)) {
                     /* Skip if not in line */
                     console.debug("Showing only line "+trains.line+", not in "+stn.totalLines.join(',')+" at "+stn);
                     continue;
@@ -85,7 +86,24 @@ trains = {
                     // trains.doStation(trns, cd);
                     stns.push([trns, cd]);
                 } else {
-                    ltrs[stcode] = trns;
+                    ltrs[cd] = trns;
+                }
+                // If a multiple-code station, place the trains in both.
+                if(typeof stn.together[0] != 'undefined') {
+                    var tog = stn.together[0].code.toUpperCase();
+                    if(trains.line == false) {
+                        stns.push([trns, tog]);
+                    } else {
+                        ltrs[tog];
+                    }
+                }
+                if(typeof stn.together[1] != 'undefined') {
+                    var tog = stn.together[1].code.toUpperCase();
+                    if(trains.line == false) {
+                        stns.push([trns, tog]);
+                    } else {
+                        ltrs[tog];
+                    }
                 }
             }
             if(trains.line != false) {
