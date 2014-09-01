@@ -86,7 +86,12 @@ trip = {
     },
     checkOutages: function() {
         var stns = [this.sfrom, this.sto];
-        if(this.stransfer) stns.push(this.stransfer);
+        if(typeof this.sfrom.together[0] != 'undefined') stns.push(this.sfrom.together[0]);
+        if(typeof this.sto.together[0] != 'undefined') stns.push(this.sto.together[0]);
+        if(this.stransfer) {
+            stns.push(this.stransfer);
+            if(typeof this.stransfer.together[0] != 'undefined') stns.push(this.stransfer.together[0]);
+        }
         outages.check(stns);
     },
     add: function(st) {
