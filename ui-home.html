@@ -81,7 +81,7 @@ www.wogloms.com / j@wogloms.net
         }
         $(".card.about").click(function() {
             localStorage.seenAbout = "1";
-            $(this).hide();
+            $(this).hide().removeClass("firsttime");
             $(".contents").append($(".card.about"));
             $(".card.about").show();
             
