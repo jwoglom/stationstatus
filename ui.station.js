@@ -29,11 +29,11 @@ station = {
         this.getPrediction();
         if(typeof incidents != 'undefined') {
             incidents.check({
-                lines: station.st.lineIDs
+                lines: station.st.lineIDs.concat(typeof station.st.together[0] != 'undefined' ? station.st.together[0].lineIDs : [])
             });
         }
         if(typeof outages != 'undefined') {
-            outages.check(this.st);
+            outages.check([this.st].concat(typeof this.st.together[0] != 'undefined' ? [this.st.together[0]] : []));
         }
         $(".loading").hide();
     },
