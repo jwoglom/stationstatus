@@ -3,8 +3,10 @@ outages = {
     stations: [],
     showAll: false,
     showStation: false,
-    parentelem: $(".card.nexttrains").last(),
+    parentelem: null,
     check: function(stns) {
+        if(this.parentelem == null) this.parentelem = $(".card.nexttrains").last();
+        console.debug("outages parentelem",this.parentelem);
         if(stns instanceof Array) {
             this.stations = stns;
         } else if(typeof stns == 'object') {
