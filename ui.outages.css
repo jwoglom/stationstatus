@@ -16,3 +16,12 @@
     padding-bottom: 5px;
     font-size: 14px;
 }
+
+
+.card.homeoutages {
+    height: 38px;
+}
+
+.card.homeoutages .bottom-button {
+    top: -1px;
+}

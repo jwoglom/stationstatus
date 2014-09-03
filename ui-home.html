@@ -41,6 +41,7 @@ www.wogloms.com / j@wogloms.net
     <link rel="stylesheet" type="text/css" href="ui.card.lines.css" />
     <link rel="stylesheet" type="text/css" href="ui.card.stations.css" />
     <link rel="stylesheet" type="text/css" href="ui.incidents.css" />
+    <link rel="stylesheet" type="text/css" href="ui.outages.css" />
     <link rel="stylesheet" type="text/css" href="ui.about.css" />
 
 
@@ -84,8 +85,7 @@ www.wogloms.com / j@wogloms.net
             $(this).hide().removeClass("firsttime");
             $(".contents").append($(".card.about"));
             $(".card.about").show();
-            
-        })
+        });
 
     });
     </script>
@@ -162,6 +162,12 @@ www.wogloms.com / j@wogloms.net
         <div class="card homeincidents">
             <div class="bottom-button">
                 View Incidents
+            </div>
+        </div>
+
+        <div class="card homeoutages">
+            <div class="bottom-button">
+                View Elevator/Escalator Outages
             </div>
         </div>
 

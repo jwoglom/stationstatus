@@ -4,6 +4,7 @@ outages = {
     showAll: false,
     showStation: false,
     parentelem: null,
+    notified: [],
     check: function(stns) {
         if(this.parentelem == null) this.parentelem = $(".card.nexttrains").last();
         console.debug("outages parentelem",this.parentelem);
@@ -59,6 +60,11 @@ outages = {
         return time;
     },
     notify: function(out) {
+        if(JSON.stringify(out) in this.notified) {
+            console.warning("Already notified, skipping", out);
+            return;
+        }
+        this.notified.push(JSON.stringify(out));
         var date = new Date(out.DateOutOfServ);
         var time = this.timeDiff(new Date(), date);
         var text = out.LocationDescription + ' at ' + out.StationName + ' has been down for ' + time + '.';
