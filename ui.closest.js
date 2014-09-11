@@ -145,4 +145,5 @@ doAssign = function() {
     }
     assign(".card.trip > .bottom-button", "ui-tripselect.html");
     assign(".card.trains > .bottom-button", "ui-trains.html");
+    assign(".card.homeoutages > .bottom-button", "ui-outages.html");
 }
