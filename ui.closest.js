@@ -1,4 +1,4 @@
-closest = {
+window.closest = closest = {
     me: null,
     stations: [],
     separateCards: false,
@@ -113,7 +113,7 @@ closest = {
         $(".loading").hide();
     },
     add: function(st) {
-        var str = '<li class="station' + (this.separateCards ? ' card' : '') + (st.transfer ? ' transfer' : '') + '" data-name="' + st.name + '" data-station="' + st.code + '" data-lines="" onclick="return closest.click.bind(this)()">\n' +
+        var str = '<li class="station' + (this.separateCards ? ' card' : '') + (st.transfer ? ' transfer' : '') + '" data-name="' + st.name + '" data-station="' + st.code + '" data-lines="" onclick="return window.closest.click.bind(this)()">\n' +
                   st.name + '\n' +
                   // Inaccurate
                   //' <span class="dist">~' + (parseInt(st.coords.distmiles * 100) / 100) + ' mi</span>\n' +

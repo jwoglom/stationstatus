@@ -26,6 +26,7 @@ div.card.incident.nocolor .title {
 .card.homeincidents {
     height: 38px;
 }
+
 .card.homeincidents .bottom-button {
     top: -1px;
 }

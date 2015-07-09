@@ -92,6 +92,7 @@ trip = {
             stns.push(this.stransfer);
             if(typeof this.stransfer.together[0] != 'undefined') stns.push(this.stransfer.together[0]);
         }
+        console.debug("Checking for outages on stations",stns);
         outages.check(stns);
     },
     add: function(st) {
