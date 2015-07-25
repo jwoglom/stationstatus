@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 $jsontxt = file_get_contents("../data/between.txt");
 $d = json_decode($jsontxt);
 

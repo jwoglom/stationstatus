@@ -1,4 +1,6 @@
 <?php
+error_reporting(0);
+header("Content-type: text/json");
 $data = array();
 $t = json_decode(file_get_contents("timing.txt"));
 $data["timing"] = $t->Trains;

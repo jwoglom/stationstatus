@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 if($_GET['path'] == "Rail.svc/json/jLines") {
     echo file_get_contents("lines.txt");
 } else if($_GET['path'] == "Rail.svc/json/jStations") {

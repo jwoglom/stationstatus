@@ -1,7 +1,7 @@
 <?php
 $d = array();
 rename("../data/blob.txt", "../data/blob.txt.".time());
-$base = "http://127.0.0.1/metro/";
+$base = "http://metro.wogloms.com/";
 // Stations and Lines
 $key = trim(file_get_contents("../data/apikey.txt"));
 if(isset($argv, $argv[1]) && $argv[1] == "all") {
