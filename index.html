@@ -1,1 +1,184 @@
-ui-home.html
+<!doctype html>
+<html>
+<head>
+<!--
+StationStatus
+=============
+A web-based and mobile-optimized application for viewing the status of the Washington DC Metro system.
+
+James Woglom
+www.wogloms.com / j@wogloms.net
+-->
+    <title>StationStatus: Washington DC Metro Information</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=1">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,600,300' rel='stylesheet' type='text/css'>
+    <meta name="Description" content="Shows the status of the Washington DC Metro system, and assists with the planning of trips to find the shortest route." />
+    <meta name="keywords" content="WMATA, Metro, Washington DC, DC Metro, Metrorail, StationStatus, Station status, DC Metro status, DC Metro application, Metro trains" />
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="James Woglom" />
+    <link rel="shortcut icon" type="image/png" href="icons/64.png" />
+    <link rel="shortcut icon" href="/icons/favicon.ico">
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <link rel="apple-touch-icon" sizes="57x57" href="/icons/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/icons/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/icons/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/icons/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/icons/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/icons/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/icons/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/icons/apple-touch-icon-152x152.png">
+    <link rel="icon" type="image/png" href="/icons/favicon-160x160.png" sizes="160x160">
+    <link rel="icon" type="image/png" href="/icons/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/icons/favicon-16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="/icons/favicon-32x32.png" sizes="32x32">
+    <meta name="msapplication-TileColor" content="#468df1">
+    <meta name="msapplication-TileImage" content="/icons/mstile-144x144.png">
+    <meta name="msapplication-config" content="/icons/browserconfig.xml">
+    <link rel="manifest" href="manifest.json"/>
+    <link rel="stylesheet" type="text/css" href="ui.core.css" />
+    <link rel="stylesheet" type="text/css" href="ui.card.css" />
+    <link rel="stylesheet" type="text/css" href="ui.card.trip.css" />
+    <link rel="stylesheet" type="text/css" href="ui.card.closest.css" />
+    <link rel="stylesheet" type="text/css" href="ui.card.lines.css" />
+    <link rel="stylesheet" type="text/css" href="ui.card.stations.css" />
+    <link rel="stylesheet" type="text/css" href="ui.incidents.css" />
+    <link rel="stylesheet" type="text/css" href="ui.outages.css" />
+    <link rel="stylesheet" type="text/css" href="ui.about.css" />
+
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="oop.js"></script>
+    <script type="text/javascript" src="geo.js"></script>
+    <script type="text/javascript" src="ui.js"></script>
+    <script type="text/javascript" src="latlon.js"></script>
+    <script type="text/javascript" src="ui.closest.js"></script>
+    <script type="text/javascript" src="ui.incidents.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        metro = new Rail({
+            DisplayName: "Washington Metro"
+        });
+
+        var _st = +new Date;
+        WMATA.getblob(function() {
+            metro.fill();
+            console.info("Load time: "+(+new Date - _st)+"ms");
+            doAssign();
+            closest.quick();
+            geo.tempTripMap();
+            incidents.checkHome();
+        });
+        geoCallback = function() {
+            geo.updateTripMap.bind(geo)();
+            closest.slow(geo.savedPosition);
+        }
+        geo.getPosition(geoCallback);
+        assign(".header .map", "ui-map.html");
+
+        if(!!localStorage && localStorage.seenAbout != "1") {
+            $(".card.about").hide();
+            $(".contents").prepend($(".card.about"));
+            $(".card.about").show();
+            $(".card.about").addClass("firsttime");
+        }
+        $(".card.about").click(function() {
+            localStorage.seenAbout = "1";
+            $(this).hide().removeClass("firsttime");
+            $(".contents").append($(".card.about"));
+            $(".card.about").show();
+        });
+
+    });
+    </script>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <div class="logo">
+            M
+        </div>
+        <div class="title">StationStatus</div>
+        <div class="map">System Map</div>
+    </div>
+
+    <div class="contents">
+        <div class="card trip">
+            <div class="bottom-button">
+                Start Trip
+            </div>
+        </div>
+
+        <div class="card closest">
+            <div class="title">Closest Stations:</div>
+            <!--div class="metrograph-track"></div-->
+            <ul class="metrograph closest">
+                <div class="loading"></div>
+            </ul>
+            <div class="bottom-button">
+                See more stations
+            </div>
+        </div>
+
+        <div class="card lines">
+            <div class="title">View Lines:</div>
+            <div class="half-bottom-button">
+                <div class="bottom-button rd left">
+                    Red
+                </div>
+                <div class="bottom-button gr right">
+                    Green
+                </div>
+            </div>
+            <div class="half-bottom-button">
+                <div class="bottom-button bl left">
+                    Blue
+                </div>
+                <div class="bottom-button yl right">
+                    Yellow
+                </div>
+            </div>
+            <div class="half-bottom-button">
+                <div class="bottom-button or left">
+                    Orange
+                </div>
+                <div class="bottom-button sv right">
+                    Silver
+                </div>
+            </div>
+        </div>
+
+        <div class="card stations">
+            <div class="bottom-button">
+                View Stations
+            </div>
+        </div>
+
+        <div class="card trains">
+            <div class="bottom-button">
+                View Train Locations
+            </div>
+        </div>
+
+        <div class="card homeincidents">
+            <div class="bottom-button">
+                View Incidents
+            </div>
+        </div>
+
+        <div class="card homeoutages">
+            <div class="bottom-button">
+                View Elevator/Escalator Outages
+            </div>
+        </div>
+
+        <div class="card about">
+            <div class="title">StationStatus helps you navigate around the Washington, D.C. Metro system.</div>
+            <p>&nbsp; &nbsp; Start your trip by finding your closest station. Select your destination, keeping note of any transfer stations on the route, if needed. Check the arrival time for the next train, and for any service alerts or advisories that may be in effect, and then get up and go. It's the Metro app that doesn't suck.</p>
+            <div class="close">Press anywhere to close.</div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
